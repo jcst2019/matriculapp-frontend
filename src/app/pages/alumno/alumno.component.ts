@@ -6,6 +6,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { switchMap } from 'rxjs';
+import { AlumnoDialogoComponent } from './alumno-dialogo/alumno-dialogo.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Globales } from 'src/app/_model/globales';
 
 
 @Component({
@@ -16,14 +19,15 @@ import { switchMap } from 'rxjs';
 export class AlumnoComponent implements OnInit {
 
   //alumnos: Alumno[]= [];
-  displayedColumns =['idAlumno','nombre','apellidos','dni','tipoDescuento','fechaIngreso','fechaNacimiento','acciones'];
+  displayedColumns =['idAlumno','nombre','apellidos','dni','genero','tipoDescuento','fechaIngreso','fechaNacimiento','acciones'];
   dataSource!: MatTableDataSource<Alumno>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
      private alumnoService : AlumnoService,
-     private snackBar:MatSnackBar
+     private snackBar:MatSnackBar,
+     private dialog: MatDialog,
     ) { }
 
   ngOnInit(): void {
@@ -56,15 +60,42 @@ export class AlumnoComponent implements OnInit {
 
   }
 
-  eliminar(idAlumno:number){
+  abrirDialogo(alumno?: Alumno) {
 
-    this.alumnoService.eliminar(idAlumno).pipe(switchMap( ()=> {
+    let apod = alumno != null ? alumno : new Alumno();
+    this.dialog.open(AlumnoDialogoComponent, {
+      width: '450px',
+      data: apod
+    });
+  }
+
+  eliminar(alumno: Alumno) {
+    this.alumnoService.eliminar(alumno.idAlumno).pipe(switchMap( () => {
       return this.alumnoService.listar();
-    })).subscribe(data =>{
+    })).subscribe( data => {
       this.alumnoService.alumnoCambio.next(data);
       this.alumnoService.mensajeCambio.next('SE ELIMINO');
     });
-
   }
+
+   retornarGenero( id:number):string {
+    
+  for (let registro of Globales.listaGenero){
+     if (registro.idGenero == id){
+          return registro.desGenero
+     }
+  }
+  return "";
+ }
+ 
+ retornarDescuento( id:number):string {
+    
+  for (let registro of Globales.listaTipoDescuento){
+     if (registro.idDescuento == id){
+          return registro.desTipoDescuento
+     }
+  }
+  return "";
+ }
 
 }

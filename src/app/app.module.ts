@@ -11,6 +11,7 @@ import { AlumnoEdicionComponent } from './pages/alumno/alumno-edicion/alumno-edi
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ApoderadoComponent } from './pages/apoderado/apoderado.component';
 import { ApoderadoDialogoComponent } from './pages/apoderado/apoderado-dialogo/apoderado-dialogo.component';
+import { AlumnoDialogoComponent } from './pages/alumno/alumno-dialogo/alumno-dialogo.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ApoderadoDialogoComponent } from './pages/apoderado/apoderado-dialogo/a
     AlumnoComponent,
     AlumnoEdicionComponent,
     ApoderadoComponent,
-    ApoderadoDialogoComponent
+    ApoderadoDialogoComponent,
+    AlumnoDialogoComponent
   ],
   imports: [
     BrowserModule,

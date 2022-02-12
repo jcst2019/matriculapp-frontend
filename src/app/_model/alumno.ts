@@ -7,7 +7,10 @@ export class Alumno{
     dni!:string;
     direccion!:string;
     telefono!:string;
+    fechaIngreso!:string;
     fechaNacimiento!:string;
+    fechaRegistro!:string;
+    fechaModificacion!:string;
     email!:string;
     estado!:number;
     tipoDescuento!:number;

@@ -1,4 +1,6 @@
 import { Parentesco } from "./parentesto";
+import { Descuento } from './descuento';
+import { Genero } from './genero';
 
 export class Globales {
  
@@ -32,4 +34,32 @@ export class Globales {
           desTipo:"Tía"
         }
     ];
+    public static listaTipoDescuento:Descuento[]=[
+      {
+        idDescuento:1,
+        desTipoDescuento:"Alumno Destacado"   
+      },
+      {
+        idDescuento:2,
+        desTipoDescuento:"Familiar Administrativo"
+      },
+      {
+        idDescuento:3,
+        desTipoDescuento:"Deportista calificado"
+      },
+      {
+        idDescuento:4,
+        desTipoDescuento:"Músico Destacado"
+      }
+  ];
+  public static listaGenero:Genero[]=[
+    {
+      idGenero:1,
+      desGenero:"Masculino"   
+    },
+    {
+      idGenero:2,
+      desGenero:"Femenino"
+    }
+];
 }

@@ -1,0 +1,57 @@
+<div>
+    <mat-form-field appearance="legacy">
+        <input matInput placeholder="Nombres" [(ngModel)]="alumno.nombre">
+        <mat-icon matSuffix>people</mat-icon>
+   </mat-form-field>
+
+   <mat-form-field>
+       <input matInput placeholder="Apellidos" [(ngModel)]="alumno.apellidos">
+       <mat-icon matSuffix>people</mat-icon>
+   </mat-form-field>
+   <mat-form-field>
+       <input matInput placeholder="DNI" [(ngModel)]="alumno.dni" max="8" maxlength="8" type="number">
+   </mat-form-field>
+   <mat-form-field>
+       <input matInput placeholder="Dirección" [(ngModel)]="alumno.direccion">
+   </mat-form-field>
+   <mat-form-field>
+       <input matInput placeholder="Teléfono" [(ngModel)]="alumno.telefono">
+   </mat-form-field>
+   <mat-form-field>
+       <input matInput placeholder="Email" [(ngModel)]="alumno.email">
+   </mat-form-field>
+   <mat-form-field>
+    <!--<mat-select placeholder="Parentesco"  [(value)]="idParentescoSeleccionado" >-->
+    <mat-select placeholder="Género"  [(ngModel)]="idTipoGeneroSeleccionado" (click)="validarSeleccion(idTipoGeneroSeleccionado)">
+        <mat-option *ngFor="let p of tipoGenero" [value]="p.idGenero">{{p.desGenero }}</mat-option>
+    </mat-select>
+</mat-form-field>
+   <mat-form-field>
+       <!--<mat-select placeholder="Parentesco"  [(value)]="idParentescoSeleccionado" >-->
+       <mat-select placeholder="Tipo Descuento"  [(ngModel)]="idTipoDescuentoSeleccionado" (click)="validarSeleccion(idTipoDescuentoSeleccionado)">
+           <mat-option *ngFor="let p of tipoDescuento" [value]="p.idDescuento">{{p.desTipoDescuento }}</mat-option>
+       </mat-select>
+   </mat-form-field>
+   <mat-form-field>
+    <input matInput [matDatepicker]="picker1" placeholder="Fecha de Ingreso" [max]="maxFecha"
+        [(ngModel)]="fechaIngresoSeleccionada" (dateChange)="cambieFecha($event)">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker #picker1></mat-datepicker>
+   </mat-form-field>
+   <mat-form-field>
+       <input matInput [matDatepicker]="picker2" placeholder="Fecha de Nacimiento" [max]="maxFecha"
+           [(ngModel)]="fechaSeleccionada" (dateChange)="cambieFecha($event)">
+       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+       <mat-datepicker #picker2></mat-datepicker>
+   </mat-form-field>
+
+   <!--<img mat-card-image [src]="alumno.fotoUrl" alt="" width="50%" height="50%" *ngIf="alumno.fotoUrl != null">-->
+   <div class="mat-diplay-button">
+       <button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+       <button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+   </div>
+ </div>
+ 
+ 
+ 
+ 
