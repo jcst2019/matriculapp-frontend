@@ -1,6 +1,6 @@
 import { Parentesco } from "./parentesto";
 
-export class VariablesGlobales {
+export class Globales {
  
     public static appUrl: string = "https://colegioseltriunfo.edu.pe/";
     public static appName: string = "Sistema de Matrículas IEP El Triunfo";

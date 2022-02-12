@@ -7,7 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { switchMap } from 'rxjs';
 import { Apoderado } from 'src/app/_model/apoderado';
 import { Parentesco } from 'src/app/_model/parentesto';
-import { VariablesGlobales } from 'src/app/_model/VariablesGlobales';
+import { Globales } from 'src/app/_model/globales';
 import { ApoderadoService } from 'src/app/_service/apoderado.service';
 import { ApoderadoDialogoComponent } from './apoderado-dialogo/apoderado-dialogo.component';
 
@@ -74,7 +74,7 @@ export class ApoderadoComponent implements OnInit {
 
    retornarParentesco( id:number):string {
     
-  for (let registro of VariablesGlobales.listaParentesto){
+  for (let registro of Globales.listaParentesto){
      if (registro.idParentesco == id){
           return registro.desTipo
      }
