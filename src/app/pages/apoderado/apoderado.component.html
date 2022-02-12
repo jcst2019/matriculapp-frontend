@@ -42,21 +42,26 @@
       <mat-cell *matCellDef="let row"> {{row.telefono}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="email">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-    </ng-container>
-
+   <!--
     <ng-container matColumnDef="tipo">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Parenteso </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.tipo}} </mat-cell>
+    </ng-container>
+    -->
+    <ng-container matColumnDef="tipo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Parenteso </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{retornarParentesco(row.tipo)}}  </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="fechaNacimiento">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Nacimiento </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.fechaNacimiento|date:"dd-MM-yyyy"}} </mat-cell>
     </ng-container>
-
 
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>

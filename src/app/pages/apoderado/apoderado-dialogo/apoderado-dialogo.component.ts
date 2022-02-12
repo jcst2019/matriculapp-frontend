@@ -5,6 +5,7 @@ import { Parentesco } from 'src/app/_model/parentesto';
 import { Apoderado } from '../../../_model/apoderado';
 import { ApoderadoService } from '../../../_service/apoderado.service';
 import * as moment from 'moment';
+import{ VariablesGlobales } from '../../../_model/VariablesGlobales';
 
 @Component({
   selector: 'app-apoderado-dialogo',
@@ -95,33 +96,7 @@ export class ApoderadoDialogoComponent implements OnInit {
   }
   listarParentesco(){
     
-    const lista:Parentesco[]=[
-      {
-        idParentesco:1,
-        desTipo:"Padre"   
-      },
-      {
-        idParentesco:2,
-        desTipo:"Madre"
-      },
-      {
-        idParentesco:3,
-        desTipo:"Abuelo"
-      },
-      {
-        idParentesco:4,
-        desTipo:"Abuela"
-      },
-      {
-        idParentesco:5,
-        desTipo:"Tío"
-      },
-      {
-        idParentesco:6,
-        desTipo:"Tía"
-      }
-  ];
-  this.parentesto = lista;
+  this.parentesto = VariablesGlobales.listaParentesto;
  }
  validarSeleccion(id: number){
 

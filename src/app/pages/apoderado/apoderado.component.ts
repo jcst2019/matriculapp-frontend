@@ -6,6 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { switchMap } from 'rxjs';
 import { Apoderado } from 'src/app/_model/apoderado';
+import { Parentesco } from 'src/app/_model/parentesto';
+import { VariablesGlobales } from 'src/app/_model/VariablesGlobales';
 import { ApoderadoService } from 'src/app/_service/apoderado.service';
 import { ApoderadoDialogoComponent } from './apoderado-dialogo/apoderado-dialogo.component';
 
@@ -16,7 +18,7 @@ import { ApoderadoDialogoComponent } from './apoderado-dialogo/apoderado-dialogo
 })
 export class ApoderadoComponent implements OnInit {
 
-  displayedColumns = ['idapoderado', 'nombres', 'apellidos', 'dni','direccion','telefono','email','tipo','fechaNacimiento', 'acciones'];
+  displayedColumns = ['idapoderado', 'nombres', 'apellidos', 'dni','direccion','telefono','tipo','fechaNacimiento','email', 'acciones'];
   dataSource!: MatTableDataSource<Apoderado>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -56,7 +58,7 @@ export class ApoderadoComponent implements OnInit {
 
     let apod = apoderado != null ? apoderado : new Apoderado();
     this.dialog.open(ApoderadoDialogoComponent, {
-      width: '250px',
+      width: '450px',
       data: apod
     });
   }
@@ -70,5 +72,14 @@ export class ApoderadoComponent implements OnInit {
     });
   }
 
+   retornarParentesco( id:number):string {
+    
+  for (let registro of VariablesGlobales.listaParentesto){
+     if (registro.idParentesco == id){
+          return registro.desTipo
+     }
+  }
+  return "";
+ }
 }
 
