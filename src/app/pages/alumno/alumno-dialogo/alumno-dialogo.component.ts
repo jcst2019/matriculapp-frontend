@@ -7,6 +7,8 @@ import { Alumno } from 'src/app/_model/alumno';
 import { AlumnoService } from 'src/app/_service/alumno.service';
 import { Descuento } from 'src/app/_model/descuento';
 import { Genero } from 'src/app/_model/genero';
+import { Apoderado } from 'src/app/_model/apoderado';
+import { ApoderadoAutocompleteComponent } from '../../apoderado/apoderado-autocomplete/apoderado-autocomplete.component'
 
 
 @Component({
@@ -35,6 +37,11 @@ export class AlumnoDialogoComponent implements OnInit {
     console.log(this.data);
     this.alumno = new Alumno();
     this.alumno.idAlumno= this.data.idAlumno;
+    //Debes de inicializar tus arreglos. Por defecto están como undefined y este no contiene la propiedad push.
+    this.alumno.apoderados=this.data.apoderados; // Agragando la lista de Apoderados
+    if (this.alumno.apoderados == null){
+      this.alumno.apoderados= [];
+    }
     this.alumno.nombre= this.data.nombre;
     this.alumno.apellidos= this.data.apellidos;
     this.alumno.dni= this.data.dni;
@@ -52,6 +59,7 @@ export class AlumnoDialogoComponent implements OnInit {
     this.fechaIngresoSeleccionada = new Date(this.data.fechaIngreso);
   }
   operar(){
+
     if(this.alumno != null && this.alumno.idAlumno > 0){
 
       //MODIFICAR
@@ -74,6 +82,7 @@ export class AlumnoDialogoComponent implements OnInit {
       this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
       this.alumno.estado = 1;
       this.alumno.genero=this.idTipoGeneroSeleccionado;
+      console.log(this.alumno);
       this.alumnoService.modificar(this.alumno).pipe(switchMap( () => {
         return this.alumnoService.listar();
       })).subscribe(data => {
@@ -88,6 +97,7 @@ export class AlumnoDialogoComponent implements OnInit {
       this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
       this.alumno.estado = 1;
       this.alumno.genero=this.idTipoGeneroSeleccionado;
+      console.log(this.alumno);
       this.alumnoService.registrar(this.alumno).pipe(switchMap( () => {
         return this.alumnoService.listar();
       })).subscribe(data => {
@@ -121,6 +131,15 @@ export class AlumnoDialogoComponent implements OnInit {
   console.log(id);
 
  }
+ procesarEvento(response: Apoderado) {
+  console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
+  //Esta lógica aplica porque solo espero guardar un solo Apoderado (Cambiar cuando se quiera enviar un arreglo de Apoderados)
+  if(this.alumno.apoderados.length>0){
+    this.alumno.apoderados= []; //Inicializamos el valor en cero
+  }
+  this.alumno.apoderados.push(response);
+}
+ 
 }
 
 

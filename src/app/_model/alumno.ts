@@ -1,3 +1,4 @@
+import { Apoderado } from 'src/app/_model/apoderado';
 export class Alumno{
     
     idAlumno!: number;
@@ -14,5 +15,6 @@ export class Alumno{
     email!:string;
     estado!:number;
     tipoDescuento!:number;
+    apoderados!:Apoderado[];
 
 }

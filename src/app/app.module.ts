@@ -12,6 +12,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ApoderadoComponent } from './pages/apoderado/apoderado.component';
 import { ApoderadoDialogoComponent } from './pages/apoderado/apoderado-dialogo/apoderado-dialogo.component';
 import { AlumnoDialogoComponent } from './pages/alumno/alumno-dialogo/alumno-dialogo.component';
+import { ApoderadoAutocompleteComponent } from './pages/apoderado/apoderado-autocomplete/apoderado-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AlumnoDialogoComponent } from './pages/alumno/alumno-dialogo/alumno-dia
     AlumnoEdicionComponent,
     ApoderadoComponent,
     ApoderadoDialogoComponent,
-    AlumnoDialogoComponent
+    AlumnoDialogoComponent,
+    ApoderadoAutocompleteComponent
   ],
   imports: [
     BrowserModule,
