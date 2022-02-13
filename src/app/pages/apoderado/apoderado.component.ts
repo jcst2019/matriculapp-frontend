@@ -18,7 +18,7 @@ import { ApoderadoDialogoComponent } from './apoderado-dialogo/apoderado-dialogo
 })
 export class ApoderadoComponent implements OnInit {
 
-  displayedColumns = ['idapoderado', 'nombres', 'apellidos', 'dni','direccion','telefono','tipo','fechaNacimiento','email', 'acciones'];
+  displayedColumns = ['idApoderado', 'nombre', 'apellidos', 'dni','direccion','telefono','tipo','fechaNacimiento','email', 'acciones'];
   dataSource!: MatTableDataSource<Apoderado>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

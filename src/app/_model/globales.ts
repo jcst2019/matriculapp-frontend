@@ -37,18 +37,22 @@ export class Globales {
     public static listaTipoDescuento:Descuento[]=[
       {
         idDescuento:1,
-        desTipoDescuento:"Alumno Destacado"   
+        desTipoDescuento:"Ninguno"   
       },
       {
         idDescuento:2,
-        desTipoDescuento:"Familiar Administrativo"
+        desTipoDescuento:"Alumno Destacado"
       },
       {
         idDescuento:3,
-        desTipoDescuento:"Deportista calificado"
+        desTipoDescuento:"Familiar Administrativo"
       },
       {
         idDescuento:4,
+        desTipoDescuento:"Deportista calificado"
+      },
+      {
+        idDescuento:5,
         desTipoDescuento:"Músico Destacado"
       }
   ];

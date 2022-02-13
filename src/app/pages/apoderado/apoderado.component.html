@@ -10,13 +10,13 @@
 
   <mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="idapoderado">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> IDAPODDERADO </mat-header-cell>
+    <ng-container matColumnDef="idApoderado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.idApoderado}} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="nombres">
+    <ng-container matColumnDef="nombre">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
       <mat-cell *matCellDef="let row"> {{row.nombre}} </mat-cell>
     </ng-container>
@@ -76,7 +76,7 @@
     </mat-row>
   </mat-table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>
 
 <br>

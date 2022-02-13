@@ -9,7 +9,7 @@
        <mat-icon matSuffix>people</mat-icon>
    </mat-form-field>
    <mat-form-field>
-       <input matInput placeholder="DNI" [(ngModel)]="alumno.dni" max="8" maxlength="8" type="number">
+       <input matInput placeholder="DNI" [(ngModel)]="alumno.dni" type="number"  maxlength="8" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
    </mat-form-field>
    <mat-form-field>
        <input matInput placeholder="Dirección" [(ngModel)]="alumno.direccion">

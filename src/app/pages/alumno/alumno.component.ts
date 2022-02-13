@@ -63,6 +63,9 @@ export class AlumnoComponent implements OnInit {
   abrirDialogo(alumno?: Alumno) {
 
     let apod = alumno != null ? alumno : new Alumno();
+    if(alumno == null){
+      apod.tipoDescuento = 1
+    }
     this.dialog.open(AlumnoDialogoComponent, {
       width: '450px',
       data: apod
