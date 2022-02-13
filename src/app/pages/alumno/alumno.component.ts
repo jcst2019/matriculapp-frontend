@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { AlumnoService } from 'src/app/_service/alumno.service';
 import { Alumno } from 'src/app/_model/alumno';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs';
 import { AlumnoDialogoComponent } from './alumno-dialogo/alumno-dialogo.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Globales } from 'src/app/_model/globales';
+import { Apoderado } from 'src/app/_model/apoderado';
 
 
 @Component({
@@ -23,6 +24,8 @@ export class AlumnoComponent implements OnInit {
   dataSource!: MatTableDataSource<Alumno>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  @Output() apoderadoModificadoGlobal = new EventEmitter<Apoderado>();
 
   constructor(
      private alumnoService : AlumnoService,
@@ -61,10 +64,14 @@ export class AlumnoComponent implements OnInit {
   }
 
   abrirDialogo(alumno?: Alumno) {
-
     let apod = alumno != null ? alumno : new Alumno();
     if(alumno == null){
       apod.tipoDescuento = 1
+      apod.apoderados=[];//Limpiamos la lista de Apoderados puesto que por defecto puede tener algun valor del componente de apoderado-autocomplete.component.ts 
+    }else{
+      this.apoderadoModificadoGlobal.emit(alumno.apoderados[alumno.apoderados.length - 1]);//Como siempre hay un registro en esta lista se envía el primer elemento.
+      console.log("funcion abrirDialogo");
+      console.log(alumno.apoderados[alumno.apoderados.length - 1]);
     }
     this.dialog.open(AlumnoDialogoComponent, {
       width: '450px',

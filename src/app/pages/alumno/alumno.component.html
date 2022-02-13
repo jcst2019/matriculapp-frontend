@@ -8,7 +8,9 @@
 
 <mat-toolbar>Alumnos</mat-toolbar>
 
-<div class="example-header">
+<div class="example-container mat-elevation-z8">
+<div class="animate__animated animate__fadeIn animate__delay-0.7s">
+<div class="example-header" >
     <mat-form-field>
       <!--<input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar paciente">-->
       <input matInput (keyup)="filtrar($any($event.target).value)" placeholder="Buscar Alumno">
@@ -77,3 +79,5 @@
   <button mat-fab color="accent" (click)="abrirDialogo()" style="float: right; margin-right: 20px">
     <mat-icon>create</mat-icon>
   </button>
+</div>
+</div>

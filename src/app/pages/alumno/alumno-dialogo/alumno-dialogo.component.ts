@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { switchMap } from 'rxjs';
 import * as moment from 'moment';
@@ -132,6 +132,7 @@ export class AlumnoDialogoComponent implements OnInit {
 
  }
  procesarEvento(response: Apoderado) {
+  console.log("Procesar Evento Alumno");    
   console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
   //Esta lógica aplica porque solo espero guardar un solo Apoderado (Cambiar cuando se quiera enviar un arreglo de Apoderados)
   if(this.alumno.apoderados.length>0){

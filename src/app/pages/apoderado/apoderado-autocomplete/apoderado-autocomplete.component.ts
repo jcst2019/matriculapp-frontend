@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
 import { Apoderado } from 'src/app/_model/apoderado';
 import { ApoderadoService } from '../../../_service/apoderado.service';
+import { AlumnoComponent } from '../../alumno/alumno.component';
 
 @Component({
   selector: 'app-apoderado-autocomplete',
@@ -32,7 +33,19 @@ export class ApoderadoAutocompleteComponent implements OnInit {
     });
 
     this.listarApoderados();
-
+    /*
+    this.myControlApoderado.setValue({
+      "apellidos": "Avial Yanayaco",
+       "direccion": "Tlaara",
+       "dni": "45123636",
+       "email": "prueba@sunat",
+       "estado": 1,
+       "fechaNacimiento": "2022-02-02T00:00:00",
+       "idApoderado": 4,
+       "nombre": "Paola",
+       "telefono": "8415461654",
+       "tipo": 2
+       });*/
     this.apoderadosFiltrados = this.myControlApoderado.valueChanges.pipe(map(val => this.filtrarApoderados(val)))
  
   }
@@ -61,6 +74,12 @@ export class ApoderadoAutocompleteComponent implements OnInit {
   }
   mostrarApoderado(val : Apoderado){
     return val ? `${val.nombre} ${val.apellidos}` : val;
+  }
+
+  procesarEvento(response: any) {
+    console.log("procesarEvento Desde Apoderado");   
+    console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
+    //Esta lógica aplica porque solo espero guardar un solo Apoderado (Cambiar cuando se quiera enviar un arreglo de Apoderados)
   }
 
 

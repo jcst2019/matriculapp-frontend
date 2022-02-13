@@ -1,6 +1,7 @@
 <mat-toolbar>Apoderados</mat-toolbar>
 
 <div class="example-container mat-elevation-z8">
+  <div class="animate__animated animate__fadeIn animate__delay-0.7s">
 
   <div class="example-header">
     <mat-form-field>
@@ -77,10 +78,11 @@
   </mat-table>
 
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-</div>
-
-<br>
+  <br>
 
 <button mat-fab color="accent" (click)="abrirDialogo()" style="float: right; margin-right: 20px">
   <mat-icon>create</mat-icon>
 </button>
+</div>
+</div>
+

@@ -1,10 +1,10 @@
 
 <form class="example-container" [formGroup]="form"  #consultaForm="ngForm">
-<mat-form-field>
+<mat-form-field >
     <input type="text" placeholder="Apoderado" matInput [matAutocomplete]="autoApoderado"
-        [formControl]="myControlApoderado" formControlName="apoderado">
+        [formControl]="myControlApoderado" formControlName="apoderado" >
 </mat-form-field>
-<mat-autocomplete #autoApoderado="matAutocomplete" [displayWith]="mostrarApoderado"
+<mat-autocomplete (apoderadoModificadoGlobal)="procesarEvento($event)" #autoApoderado="matAutocomplete" [displayWith]="mostrarApoderado"
 (optionSelected)="seleccionarApoderado($event)">
     <mat-option *ngFor="let p of apoderadosFiltrados | async" [value]="p">
         {{ p.nombre }} {{p.apellidos}}
