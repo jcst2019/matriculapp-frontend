@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
+import { Alumno } from 'src/app/_model/alumno';
 import { Apoderado } from 'src/app/_model/apoderado';
 import { ApoderadoService } from '../../../_service/apoderado.service';
 import { AlumnoComponent } from '../../alumno/alumno.component';
@@ -18,6 +19,7 @@ export class ApoderadoAutocompleteComponent implements OnInit {
 
   apoderadoSeleccionado!: Apoderado;
   @Output() apoderadoSeleccionadoGlobal = new EventEmitter<Apoderado>();
+  @Input() apoderadoModificado!: Alumno; //Esta Variable viene del Formulario Alumnos.
 
   //utiles para el autocomplete
   myControlApoderado: FormControl = new FormControl();
@@ -28,11 +30,18 @@ export class ApoderadoAutocompleteComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
     this.form = new FormGroup({
       'apoderado': this.myControlApoderado
     });
 
     this.listarApoderados();
+    if (this.apoderadoModificado!=null){
+      console.log("Pintando el alumno que viene de la mofificación");
+      console.log(this.apoderadoModificado);
+       //Esta lógica aplica porque solo espero guardar un solo Apoderado (Cambiar cuando se quiera enviar un arreglo de Apoderados se debe de modificar)
+      this.myControlApoderado.setValue(this.apoderadoModificado.apoderados[0]); // Se envía 0 Porque por ahora solo espero 1 apoderado
+    }
     /*
     this.myControlApoderado.setValue({
       "apellidos": "Avial Yanayaco",
@@ -75,12 +84,4 @@ export class ApoderadoAutocompleteComponent implements OnInit {
   mostrarApoderado(val : Apoderado){
     return val ? `${val.nombre} ${val.apellidos}` : val;
   }
-
-  procesarEvento(response: any) {
-    console.log("procesarEvento Desde Apoderado");   
-    console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
-    //Esta lógica aplica porque solo espero guardar un solo Apoderado (Cambiar cuando se quiera enviar un arreglo de Apoderados)
-  }
-
-
 }

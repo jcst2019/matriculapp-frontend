@@ -11,7 +11,8 @@
    <mat-form-field>
        <input matInput placeholder="DNI" [(ngModel)]="alumno.dni" type="number"  maxlength="8" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
    </mat-form-field>
-   <app-apoderado-autocomplete  (apoderadoSeleccionadoGlobal)="procesarEvento($event)"> </app-apoderado-autocomplete>
+   <app-apoderado-autocomplete  [apoderadoModificado]="alumno" (apoderadoSeleccionadoGlobal)="procesarEvento($event)"> 
+   </app-apoderado-autocomplete>
    <mat-form-field>
        <input matInput placeholder="Dirección" [(ngModel)]="alumno.direccion">
    </mat-form-field>

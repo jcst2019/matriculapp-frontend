@@ -20,7 +20,7 @@ import { Apoderado } from 'src/app/_model/apoderado';
 export class AlumnoComponent implements OnInit {
 
   //alumnos: Alumno[]= [];
-  displayedColumns =['idAlumno','nombre','apellidos','dni','genero','tipoDescuento','fechaIngreso','fechaNacimiento','acciones'];
+  displayedColumns =['idAlumno','nombre','apellidos','dni','genero','tipoDescuento','apoderados','fechaIngreso','fechaNacimiento','acciones'];
   dataSource!: MatTableDataSource<Alumno>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

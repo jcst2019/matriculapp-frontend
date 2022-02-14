@@ -18,4 +18,12 @@
     overflow: auto;
     max-height: 500px;
   }
-  
+  .container {
+    width: 100%;
+    height: auto;
+    background-color: #FF9;
+    margin-right: auto;
+    margin-left: auto;
+    color: #066;
+    padding: 1em 3px 30px 5px;
+    }

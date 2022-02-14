@@ -8,7 +8,7 @@
 
 <mat-toolbar>Alumnos</mat-toolbar>
 
-<div class="example-container mat-elevation-z8">
+<div class=".example-container">
 <div class="animate__animated animate__fadeIn animate__delay-0.7s">
 <div class="example-header" >
     <mat-form-field>
@@ -47,6 +47,13 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> TipoDescuento </mat-header-cell>
         <mat-cell *matCellDef="let row">  {{retornarDescuento(row.tipoDescuento)}}</mat-cell>
     </ng-container>
+
+    <ng-container matColumnDef="apoderados">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Apoderado </mat-header-cell>
+      <mat-cell *matCellDef="let row">  {{row.apoderados[0].nombre}} {{row.apoderados[0].apellidos}}</mat-cell>
+      <!--Si row.apoderados[0].apellidos vuene "Cannot read properties of undefine" entonces se cae el aplictaivo -->
+      <!--Pero la premisa indica que siempre un alumno tiene un apoderado -->
+  </ng-container>
 
     <ng-container matColumnDef="fechaIngreso">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Ingreso </mat-header-cell>
