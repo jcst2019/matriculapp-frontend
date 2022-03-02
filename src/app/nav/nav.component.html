@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav">
+      <mat-toolbar color="primary">Menu
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon *ngIf="drawer.opened">close</mat-icon>
+        </button>
+      </mat-toolbar>
+      <img src="assets/iep_triunfo.jpg" width="128" style="margin-left: 20px">
+      <ng-material-multilevel-menu [items]='appitems' (selectedItem)="selectedItem($event)">
+      </ng-material-multilevel-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+  
+        <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon *ngIf="!drawer.opened">menu</mat-icon>
+        </button>
+  
+        <span>Sistema de Matrículas IEP El Triunfo </span>
+        <span class="example-spacer"></span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+         <button mat-menu-item routerLink="/perfil">
+             <mat-icon>account_box</mat-icon>
+             <span>Mi Perfil</span>
+         </button>
+         <button mat-menu-item >
+             <mat-icon>exit_to_app</mat-icon>
+             <span>Cerrar Sesión</span>
+         </button>
+        </mat-menu>
+      </mat-toolbar>
+      <router-outlet></router-outlet>  
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+

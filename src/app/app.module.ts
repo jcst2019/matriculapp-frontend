@@ -13,6 +13,9 @@ import { ApoderadoComponent } from './pages/apoderado/apoderado.component';
 import { ApoderadoDialogoComponent } from './pages/apoderado/apoderado-dialogo/apoderado-dialogo.component';
 import { AlumnoDialogoComponent } from './pages/alumno/alumno-dialogo/alumno-dialogo.component';
 import { ApoderadoAutocompleteComponent } from './pages/apoderado/apoderado-autocomplete/apoderado-autocomplete.component';
+import { NavComponent } from './nav/nav.component';
+import { MultilevelMenuService, NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { ApoderadoAutocompleteComponent } from './pages/apoderado/apoderado-auto
     ApoderadoComponent,
     ApoderadoDialogoComponent,
     AlumnoDialogoComponent,
-    ApoderadoAutocompleteComponent
+    ApoderadoAutocompleteComponent,
+    NavComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +36,10 @@ import { ApoderadoAutocompleteComponent } from './pages/apoderado/apoderado-auto
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgMaterialMultilevelMenuModule   
   ],
-  providers: [],
+  providers: [MultilevelMenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

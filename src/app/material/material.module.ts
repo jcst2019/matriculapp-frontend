@@ -44,7 +44,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule 
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorImpl },
