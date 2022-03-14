@@ -96,8 +96,9 @@ export class AlumnoDialogoComponent implements OnInit {
         return this.alumnoService.listar();
       })).subscribe(data => {
         this.alumnoService.alumnoCambio.next(data);
-        this.alumnoService.mensajeCambio.next('SE MODIFICO');
+        //this.alumnoService.mensajeCambio.next('SE MODIFICO');
       });
+      Swal.fire('Modifcar Alumno', 'Modificación Exitoso!', 'success')
       this.dialogRef.close();
     }else{
       //REGISTRAR

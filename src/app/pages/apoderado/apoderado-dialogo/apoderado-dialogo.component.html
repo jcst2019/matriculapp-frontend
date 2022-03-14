@@ -2,7 +2,9 @@
 <div >
 
    <mat-form-field appearance="legacy">
-         <input matInput placeholder="Nombres" [(ngModel)]="apoderado.nombre">
+         <input matInput placeholder="Nombres" [(ngModel)]="apoderado.nombre" (keyup)="validarCampos()">
+         <small *ngIf="validacion.nombre_count" class="invalido" >Debe tener más de 3 caracteres</small>
+         <small *ngIf="validacion.nombre_text" class="invalido" >Nombre es requerido</small>
          <mat-icon matSuffix>people</mat-icon>
     </mat-form-field>
 
@@ -14,11 +16,16 @@
         </mat-form-field>
     </div>-->
     <mat-form-field>
-        <input matInput placeholder="Apellidos" [(ngModel)]="apoderado.apellidos">
+        <input matInput placeholder="Apellidos" [(ngModel)]="apoderado.apellidos"  (keyup)="validarCampos()">
+        <small *ngIf="validacion.apellido_count" class="invalido" >Debe tener más de 3 caracteres</small>
+        <small *ngIf="validacion.apellido_text" class="invalido" >Apellido es requerido</small>
         <mat-icon matSuffix>people</mat-icon>
     </mat-form-field>
     <mat-form-field>
-        <input matInput placeholder="DNI" [(ngModel)]="apoderado.dni" type="number" maxlength="8" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+        <input matInput placeholder="DNI" [(ngModel)]="apoderado.dni" type="number" maxlength="8" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+        (keyup)="validarCampos()" >
+        <small *ngIf="validacion.dni_count" class="invalido" >Debe tener 8 caracteres</small>
+        <small *ngIf="validacion.dni_text" class="invalido" >DNI es requerido</small>
     </mat-form-field>
     <mat-form-field>
         <input matInput placeholder="Dirección" [(ngModel)]="apoderado.direccion">

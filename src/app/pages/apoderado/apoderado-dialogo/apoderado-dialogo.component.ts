@@ -6,6 +6,7 @@ import { Apoderado } from '../../../_model/apoderado';
 import { ApoderadoService } from '../../../_service/apoderado.service';
 import * as moment from 'moment';
 import{ Globales } from '../../../_model/globales';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-apoderado-dialogo',
@@ -14,6 +15,9 @@ import{ Globales } from '../../../_model/globales';
 })
 export class ApoderadoDialogoComponent implements OnInit {
 
+  validacion = {nombre_text: false,nombre_count:false, 
+              apellido_text: false,apellido_count:false, 
+              dni_text: false,dni_count:false};
   apoderado!: Apoderado;
   parentesto!:Parentesco[];
   idParentescoSeleccionado!:number;
@@ -69,22 +73,45 @@ export class ApoderadoDialogoComponent implements OnInit {
         return this.apoderadoService.listar();
       })).subscribe(data => {
         this.apoderadoService.apoderadoCambio.next(data);
-        this.apoderadoService.mensajeCambio.next('SE MODIFICO');
+        //this.apoderadoService.mensajeCambio.next('SE MODIFICO');
       });
+      Swal.fire('Modifcar Apoderado', 'Modificación Exitoso!', 'success')
+      this.dialogRef.close();
     }else{
       //REGISTRAR
-      this.apoderado.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-      this.apoderado.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
-      this.apoderado.tipo = this.idParentescoSeleccionado;
-      this.apoderado.estado = 1;
-      this.apoderadoService.registrar(this.apoderado).pipe(switchMap( () => {
-        return this.apoderadoService.listar();
-      })).subscribe(data => {
-        this.apoderadoService.apoderadoCambio.next(data);
-        this.apoderadoService.mensajeCambio.next('SE REGISTRO');
-      });
+      this.validarCampos();
+      if( typeof this.apoderado.nombre === "undefined" ||
+          typeof this.apoderado.apellidos === "undefined"||
+          typeof this.apoderado.dni === "undefined"){
+          Swal.fire('Registrar Apoderado', 'Falta llenar campos Obligatorios!', 'warning')
+      }else{
+          console.log(this.validacion.apellido_count);
+          if (this.validacion.nombre_count ||
+              this.validacion.nombre_text ||
+              this.validacion.apellido_count ||
+              this.validacion.apellido_text ||
+              this.validacion.dni_count ||
+              this.validacion.dni_text){
+              Swal.fire('Registrar Apoderado', 'Falta llenar campos Obligatorios!', 'warning')
+          }else{
+              if (!isNaN(this.fechaSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso
+                this.apoderado.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+               }
+              this.apoderado.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
+              this.apoderado.tipo = this.idParentescoSeleccionado;
+              this.apoderado.estado = 1;
+              this.apoderadoService.registrar(this.apoderado).pipe(switchMap( () => {
+                return this.apoderadoService.listar();
+              })).subscribe(data => {
+                this.apoderadoService.apoderadoCambio.next(data);
+                //this.apoderadoService.mensajeCambio.next('SE REGISTRO');
+              });
+              Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
+              this.dialogRef.close();
+           }
+          }
     }
-    this.dialogRef.close();
+    //this.dialogRef.close();
 
   }
   cancelar(){
@@ -102,6 +129,61 @@ export class ApoderadoDialogoComponent implements OnInit {
 
   console.log(id);
 
+ }
+ validarCampos(){
+  console.log(this.apoderado.nombre);
+  if (this.apoderado.nombre != null){
+    if (this.apoderado.nombre.length== 0 ){
+        this.validacion.nombre_text= true;
+        this.validacion.nombre_count= false;
+        console.log("a");
+    }else{
+      if (this.apoderado.nombre.length<=3 ){
+      this.validacion.nombre_count= true;
+      this.validacion.nombre_text= false;
+      console.log("b");
+     }
+     else{
+      this.validacion.nombre_count= false;
+      this.validacion.nombre_text= false;
+     }
+  }
+}
+console.log(this.apoderado.apellidos);
+if (this.apoderado.apellidos != null){
+    if (this.apoderado.apellidos.length== 0 ){
+        this.validacion.apellido_text= true;
+        this.validacion.apellido_count= false;
+    }else{
+      console.log(this.apoderado.apellidos.length);
+      if (this.apoderado.apellidos.length<= 3 ){
+          this.validacion.apellido_count= true;
+          this.validacion.apellido_text= false;
+     }
+     else{
+          this.validacion.apellido_count= false;
+          this.validacion.apellido_text= false;
+     }
+   }
+  }
+
+  console.log(this.apoderado.dni);
+if (this.apoderado.dni != null){
+    if (this.apoderado.dni.length== 0 ){
+        this.validacion.dni_text= true;
+        this.validacion.dni_count= false;
+    }else{
+      console.log(this.apoderado.dni.length);
+      if (this.apoderado.dni.length < 8 ){
+      this.validacion.dni_count= true;
+      this.validacion.dni_text= false;
+     }
+     else{
+      this.validacion.dni_count= false;
+      this.validacion.dni_text= false;
+     }
+   }
+  }
  }
 }
 

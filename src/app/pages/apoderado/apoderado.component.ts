@@ -10,6 +10,7 @@ import { Parentesco } from 'src/app/_model/parentesto';
 import { Globales } from 'src/app/_model/globales';
 import { ApoderadoService } from 'src/app/_service/apoderado.service';
 import { ApoderadoDialogoComponent } from './apoderado-dialogo/apoderado-dialogo.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-apoderado',
@@ -64,12 +65,38 @@ export class ApoderadoComponent implements OnInit {
   }
 
   eliminar(apoderado: Apoderado) {
-    this.apoderadoService.eliminar(apoderado.idApoderado).pipe(switchMap( () => {
-      return this.apoderadoService.listar();
-    })).subscribe( data => {
-      this.apoderadoService.apoderadoCambio.next(data);
-      this.apoderadoService.mensajeCambio.next('SE ELIMINO');
-    });
+    let textEliminar: string = `Eliminaras al Apoderado ${apoderado.nombre}  ${apoderado.apellidos} .`;
+    let textEliminado: string = `Se eliminó al Apoderado ${apoderado.nombre}  ${apoderado.apellidos} .`; 
+    Swal.fire({
+      title: '¿Estas seguro que quieres eliminar?',
+      text: textEliminar,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Eliminarlo!',
+      cancelButtonText: 'No, Eliminarlo'
+    }).then((result) => {
+      if (result.value) {
+        this.apoderadoService.eliminar(apoderado.idApoderado).pipe(switchMap( () => {
+          return this.apoderadoService.listar();
+        })).subscribe( data => {
+          this.apoderadoService.apoderadoCambio.next(data);
+          //this.apoderadoService.mensajeCambio.next('SE ELIMINO');
+        });
+        Swal.fire(
+          'Eliminado!',
+          textEliminado,
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        )
+      }
+    })
+  
+
   }
 
    retornarParentesco( id:number):string {
