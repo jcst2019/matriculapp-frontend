@@ -101,11 +101,15 @@ export class AlumnoDialogoComponent implements OnInit {
       this.dialogRef.close();
     }else{
       //REGISTRAR
+      console.log( this.alumno);
+      console.log(this.alumno.fechaIngreso);
+      console.log(this.fechaIngresoSeleccionada);
       this.validarCampos();
       if( typeof this.alumno.nombre === "undefined" ||
           typeof this.alumno.apellidos === "undefined"||
           typeof this.alumno.dni === "undefined" ||
-           this.alumno.apoderados.length == 0){
+          //isNaN(this.fechaIngresoSeleccionada.getTime()) || --Validar si el campo Date es válido
+          this.alumno.apoderados.length == 0 ){
         Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
       }else{
       console.log(this.validacion.apellido_count);
@@ -117,21 +121,25 @@ export class AlumnoDialogoComponent implements OnInit {
           this.validacion.dni_text){
         Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
       }else{
-      this.alumno.fechaIngreso = moment(this.fechaIngresoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-      this.alumno.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-      this.alumno.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
-      this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
-      this.alumno.estado = 1;
-      this.alumno.genero=this.idTipoGeneroSeleccionado;
-      console.log(this.alumno);
-      this.alumnoService.registrar(this.alumno).pipe(switchMap( () => {
-        return this.alumnoService.listar();
-      })).subscribe(data => {
-        this.alumnoService.alumnoCambio.next(data);
-        this.alumnoService.mensajeCambio.next('SE REGISTRO');
-      });
-      Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
-      this.dialogRef.close();
+           if (!isNaN(this.fechaIngresoSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso
+              this.alumno.fechaIngreso = moment(this.fechaIngresoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+           }
+           if (!isNaN(this.fechaSeleccionada.getTime())){//Validar si ha llenado el DatePicker de Fecha de Nacimiento
+              this.alumno.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+           }   
+            this.alumno.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
+            this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
+            this.alumno.estado = 1;
+            this.alumno.genero=this.idTipoGeneroSeleccionado;
+            console.log(this.alumno);
+            this.alumnoService.registrar(this.alumno).pipe(switchMap( () => {
+              return this.alumnoService.listar();
+            })).subscribe(data => {
+              this.alumnoService.alumnoCambio.next(data);
+              this.alumnoService.mensajeCambio.next('SE REGISTRO');
+            });
+            Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
+            this.dialogRef.close();
      }}
     }
     //this.dialogRef.close();
