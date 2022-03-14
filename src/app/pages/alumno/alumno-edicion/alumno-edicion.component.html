@@ -11,8 +11,10 @@
             </mat-form-field>
         </div>
 
-        <mat-form-field class="example-full-width">        
+        <mat-form-field class="example-full-width">            
             <input matInput placeholder="Nombres" minlength="3" required formControlName="nombres">
+            <small *ngIf="f['nombres'].errors?.['required']" class="invalido">Nombre es requerido</small>    
+            <small *ngIf="f['nombres'].errors?.['minlength']" class="invalido">El campo debe ser mayor a 3 caracteres</small>
         </mat-form-field>
 
 
@@ -32,17 +34,17 @@
             <input matInput placeholder="Direccion" required formControlName="direccion">
         </mat-form-field>
 
-        <div class="text-center">
-                <button mat-raised-button color="primary" type="submit" [disabled]="frmAlumno.invalid">
+        <!--<div class="text-center">-->
+                <button mat-raised-button color="primary" type="submit" [disabled]="!frmAlumno.valid">
                     <mat-icon>done</mat-icon>
-                    <span>Aceptar</span>
+                    <span>Aceptarrrr</span>
                 </button>
                 <button mat-raised-button color="accent" routerLink='/alumno' type="button">
                     <mat-icon>close</mat-icon>
                     <span>Cancelar</span>
                 </button>
 
-        </div>
+        <!--</div> -->
     </form>
     </mat-card-content>
     </mat-card>

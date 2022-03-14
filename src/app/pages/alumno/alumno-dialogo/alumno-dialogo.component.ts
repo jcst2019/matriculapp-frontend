@@ -9,6 +9,7 @@ import { Descuento } from 'src/app/_model/descuento';
 import { Genero } from 'src/app/_model/genero';
 import { Apoderado } from 'src/app/_model/apoderado';
 import { ApoderadoAutocompleteComponent } from '../../apoderado/apoderado-autocomplete/apoderado-autocomplete.component'
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -16,7 +17,14 @@ import { ApoderadoAutocompleteComponent } from '../../apoderado/apoderado-autoco
   templateUrl: './alumno-dialogo.component.html',
   styleUrls: ['./alumno-dialogo.component.css']
 })
+
 export class AlumnoDialogoComponent implements OnInit {
+
+  //validacion:boolean = true;//Falta analizar
+  validacion = {nombre_text: false,nombre_count:false, 
+                apellido_text: false,apellido_count:false, 
+                dni_text: false,dni_count:false,
+                apoderado_text:false};
 
   alumno!: Alumno;
   tipoDescuento!:Descuento[];
@@ -57,6 +65,7 @@ export class AlumnoDialogoComponent implements OnInit {
     this.listarGenero();
     this.fechaSeleccionada = new Date(this.data.fechaNacimiento);
     this.fechaIngresoSeleccionada = new Date(this.data.fechaIngreso);
+    this.validarCampos();
   }
   operar(){
 
@@ -89,8 +98,25 @@ export class AlumnoDialogoComponent implements OnInit {
         this.alumnoService.alumnoCambio.next(data);
         this.alumnoService.mensajeCambio.next('SE MODIFICO');
       });
+      this.dialogRef.close();
     }else{
       //REGISTRAR
+      this.validarCampos();
+      if( typeof this.alumno.nombre === "undefined" ||
+          typeof this.alumno.apellidos === "undefined"||
+          typeof this.alumno.dni === "undefined" ||
+           this.alumno.apoderados.length == 0){
+        Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
+      }else{
+      console.log(this.validacion.apellido_count);
+      if (this.validacion.nombre_count ||
+          this.validacion.nombre_text ||
+          this.validacion.apellido_count ||
+          this.validacion.apellido_text ||
+          this.validacion.dni_count ||
+          this.validacion.dni_text){
+        Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
+      }else{
       this.alumno.fechaIngreso = moment(this.fechaIngresoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
       this.alumno.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
       this.alumno.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
@@ -104,9 +130,11 @@ export class AlumnoDialogoComponent implements OnInit {
         this.alumnoService.alumnoCambio.next(data);
         this.alumnoService.mensajeCambio.next('SE REGISTRO');
       });
+      Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
+      this.dialogRef.close();
+     }}
     }
-    this.dialogRef.close();
-
+    //this.dialogRef.close();
   }
   cancelar(){
     this.dialogRef.close();
@@ -125,7 +153,75 @@ export class AlumnoDialogoComponent implements OnInit {
   this.tipoGenero = Globales.listaGenero;
 
 }
+validarCampos(){
+  console.log(this.alumno.nombre);
+  if (this.alumno.nombre != null){
+    if (this.alumno.nombre.length== 0 ){
+        this.validacion.nombre_text= true;
+        this.validacion.nombre_count= false;
+        console.log("a");
+    }else{
+      if (this.alumno.nombre.length<=3 ){
+      this.validacion.nombre_count= true;
+      this.validacion.nombre_text= false;
+      console.log("b");
+     }
+     else{
+      this.validacion.nombre_count= false;
+      this.validacion.nombre_text= false;
+     }
+  }
+}
+console.log(this.alumno.apellidos);
+if (this.alumno.apellidos != null){
+    if (this.alumno.apellidos.length== 0 ){
+        this.validacion.apellido_text= true;
+        this.validacion.apellido_count= false;
+    }else{
+      console.log(this.alumno.apellidos.length);
+      if (this.alumno.apellidos.length<= 3 ){
+      this.validacion.apellido_count= true;
+      this.validacion.apellido_text= false;
+     }
+     else{
+      this.validacion.apellido_count= false;
+      this.validacion.apellido_text= false;
+     }
+   }
+  }
 
+  console.log(this.alumno.dni);
+if (this.alumno.dni != null){
+    if (this.alumno.dni.length== 0 ){
+        this.validacion.dni_text= true;
+        this.validacion.dni_count= false;
+    }else{
+      console.log(this.alumno.dni.length);
+      if (this.alumno.dni.length < 8 ){
+      this.validacion.dni_count= true;
+      this.validacion.dni_text= false;
+     }
+     else{
+      this.validacion.dni_count= false;
+      this.validacion.dni_text= false;
+     }
+   }
+  }
+  console.log(this.alumno.apoderados);
+  if (this.alumno.apoderados != null){
+      if (this.alumno.apoderados.length== 0 ){
+          this.validacion.apoderado_text= true;
+      }else{
+        console.log(this.alumno.apoderados.length);
+        if (this.alumno.apoderados.length >= 1){
+        this.validacion.apoderado_text= false;
+       }
+    }
+  console.log(this.alumno.nombre);
+  console.log(this.validacion);
+  //console.log(this.alumno.nombre.length);
+}
+}
  validarSeleccion(id: number){
 
   console.log(id);
@@ -140,6 +236,7 @@ export class AlumnoDialogoComponent implements OnInit {
   }
   this.alumno.apoderados.push(response);
 }
+
  
 }
 

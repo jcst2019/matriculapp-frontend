@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Alumno } from 'src/app/_model/alumno';
 import { AlumnoService } from 'src/app/_service/alumno.service';
@@ -26,13 +26,12 @@ export class AlumnoEdicionComponent implements OnInit {
 
     this.form = new FormGroup({
       'id' : new FormControl(0),
-      'nombres' : new FormControl(''),
-      'apellidos' : new FormControl(''),
+      'nombres' : new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(70)]),
+      'apellidos' : new FormControl('',[Validators.required,Validators.minLength(3),Validators.maxLength(70)]),
       'dni' : new FormControl(''),
       'telefono' : new FormControl(''),
       'direccion' : new FormControl('')
     });
-
     this.route.params.subscribe((params:Params)=>{
           this.id = params['id'];
           this.edicion = params['id'] != null;
@@ -40,6 +39,12 @@ export class AlumnoEdicionComponent implements OnInit {
     })
 
   }
+  
+  //Función de Solo Lectura
+  get f(){
+     return this.form.controls
+    console.log( this.form.controls);
+    }
 
   initForm(){
 
@@ -59,6 +64,7 @@ export class AlumnoEdicionComponent implements OnInit {
     }
 
   }
+
   operar( ){
     let alumno = new Alumno();
     alumno.idAlumno = this.form.value['id'];

@@ -10,6 +10,7 @@ import { AlumnoDialogoComponent } from './alumno-dialogo/alumno-dialogo.componen
 import { MatDialog } from '@angular/material/dialog';
 import { Globales } from 'src/app/_model/globales';
 import { Apoderado } from 'src/app/_model/apoderado';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -80,12 +81,42 @@ export class AlumnoComponent implements OnInit {
   }
 
   eliminar(alumno: Alumno) {
-    this.alumnoService.eliminar(alumno.idAlumno).pipe(switchMap( () => {
-      return this.alumnoService.listar();
-    })).subscribe( data => {
-      this.alumnoService.alumnoCambio.next(data);
-      this.alumnoService.mensajeCambio.next('SE ELIMINO');
-    });
+    let textEliminar: string = `Eliminaras al alumno ${alumno.nombre}  ${alumno.apellidos} .`;
+    let textEliminado: string = `Se eliminó al alumno ${alumno.nombre}  ${alumno.apellidos} .`; 
+    Swal.fire({
+      title: '¿Estas seguro que quieres eliminar?',
+      text: textEliminar,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Eliminarlo!',
+      cancelButtonText: 'No, Eliminarlo'
+    }).then((result) => {
+      if (result.value) {
+        this.alumnoService.eliminar(alumno.idAlumno).pipe(switchMap( () => {
+          return this.alumnoService.listar();
+        })).subscribe( data => {
+          this.alumnoService.alumnoCambio.next(data);
+          //this.alumnoService.mensajeCambio.next('SE ELIMINO');
+        });
+        Swal.fire(
+          'Eliminado!',
+          textEliminado,
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        )
+      }
+    })
+    //this.alumnoService.eliminar(alumno.idAlumno).pipe(switchMap( () => {
+    //  return this.alumnoService.listar();
+    //})).subscribe( data => {
+    //  this.alumnoService.alumnoCambio.next(data);
+    //  this.alumnoService.mensajeCambio.next('SE ELIMINO');
+    //});
   }
 
    retornarGenero( id:number):string {

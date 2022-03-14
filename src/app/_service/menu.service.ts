@@ -36,7 +36,8 @@ export class MenuService implements OnInit {
     submenus.push(sm);
     
     sm = new SubMenu();
-    sm.icon = "work_outline";
+  //sm.icon = "work_outline";
+    sm.icon = "ballot";
     sm.label = "Rol";
     sm.link = "/registrar"
     submenus.push(sm);  
