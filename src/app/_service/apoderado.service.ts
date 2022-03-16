@@ -10,8 +10,6 @@ import { GenericService } from './generic.service';
 })
 export class ApoderadoService extends GenericService<Apoderado>{
 
-
-
   apoderadoCambio = new Subject<Apoderado[]>();
   mensajeCambio = new Subject<string>();
 

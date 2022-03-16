@@ -1,0 +1,103 @@
+<!--
+<ul>
+    <li *ngFor="let al of alumnos" >{{al.nombre}}</li>
+</ul>
+-->
+
+<router-outlet></router-outlet>
+
+<mat-toolbar>Programación Matrícula</mat-toolbar>
+
+<div class=".example-container">
+<div class="animate__animated animate__fadeIn animate__delay-0.7s">
+<div class="example-header" >
+    <mat-form-field>
+      <!--<input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar paciente">-->
+      <input matInput (keyup)="filtrar($any($event.target).value)" placeholder="Buscar Programación">
+    </mat-form-field>
+  </div>
+  
+  <mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="idProgMatricula">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.idProgMatricula}} </mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="codigoMatricula">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.codigoMatricula}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="descripcion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Descricpión </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.descripcion}}</mat-cell>
+      </ng-container>
+  
+    <ng-container matColumnDef="estado">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+        <mat-cell *matCellDef="let row">  {{retornarEstado(row.estado)}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidadCuposTotal">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Total Cupos </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.cantidadCuposTotal}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cantidadCuposRegistrados">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Cupos Registrados </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.cantidadCuposRegistrados}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="year">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Año </mat-header-cell>
+      <mat-cell *matCellDef="let row">  {{row.year}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nivel">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nivel </mat-header-cell>
+      <mat-cell *matCellDef="let row">  {{retornarNivel(row.nivel)}}</mat-cell> 
+    </ng-container>
+
+    <ng-container matColumnDef="grado">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Grado </mat-header-cell>
+        <mat-cell *matCellDef="let row">  {{retornarGrado(row.grado)}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="seccion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Sección </mat-header-cell>
+        <mat-cell *matCellDef="let row">  {{retornarSeccion(row.seccion)}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="montoMatricula">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Matrícula </mat-header-cell>
+        <mat-cell *matCellDef="let row">  {{row.montoMatricula}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="montoMensualidad">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Mensualidad </mat-header-cell>
+        <mat-cell *matCellDef="let row">  {{row.montoMensualidad}}</mat-cell>
+    </ng-container>
+  
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <!--<button mat-button color="primary" [routerLink]="['edicion',row.idAlumno]" ><mat-icon>ballot</mat-icon></button>-->
+        <button mat-button color="primary" (click)="abrirDialogo(row)" ><mat-icon>edit</mat-icon></button>
+        <!--<button mat-button color="accent" (click)="eliminar(row.idAlumno)"><mat-icon>delete</mat-icon></button>-->
+        <button mat-button color="accent" (click)="eliminar(row)"><mat-icon>delete</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+  
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+
+  <button mat-fab color="accent" (click)="abrirDialogo()" style="float: right; margin-right: 20px">
+    <mat-icon>queue</mat-icon>
+  </button>
+</div>
+</div>

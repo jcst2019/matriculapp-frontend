@@ -67,7 +67,7 @@ export class MenuService implements OnInit {
     sm = new SubMenu();
     sm.icon = "calendar_today";
     sm.label = "Programación";
-    sm.link = "/buscar"
+    sm.link = "/programacion"
     submenus.push(sm);  
 
     sm = new SubMenu();
@@ -94,7 +94,7 @@ export class MenuService implements OnInit {
     m = new Menu();
     m.label = "Matrícula";
     m.icon = "assignment";
-    m.link = "/apoderado";    
+    m.link = "/matricula";    
     menus.push(m);
 
     m = new Menu();

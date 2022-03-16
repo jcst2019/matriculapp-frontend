@@ -16,6 +16,9 @@ import { ApoderadoAutocompleteComponent } from './pages/apoderado/apoderado-auto
 import { NavComponent } from './nav/nav.component';
 import { MultilevelMenuService, NgMaterialMultilevelMenuModule } from 'ng-material-multilevel-menu';
 import { FooterComponent } from './footer/footer.component';
+import { ProgramacionComponent } from './pages/programacion/programacion.component';
+import { MatriculaComponent } from './pages/matricula/matricula.component';
+import { ProgramacionDialogoComponent } from './pages/programacion/programacion-dialogo/programacion-dialogo.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { FooterComponent } from './footer/footer.component';
     AlumnoDialogoComponent,
     ApoderadoAutocompleteComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    ProgramacionComponent,
+    MatriculaComponent,
+    ProgramacionDialogoComponent
   ],
   imports: [
     BrowserModule,

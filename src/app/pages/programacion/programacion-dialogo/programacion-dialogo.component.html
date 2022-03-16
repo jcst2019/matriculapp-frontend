@@ -1,0 +1,65 @@
+
+<div >
+    <mat-form-field appearance="legacy">
+          <input matInput placeholder="Código Matrícula" [(ngModel)]="programacion.codigoMatricula" (keyup)="validarCampos()">
+          <small *ngIf="validacion.nombre_count" class="invalido" >Debe tener más de 3 caracteres</small>
+          <small *ngIf="validacion.nombre_text" class="invalido" >Nombre es requerido</small>
+     </mat-form-field>
+     <mat-form-field appearance="legacy">
+        <textarea matInput placeholder="Descripción" [(ngModel)]="programacion.descripcion"  (keyup)="validarCampos()">
+        </textarea>
+      </mat-form-field>
+
+     <mat-form-field>
+         <input matInput placeholder="Total Cupos" [(ngModel)]="programacion.cantidadCuposTotal" type="number">
+     </mat-form-field>
+
+     <mat-form-field>
+        <input matInput placeholder="Monto Matrícula" [(ngModel)]="programacion.montoMatricula" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Monto Pensión" [(ngModel)]="programacion.montoMensualidad" type="number">
+    </mat-form-field>
+
+     <mat-form-field>
+         <input matInput placeholder="Año" [(ngModel)]="programacion.year">
+     </mat-form-field>
+     <mat-form-field>
+         <!--<mat-select placeholder="Parentesco"  [(value)]="idParentescoSeleccionado" >-->
+         <mat-select placeholder="Nivel"  [(ngModel)]="idNivelSeleccionado" (click)="validarSeleccion(idNivelSeleccionado)">
+             <mat-option *ngFor="let p of nivel" [value]="p.idNivel">{{p.desNivel }}</mat-option>
+         </mat-select>
+     </mat-form-field>
+
+     <mat-form-field>
+        <!--<mat-select placeholder="Parentesco"  [(value)]="idParentescoSeleccionado" >-->
+        <mat-select placeholder="Grado"  [(ngModel)]="idGradoSeleccionado" (click)="validarSeleccion(idNivelSeleccionado)">
+            <mat-option *ngFor="let p of grado" [value]="p.idGrado">{{p.abreviatura }} - {{p.desGrado }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <!--<mat-select placeholder="Parentesco"  [(value)]="idParentescoSeleccionado" >-->
+        <mat-select placeholder="Sección"  [(ngModel)]="idSeccionSeleccionado" (click)="validarSeleccion(idNivelSeleccionado)">
+            <mat-option *ngFor="let p of seccion" [value]="p.idSeccion">{{ p.desSeccion }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <!--<mat-select placeholder="Parentesco"  [(value)]="idParentescoSeleccionado" >-->
+        <mat-select placeholder="Estado Programación"  [(ngModel)]="idEstadoSeleccionado" (click)="validarSeleccion(idNivelSeleccionado)">
+            <mat-option *ngFor="let p of estado" [value]="p.idEstado">{{ p.desEstado }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+ 
+     <!--<img mat-card-image [src]="apoderado.fotoUrl" alt="" width="50%" height="50%" *ngIf="apoderado.fotoUrl != null">-->
+     <div class="mat-diplay-button">
+         <button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+         <button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+     </div>
+ </div>
+ 
+ 
+ 
+ 
