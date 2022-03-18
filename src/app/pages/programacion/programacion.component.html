@@ -35,7 +35,9 @@
   
     <ng-container matColumnDef="estado">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-        <mat-cell *matCellDef="let row">  {{retornarEstado(row.estado)}}</mat-cell>
+        <!--<mat-cell *matCellDef="let row" [ngClass]="retornarEstado(row.estado)==='Abierto' ? 'badge rounded-pill bg-primary': 'badge rounded-pill bg-danger'"> --> 
+          <mat-cell *matCellDef="let row" [ngClass]="retornarEstado(row.estado)==='Abierto' ? 'activo': 'eliminado'">
+          {{retornarEstado(row.estado)}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="cantidadCuposTotal">

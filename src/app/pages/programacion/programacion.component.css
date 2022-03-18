@@ -27,3 +27,13 @@
     color: #066;
     padding: 1em 3px 30px 5px;
     }
+
+  .eliminado{
+    color:red; 
+    font-weight: bold;
+  }
+
+  .activo{
+    color:rgb(0, 17, 255);
+    font-weight: bold;
+}

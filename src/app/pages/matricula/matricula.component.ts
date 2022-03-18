@@ -17,9 +17,11 @@ export class MatriculaComponent implements OnInit {
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   programacion!: Programacion[];
+  programacionMatriculado: Programacion = new Programacion; //Variable que tiene la programación seleccionado por el Usuario
   alumno!: Alumno[];
-  idProgMatricula!: number;
-  idAlumno!:number;
+  alumnoMatriculado: Alumno = new Alumno; //Variable que tiene el alumno seleccionado por el Usuario
+  idProgMatricula!: number; //esta variable ya no se usa en este componente
+  idAlumno!:number;//esta variable ya no se usa en este componente
   displayedColumns =['idProgMatricula','codigoMatricula','descripcion','estado','cantidadCuposTotal','cantidadCuposRegistrados','year','nivel','grado','seccion','montoMatricula','montoMensualidad'];
   dataSource!: MatTableDataSource<Programacion>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -43,6 +45,7 @@ export class MatriculaComponent implements OnInit {
     console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
     this.programacion=[];//Inicializamos el valor en cero
     this.programacion.push(response);
+    this.programacionMatriculado = this.programacion[0];
     this.idProgMatricula = this.programacion[0].idProgMatricula;
 
     console.log("Después de Asignar");  
@@ -56,6 +59,7 @@ export class MatriculaComponent implements OnInit {
     console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
     this.alumno=[];//Inicializamos el valor en cero
     this.alumno.push(response);
+    this.alumnoMatriculado=this.alumno[0];
     this.idAlumno = this.alumno[0].idAlumno;
 
     console.log("Después de Asignar");  
