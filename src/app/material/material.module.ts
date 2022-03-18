@@ -19,6 +19,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatStepperModule} from '@angular/material/stepper'
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatAutocompleteModule 
+    MatAutocompleteModule,
+    MatStepperModule 
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorImpl },

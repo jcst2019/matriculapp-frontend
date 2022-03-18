@@ -137,7 +137,7 @@ export class AlumnoDialogoComponent implements OnInit {
               return this.alumnoService.listar();
             })).subscribe(data => {
               this.alumnoService.alumnoCambio.next(data);
-              this.alumnoService.mensajeCambio.next('SE REGISTRO');
+              //this.alumnoService.mensajeCambio.next('SE REGISTRO');
             });
             Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
             this.dialogRef.close();

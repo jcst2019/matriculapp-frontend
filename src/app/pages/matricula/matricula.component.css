@@ -1,0 +1,11 @@
+.mat-form-field {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+    padding: 1%;
+  }
+
+  .ocultar {
+    display:none;
+  }

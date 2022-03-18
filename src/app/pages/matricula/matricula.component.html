@@ -1,1 +1,179 @@
-<p>matricula works!</p>
+<div class="animate__animated animate__fadeIn animate__delay-0.7s">
+<mat-toolbar>Registrar Matrícula</mat-toolbar>
+<mat-stepper #stepper>
+    <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Seleccionar Programación</ng-template>
+        <mat-form-field appearance="fill" class="ocultar"><!--Ocultamos la cja de Texto que se evalua para continuar con la siguiente stepper-->
+          <mat-label>ID Programacion</mat-label>
+          <input  matInput placeholder="ID Programacion" formControlName="firstCtrl" required [(ngModel)]="idProgMatricula">
+        </mat-form-field>
+        <app-programacion-autocomplete (programacionSeleccionadoGlobal)="procesarEvento($event)"> 
+        </app-programacion-autocomplete>
+        <mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="idProgMatricula">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.idProgMatricula}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="codigoMatricula">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.codigoMatricula}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="descripcion">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Descricpión </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.descripcion}}</mat-cell>
+            </ng-container>
+        
+          <ng-container matColumnDef="estado">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+              <mat-cell *matCellDef="let row">  {{retornarEstado(row.estado)}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="cantidadCuposTotal">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Total Cupos </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.cantidadCuposTotal}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="cantidadCuposRegistrados">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Cupos Registrados </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.cantidadCuposRegistrados}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="year">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Año </mat-header-cell>
+            <mat-cell *matCellDef="let row">  {{row.year}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="nivel">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nivel </mat-header-cell>
+            <mat-cell *matCellDef="let row">  {{retornarNivel(row.nivel)}}</mat-cell> 
+          </ng-container>
+      
+          <ng-container matColumnDef="grado">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Grado </mat-header-cell>
+              <mat-cell *matCellDef="let row">  {{retornarGrado(row.grado)}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="seccion">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Sección </mat-header-cell>
+              <mat-cell *matCellDef="let row">  {{retornarSeccion(row.seccion)}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="montoMatricula">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Matrícula </mat-header-cell>
+              <mat-cell *matCellDef="let row">  {{row.montoMatricula}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="montoMensualidad">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Mensualidad </mat-header-cell>
+              <mat-cell *matCellDef="let row">  {{row.montoMensualidad}}</mat-cell>
+          </ng-container>
+        
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;">
+        
+          </mat-row>
+        </mat-table>
+        <div  class="mat-form-field">
+          <button  mat-raised-button matStepperNext color="primary" >Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Seleccionar Alumno</ng-template>
+        <mat-form-field appearance="fill" class="ocultar"><!--Ocultamos la cja de Texto que se evalua para continuar con la siguiente stepper-->
+          <mat-label>ID Alumno</mat-label>
+          <input matInput placeholder="ID Alumno" formControlName="secondCtrl"
+                 required [(ngModel)]="idAlumno">
+        </mat-form-field>
+        <app-alumno-autocomplete (alumnoSeleccionadoGlobal)="procesarEventoAlumno($event)">
+        </app-alumno-autocomplete>
+        <mat-table [dataSource]="dataSourceAlumno" matSort>
+          <ng-container matColumnDef="idAlumno">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.idAlumno}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="nombre">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.nombre}}</mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="apellidos">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="dni">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.dni}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="genero">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Género </mat-header-cell>
+            <mat-cell *matCellDef="let row">  {{retornarGenero(row.genero)}} </mat-cell>
+        </ng-container>
+      
+          <ng-container matColumnDef="tipoDescuento">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> TipoDescuento </mat-header-cell>
+              <mat-cell *matCellDef="let row">  {{retornarDescuento(row.tipoDescuento)}}</mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="apoderados">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Apoderado </mat-header-cell>
+            <mat-cell *matCellDef="let row">  {{row.apoderados[0].nombre}} {{row.apoderados[0].apellidos}}</mat-cell>
+            <!--Si row.apoderados[0].apellidos vuene "Cannot read properties of undefine" entonces se cae el aplictaivo -->
+            <!--Pero la premisa indica que siempre un alumno tiene un apoderado -->
+        </ng-container>
+      
+          <ng-container matColumnDef="fechaIngreso">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Ingreso </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.fechaIngreso|date:"dd-MM-yyyy"}} </mat-cell>
+          </ng-container>
+      
+          <ng-container matColumnDef="fechaNacimiento">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Nacimiento </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{row.fechaNacimiento|date:"dd-MM-yyyy"}} </mat-cell>
+          </ng-container>
+        
+          <mat-header-row *matHeaderRowDef="displayedColumnsAlumno"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsAlumno;">
+        
+          </mat-row>
+        </mat-table>
+        <div  class="mat-form-field">
+          <button  mat-raised-button matStepperPrevious color="primary" >Anterior</button>
+          <button  mat-raised-button matStepperNext color="primary" >Siguiente</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Registrar Matricula</ng-template>
+      <!--
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+      -->
+        <fieldset disabled>
+          <div class="form-group">
+            <label for="disabledTextInput">Programación</label>
+            <input type="text" id="disabledTextInput" class="form-control" [(ngModel)]="idProgMatricula">
+          </div>
+          <div class="form-group">
+            <label for="disabledTextInput">Alumno</label>
+            <input type="text" id="disabledTextInput" class="form-control" [(ngModel)]="idAlumno">
+          </div>
+        </fieldset>
+        <div  class="mat-form-field">
+          <button  mat-raised-button  color="primary" >Registrar Matricula</button>
+        </div>
+    </mat-step>
+  </mat-stepper>
+  </div>
+  
+
+

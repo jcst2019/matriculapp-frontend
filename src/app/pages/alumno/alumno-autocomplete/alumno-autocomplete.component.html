@@ -1,0 +1,14 @@
+<form class="example-container" [formGroup]="form"  #consultaForm="ngForm">
+    <mat-form-field >
+        <input type="text" placeholder="Alumno" matInput [matAutocomplete]="autoApoderado"
+            [formControl]="myControlAlumno" formControlName="alumno" >
+    </mat-form-field>
+    <mat-autocomplete  #autoApoderado="matAutocomplete" [displayWith]="mostrarAlumno"
+    (optionSelected)="seleccionarAlumno($event)">
+        <mat-option *ngFor="let p of alumnosFiltrados | async" [value]="p">
+            {{ p.nombre }} {{p.apellidos}}
+        </mat-option>
+    </mat-autocomplete>
+    </form>
+    
+    

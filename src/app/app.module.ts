@@ -19,6 +19,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ProgramacionComponent } from './pages/programacion/programacion.component';
 import { MatriculaComponent } from './pages/matricula/matricula.component';
 import { ProgramacionDialogoComponent } from './pages/programacion/programacion-dialogo/programacion-dialogo.component';
+import { ProgramacionAutocompleteComponent } from './pages/programacion/programacion-autocomplete/programacion-autocomplete.component';
+import { AlumnoAutocompleteComponent } from './pages/alumno/alumno-autocomplete/alumno-autocomplete.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { ProgramacionDialogoComponent } from './pages/programacion/programacion-
     FooterComponent,
     ProgramacionComponent,
     MatriculaComponent,
-    ProgramacionDialogoComponent
+    ProgramacionDialogoComponent,
+    ProgramacionAutocompleteComponent,
+    AlumnoAutocompleteComponent
   ],
   imports: [
     BrowserModule,
