@@ -28,7 +28,8 @@
         
           <ng-container matColumnDef="estado">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-              <mat-cell *matCellDef="let row">  {{retornarEstado(row.estado)}}</mat-cell>
+              <mat-cell *matCellDef="let row" [ngClass]="retornarEstado(row.estado)==='Abierto' ? 'activo': 'eliminado'">
+              {{retornarEstado(row.estado)}}</mat-cell>
           </ng-container>
       
           <ng-container matColumnDef="cantidadCuposTotal">
@@ -228,7 +229,7 @@
                   <ul class="list-unstyled mt-3 mb-4">
                     <li><strong>Monto Matrícula: </strong>  {{programacionMatriculado.montoMatricula}}</li>
                     <li><strong>Monto Pensión  : </strong>  {{programacionMatriculado.montoMensualidad}}</li>
-                    <li><strong>Monto Descuento: </strong> {{programacionMatriculado.montoMatricula}}</li>
+                    <li><strong>Monto Descuento: </strong> {{programacionMatriculado.montoMatricula - programacionMatriculado.montoMatricula}}</li>
                   </ul>
                 </div>
               </div>

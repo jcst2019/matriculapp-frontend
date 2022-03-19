@@ -9,3 +9,13 @@
   .ocultar {
     display:none;
   }
+
+  .eliminado{
+    color:red; 
+    font-weight: bold;
+  }
+
+  .activo{
+    color:rgb(0, 17, 255);
+    font-weight: bold;
+}
