@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Programacion } from 'src/app/_model/programacion';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -11,6 +10,7 @@ import { Apoderado } from 'src/app/_model/apoderado';
 import Swal from 'sweetalert2';
 import { ProgramacionDialogoComponent } from '../programacion/programacion-dialogo/programacion-dialogo.component';
 import { ProgramacionService } from 'src/app/_service/programacion.service';
+import { ProgramacionMatricula } from '../../_model/programacionMatricula';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class ProgramacionComponent implements OnInit {
 
   //programacions: Programacion[]= [];
   displayedColumns =['idProgMatricula','codigoMatricula','descripcion','estado','cantidadCuposTotal','cantidadCuposRegistrados','year','nivel','grado','seccion','montoMatricula','montoMensualidad','acciones'];
-  dataSource!: MatTableDataSource<Programacion>;
+  dataSource!: MatTableDataSource<ProgramacionMatricula>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -64,9 +64,9 @@ export class ProgramacionComponent implements OnInit {
 
   }
 
-  abrirDialogo(programacion?: Programacion) {
+  abrirDialogo(programacion?: ProgramacionMatricula) {
 
-    let prog = programacion != null ? programacion : new Programacion();
+    let prog = programacion != null ? programacion : new ProgramacionMatricula();
 
     this.dialog.open(ProgramacionDialogoComponent, {
       width: '450px',
@@ -74,7 +74,7 @@ export class ProgramacionComponent implements OnInit {
     });
   }
 
-  eliminar(programacion: Programacion) {
+  eliminar(programacion: ProgramacionMatricula) {
     let textEliminar: string = `Eliminaras la programacion ${programacion.idProgMatricula} [ ${programacion.codigoMatricula} ].`;
     let textEliminado: string = `Se eliminó la programacion ${programacion.idProgMatricula} [ ${programacion.codigoMatricula} ].`; 
     Swal.fire({

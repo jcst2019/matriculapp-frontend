@@ -1,4 +1,4 @@
-export class Programacion{
+export class ProgramacionMatricula{
     
     idProgMatricula!: number;
     codigoMatricula!:string;

@@ -5,12 +5,12 @@ import { Parentesco } from 'src/app/_model/parentesto';
 import * as moment from 'moment';
 import{ Globales } from '../../../_model/globales';
 import Swal from 'sweetalert2';
-import { Programacion } from 'src/app/_model/programacion';
 import { ProgramacionService } from 'src/app/_service/programacion.service';
 import { Nivel } from 'src/app/_model/nivel';
 import { Grado } from 'src/app/_model/grado';
 import { Seccion } from 'src/app/_model/seccion';
 import { Estado } from 'src/app/_model/estado';
+import { ProgramacionMatricula } from '../../../_model/programacionMatricula';
 
 @Component({
   selector: 'app-programacion-dialogo',
@@ -22,7 +22,7 @@ export class ProgramacionDialogoComponent implements OnInit {
   validacion = {nombre_text: false,nombre_count:false, 
               apellido_text: false,apellido_count:false, 
               dni_text: false,dni_count:false};
-  programacion!: Programacion;
+  programacion!: ProgramacionMatricula;
   parentesto!:Parentesco[];
   nivel!:Nivel[];
   grado!:Grado[];
@@ -39,12 +39,12 @@ export class ProgramacionDialogoComponent implements OnInit {
   constructor(
     private programacionService :ProgramacionService,
     private dialogRef: MatDialogRef<ProgramacionDialogoComponent>,
-    @Inject(MAT_DIALOG_DATA) private data: Programacion
+    @Inject(MAT_DIALOG_DATA) private data: ProgramacionMatricula
   ) { }
 
   ngOnInit(): void {
     console.log(this.data);
-    this.programacion = new Programacion();
+    this.programacion = new ProgramacionMatricula();
     this.programacion.idProgMatricula= this.data.idProgMatricula;
     this.programacion.codigoMatricula= this.data.codigoMatricula;
     this.programacion.descripcion= this.data.descripcion;

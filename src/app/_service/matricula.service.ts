@@ -2,19 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ProgramacionMatricula } from '../_model/programacionMatricula';
+import { Matricula } from '../_model/matricula';
 import { GenericService } from './generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProgramacionService extends GenericService<ProgramacionMatricula>{
+export class MatriculaService  extends GenericService<Matricula>{
 
 
-  programacionCambio = new Subject<ProgramacionMatricula[]>();
+  matriculaCambio = new Subject<Matricula[]>();
   mensajeCambio = new Subject<string>();
 
   constructor( http: HttpClient) {
-    super(http,`${environment.HOST}/api/programacion/matriculas`);
+    super(http,`${environment.HOST}/api/matriculas`);
    }
 }

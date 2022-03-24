@@ -2,8 +2,9 @@ import { CDK_CONNECTED_OVERLAY_SCROLL_STRATEGY_PROVIDER_FACTORY } from '@angular
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { map, Observable } from 'rxjs';
-import { Programacion } from 'src/app/_model/programacion';
+
 import { ProgramacionService } from 'src/app/_service/programacion.service';
+import { ProgramacionMatricula } from '../../../_model/programacionMatricula';
 
 
 @Component({
@@ -15,10 +16,10 @@ export class ProgramacionAutocompleteComponent  implements OnInit {
 
 
   form!: FormGroup;
-  programaciones: Programacion[] = [];
+  programaciones: ProgramacionMatricula[] = [];
 
-  programacionSeleccionado!: Programacion;
-  @Output() programacionSeleccionadoGlobal = new EventEmitter<Programacion>();
+  programacionSeleccionado!: ProgramacionMatricula;
+  @Output() programacionSeleccionadoGlobal = new EventEmitter<ProgramacionMatricula>();
 
   //utiles para el autocomplete
   myControlProgramacion: FormControl = new FormControl();
@@ -79,7 +80,7 @@ export class ProgramacionAutocompleteComponent  implements OnInit {
     console.log("2.=");
     //console.log(this.programacionSeleccionadoGlobal);
   }
-  mostrarProgramacion(val : Programacion){
+  mostrarProgramacion(val : ProgramacionMatricula){
     return val ? `[ ${val.idProgMatricula}] ${val.codigoMatricula}` : val;
   }
 }

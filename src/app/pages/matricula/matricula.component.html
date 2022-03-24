@@ -1,6 +1,6 @@
 <div class="animate__animated animate__fadeIn animate__delay-0.7s">
 <mat-toolbar>Registrar Matrícula</mat-toolbar>
-<mat-stepper #stepper>
+<mat-stepper #stepper (click)="activarFormMatricula()">
     <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
       <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Seleccionar Programación</ng-template>
@@ -82,7 +82,7 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+    <mat-step [stepControl]="secondFormGroup" errorMessage="Se requiere Seleccionar Alumno.">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Seleccionar Alumno</ng-template>
         <mat-form-field appearance="fill" class="ocultar"><!--Ocultamos la cja de Texto que se evalua para continuar con la siguiente stepper-->
@@ -159,7 +159,7 @@
         <button mat-button (click)="stepper.reset()">Reset</button>
       </div>
       -->
-        <div class="container mt -4">
+        <div class="container mt -4" >
           <!--
           <fieldset disabled>
             <div class="form-group">
@@ -172,7 +172,7 @@
             </div>
           </fieldset>
           -->
-          <div class="row row-cols-1 row-cols-md-2 mb-2 text-center">
+          <div class="row row-cols-1 row-cols-md-2 mb-2 text-center" *ngIf="isShown">
             <div class="col">
               <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
@@ -218,25 +218,56 @@
               </div>
             </div>
           </div>
-          <div class="row row-cols-1 row-cols-md-1 mb-1 text-center">
+          <div class="row row-cols-1 row-cols-md-1 mb-1 text-center" *ngIf="isShown">
             <div class="col">
               <div class="card mb-4 rounded-3 shadow-sm">
                 <div class="card-header py-3">
-                  <h4 class="my-0 fw-normal"> Matrícula</h4>
+                  <h4 class="my-0 fw-normal"> Datos de Registro</h4>
                 </div>
                 <div class="card-body">
- 
-                  <ul class="list-unstyled mt-3 mb-4">
-                    <li><strong>Monto Matrícula: </strong>  {{programacionMatriculado.montoMatricula}}</li>
-                    <li><strong>Monto Pensión  : </strong>  {{programacionMatriculado.montoMensualidad}}</li>
-                    <li><strong>Monto Descuento: </strong> {{programacionMatriculado.montoMatricula - programacionMatriculado.montoMatricula}}</li>
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <small class="text-muted">Monto Matrícula:</small>
+                      </div>
+                      <span class="text-muted">S/. {{programacionMatriculado.montoMatricula}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                      <div class="text-danger">
+                        <small class="text-danger">Descuento:</small>
+                      </div>
+                      <span class="text-danger">S/. {{programacionMatriculado.montoMatricula - programacionMatriculado.montoMatricula}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                      <small class="text-muted">Total:</small>
+                      <strong>S/. {{programacionMatriculado.montoMatricula}}</strong>
+                    </li>
+                  </ul>
+                  <hr class="my-4">
+                  <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                      <div>
+                        <small class="text-muted">Monto Pensión:</small>
+                      </div>
+                      <span class="text-muted">S/. {{programacionMatriculado.montoMatricula}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                      <div class="text-danger">
+                        <small class="text-danger">Descuento:</small>
+                      </div>
+                      <span class="text-danger">S/. {{programacionMatriculado.montoMatricula - programacionMatriculado.montoMatricula}}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                      <small class="text-muted">Total:</small>
+                      <strong>S/.{{programacionMatriculado.montoMatricula}}</strong>
+                    </li>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
           <div  class="mat-form-field">
-            <button  mat-raised-button  color="primary" >Registrar Matricula</button>
+            <button  mat-raised-button  color="primary" (click)="operar()">Registrar Matricula</button>
           </div>
       </div>
     </mat-step>
