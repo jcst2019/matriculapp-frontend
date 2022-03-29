@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 
 import { MatriculaService } from '../../_service/matricula.service';
 import { ProgramacionMatricula } from '../../_model/programacionMatricula';
+import { CronogramaService } from '../../_service/cronograma.service';
 
 @Component({
   selector: 'app-matricula',
@@ -22,6 +23,7 @@ export class MatriculaComponent implements OnInit {
   firstFormGroup!: FormGroup;
   secondFormGroup!: FormGroup;
   isShown: boolean = false ; // hidden by default
+  descuentoMensualidad!:any;
   matricula:Matricula = new Matricula();
   programacion!: ProgramacionMatricula[];
   programacionMatriculado: ProgramacionMatricula = new ProgramacionMatricula; //Variable que tiene la programación seleccionado por el Usuario
@@ -39,7 +41,8 @@ export class MatriculaComponent implements OnInit {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private matriculaService : MatriculaService
+    private matriculaService : MatriculaService,
+    private cronogramaService : CronogramaService
     ) { }
 
   ngOnInit() {
@@ -141,11 +144,11 @@ export class MatriculaComponent implements OnInit {
     if(this.alumnoMatriculado.idAlumno > 0 && this.programacionMatriculado.idProgMatricula > 0){
       console.log(this.alumnoMatriculado)
       console.log(this.programacionMatriculado)
-      this.matricula.alumno = this.alumnoMatriculado;
-      this.matricula.programacionMatricula =this.programacionMatriculado;
-      this.matricula.fechaMatricula= moment().format('YYYY-MM-DDTHH:mm:ss');
-      this.matricula.estado = 0;
-      console.log(this.matricula)
+      //this.matricula.alumno = this.alumnoMatriculado;
+      //this.matricula.programacionMatricula =this.programacionMatriculado;
+      //this.matricula.fechaMatricula= moment().format('YYYY-MM-DDTHH:mm:ss');
+      //this.matricula.estado = 0;
+      //console.log('Descuento Mensulaidad 2:',this.descuentoMensualidad);
       this.matriculaService.registrar(this.matricula).subscribe(resp =>{
         console.log('Respuesta :',resp)
       });
@@ -155,10 +158,21 @@ export class MatriculaComponent implements OnInit {
     }     
   }
   activarFormMatricula(){
+
+ 
+
     console.log(this.alumnoMatriculado.idAlumno)
     console.log(this.programacionMatriculado.idProgMatricula)
     if(this.alumnoMatriculado.idAlumno > 0 && this.programacionMatriculado.idProgMatricula > 0){
-      this.isShown = true;
+        this.matricula.alumno = this.alumnoMatriculado;
+        this.matricula.programacionMatricula =this.programacionMatriculado;
+        this.matricula.fechaMatricula= moment().format('YYYY-MM-DDTHH:mm:ss');
+        this.matricula.estado = 0;
+        //El descuento del Alumno se calcula en el backend, por lo que obtendremos este monto desde el servicio de cronograma
+        //descuentoMensualidad => Variable que almacenará el descuento obtenido del servicio de Cronograma
+        this.descuentoMensualidad = this.cronogramaService.obtenerDescuento(this.matricula).subscribe(response=>this.descuentoMensualidad = response.dato );
+        console.log('Descuento Mensulaidad 1 :',this.descuentoMensualidad.respuesta);
+        this.isShown = true;
     }
     else{
       this.isShown = false;
