@@ -5,16 +5,18 @@ import { AlumnoEdicionComponent } from './pages/alumno/alumno-edicion/alumno-edi
 import { ApoderadoComponent } from './pages/apoderado/apoderado.component';
 import { ProgramacionComponent } from './pages/programacion/programacion.component';
 import { MatriculaComponent } from './pages/matricula/matricula.component';
+import { MatriculaRegistroComponent } from './pages/matricula/matricula-registro/matricula-registro.component';
 
 const routes: Routes = [
   { path: 'alumno', component: AlumnoComponent, children:[
     {path: 'nuevo', component: AlumnoEdicionComponent},
     {path: 'edicion/:id', component: AlumnoEdicionComponent}
   ] },
-  
+  { path: 'matricula', component: MatriculaComponent, children:[
+    {path: 'nuevo', component: MatriculaRegistroComponent}
+  ] },
   { path: 'apoderado', component:ApoderadoComponent},
-  { path: 'programacion', component:ProgramacionComponent},
-  { path: 'matricula', component:MatriculaComponent}
+  { path: 'programacion', component:ProgramacionComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -12,6 +12,15 @@ import Swal from 'sweetalert2';
 import { MatriculaService } from '../../_service/matricula.service';
 import { ProgramacionMatricula } from '../../_model/programacionMatricula';
 import { CronogramaService } from '../../_service/cronograma.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProgramacionDialogoComponent } from '../programacion/programacion-dialogo/programacion-dialogo.component';
+import { MatDialog } from '@angular/material/dialog';
+import { MatriculaRegistroComponent } from './matricula-registro/matricula-registro.component';
+import { CronogramaComponent } from '../cronograma/cronograma.component';
+import { Cronograma } from 'src/app/_model/cronograma';
+import { DetalleCronograma } from '../../_model/detalleCronograma';
+import {finalize} from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-matricula',
@@ -20,162 +29,83 @@ import { CronogramaService } from '../../_service/cronograma.service';
 })
 export class MatriculaComponent implements OnInit {
 
-  firstFormGroup!: FormGroup;
-  secondFormGroup!: FormGroup;
-  isShown: boolean = false ; // hidden by default
-  descuentoMensualidad!:any;
-  matricula:Matricula = new Matricula();
-  programacion!: ProgramacionMatricula[];
-  programacionMatriculado: ProgramacionMatricula = new ProgramacionMatricula; //Variable que tiene la programación seleccionado por el Usuario
-  alumno!: Alumno[];
-  alumnoMatriculado: Alumno = new Alumno; //Variable que tiene el alumno seleccionado por el Usuario
-  idProgMatricula!: number; //esta variable ya no se usa en este componente
-  idAlumno!:number;//esta variable ya no se usa en este componente
-  displayedColumns =['idProgMatricula','codigoMatricula','descripcion','estado','cantidadCuposTotal','cantidadCuposRegistrados','year','nivel','grado','seccion','montoMatricula','montoMensualidad'];
-  dataSource!: MatTableDataSource<ProgramacionMatricula>;
+  displayedColumns =['idMatricula','fechaMatricula','estado','alumno','programacion','constancia','cronograma','acciones'];
+  dataSource!: MatTableDataSource<Matricula>;
+  cronograma$!: Subscription;
+  cronograma!: Cronograma;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-
-  displayedColumnsAlumno =['idAlumno','nombre','apellidos','dni','genero','tipoDescuento','apoderados','fechaIngreso','fechaNacimiento'];
-  dataSourceAlumno!: MatTableDataSource<Alumno>;
-
   constructor(
-    private _formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
     private matriculaService : MatriculaService,
-    private cronogramaService : CronogramaService
+    private cronogramaService : CronogramaService,
+    private dialog: MatDialog,
     ) { }
 
+
   ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required],
+    this.matriculaService.matriculaCambio.subscribe(data=>{
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required],
+
+    this.matriculaService.listar().subscribe(data =>{
+      console.log(data);
+      //this.programacions =data;
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
-  }
-  procesarEvento(response: ProgramacionMatricula) {
-    console.log("Procesar Evento Programación");    
-    console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
-    this.programacion=[];//Inicializamos el valor en cero
-    this.programacion.push(response);
-    this.programacionMatriculado = this.programacion[0];
-    this.idProgMatricula = this.programacion[0].idProgMatricula;
 
-    console.log("Después de Asignar");  
-    console.log( this.programacion);
-    this.dataSource = new MatTableDataSource(this.programacion);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
   }
-  procesarEventoAlumno(response: Alumno) {
-    console.log("Procesar Evento Programación");    
-    console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
-    this.alumno=[];//Inicializamos el valor en cero
-    this.alumno.push(response);
-    this.alumnoMatriculado=this.alumno[0];
-    this.idAlumno = this.alumno[0].idAlumno;
-
-    console.log("Después de Asignar");  
-    console.log( this.alumno);
-    this.dataSourceAlumno = new MatTableDataSource(this.alumno);
-    this.dataSourceAlumno.paginator = this.paginator;
-    this.dataSourceAlumno.sort = this.sort;
-  }
-  retornarNivel( id:number):string {
-    
-    for (let registro of Globales.listaNivel){
-       if (registro.idNivel == id){
-            return registro.desNivel
-       }
-    }
-    return "";
-   }
-   
-   retornarEstado( id:number):string {
-      
-    for (let registro of Globales.listaEstadoProgramacion){
-       if (registro.idEstado == id){
-            return registro.desEstado
-       }
-    }
-    return "";
-   }
-   retornarGrado( id:number):string {
-      
-    for (let registro of Globales.listaGrado){
-       if (registro.idGrado == id){
-            return registro.desGrado
-       }
-    }
-    return "";
-   }
   
-   retornarSeccion( id:number):string {
-      
-    for (let registro of Globales.listaSeccion){
-       if (registro.idSeccion == id){
-            return registro.desSeccion
-       }
-    }
-    return "";
-   }
-   retornarGenero( id:number):string {
-    
-    for (let registro of Globales.listaGenero){
-       if (registro.idGenero == id){
-            return registro.desGenero
-       }
-    }
-    return "";
-   }
-   
-   retornarDescuento( id:number):string {
-      
-    for (let registro of Globales.listaTipoDescuento){
-       if (registro.idDescuento == id){
-            return registro.desTipoDescuento
-       }
-    }
-    return "";
-   }
-   operar(){
-    console.log(this.alumnoMatriculado.idAlumno)
-    console.log(this.programacionMatriculado.idProgMatricula)
-    if(this.alumnoMatriculado.idAlumno > 0 && this.programacionMatriculado.idProgMatricula > 0){
-      console.log(this.alumnoMatriculado)
-      console.log(this.programacionMatriculado)
-      //this.matricula.alumno = this.alumnoMatriculado;
-      //this.matricula.programacionMatricula =this.programacionMatriculado;
-      //this.matricula.fechaMatricula= moment().format('YYYY-MM-DDTHH:mm:ss');
-      //this.matricula.estado = 0;
-      //console.log('Descuento Mensulaidad 2:',this.descuentoMensualidad);
-      this.matriculaService.registrar(this.matricula).subscribe(resp =>{
-        console.log('Respuesta :',resp)
-      });
-      Swal.fire('Registrar Matrícula', 'Registro Exitoso!', 'success')
-    }else{
-          Swal.fire('Registrar Matricula', 'Falta llenar campos Obligatorios!', 'warning')
-    }     
+  filtrar (valor :string){
+
+    this.dataSource.filter = valor.trim().toLowerCase();
+
   }
-  activarFormMatricula(){
+   abrirDialogo(matricula?: Matricula){
+    
+
+   //this.cronogramaService.obtenerCronogramaPorMatricula(matricula!.idMatricula)
+   //   .pipe(finalize(() => this.abrirCronogramaComponent(this.cronograma)))
+   //   .subscribe(data => {
+   //     console.log("Cronograma", data);
+   //     this.cronograma = data;
+   //   });
+
+   //   this.cronograma$ =this.cronogramaService.obtenerCronogramaPorMatricula(matricula!.idMatricula).subscribe(
+   //     datos=>{
+   //       this.cronograma = datos;
+   //     }
+   //   );
+
+    console.log(this.cronograma);
+    this.dialog.open(CronogramaComponent, {
+      width: '950px',
+      data:matricula
+    });
+  }
+
+  
+  abrirCronogramaComponent(cronograma?: Cronograma) {
+
+    console.log(cronograma);
+    this.dialog.open(CronogramaComponent, {
+      width: '950px',
+      data:cronograma
+    });
+  }
+
+  eiminar(programacion?: Matricula) {
 
  
-
-    console.log(this.alumnoMatriculado.idAlumno)
-    console.log(this.programacionMatriculado.idProgMatricula)
-    if(this.alumnoMatriculado.idAlumno > 0 && this.programacionMatriculado.idProgMatricula > 0){
-        this.matricula.alumno = this.alumnoMatriculado;
-        this.matricula.programacionMatricula =this.programacionMatriculado;
-        this.matricula.fechaMatricula= moment().format('YYYY-MM-DDTHH:mm:ss');
-        this.matricula.estado = 0;
-        //El descuento del Alumno se calcula en el backend, por lo que obtendremos este monto desde el servicio de cronograma
-        //descuentoMensualidad => Variable que almacenará el descuento obtenido del servicio de Cronograma
-        this.descuentoMensualidad = this.cronogramaService.obtenerDescuento(this.matricula).subscribe(response=>this.descuentoMensualidad = response.dato );
-        console.log('Descuento Mensulaidad 1 :',this.descuentoMensualidad.respuesta);
-        this.isShown = true;
-    }
-    else{
-      this.isShown = false;
-    }
   }
+   operar(){
+    console.log("Regresar")
+    this.router.navigate(['nuevo'], {relativeTo: this.route});
+  }
+
 }

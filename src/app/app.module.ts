@@ -21,6 +21,9 @@ import { MatriculaComponent } from './pages/matricula/matricula.component';
 import { ProgramacionDialogoComponent } from './pages/programacion/programacion-dialogo/programacion-dialogo.component';
 import { ProgramacionAutocompleteComponent } from './pages/programacion/programacion-autocomplete/programacion-autocomplete.component';
 import { AlumnoAutocompleteComponent } from './pages/alumno/alumno-autocomplete/alumno-autocomplete.component';
+import { MatriculaRegistroComponent } from './pages/matricula/matricula-registro/matricula-registro.component';
+import { CronogramaComponent } from './pages/cronograma/cronograma.component';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { AlumnoAutocompleteComponent } from './pages/alumno/alumno-autocomplete/
     MatriculaComponent,
     ProgramacionDialogoComponent,
     ProgramacionAutocompleteComponent,
-    AlumnoAutocompleteComponent
+    AlumnoAutocompleteComponent,
+    MatriculaRegistroComponent,
+    CronogramaComponent
   ],
   imports: [
     BrowserModule,

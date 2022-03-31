@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Cronograma } from '../_model/cronograma';
 import { Matricula } from '../_model/matricula';
 import { Respuesta } from '../_model/respuesta';
 
@@ -21,5 +22,12 @@ export class CronogramaService {
     return this.http.post<Respuesta>(`${this.url}/getdescuentos`, matricula);
 
   }
-  
+
+  obtenerCronogramaPorMatricula(id: number){
+
+    console.log("Recibiendo ID Matricula :", id);
+    return this.http.get<Cronograma>(`${this.url}/listardetalle/matricula/${id}`);
+
+  }
+
 }
