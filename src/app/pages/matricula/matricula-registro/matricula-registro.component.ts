@@ -168,7 +168,7 @@ export class MatriculaRegistroComponent  implements OnInit {
     }else{
           Swal.fire('Registrar Matricula', 'Falta llenar campos Obligatorios!', 'warning')
     }
-      
+    this.router.navigate(['matricula']); 
   }
   
   regresarComponentePrincipal(){

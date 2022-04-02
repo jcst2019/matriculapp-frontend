@@ -6,6 +6,7 @@ import { ApoderadoComponent } from './pages/apoderado/apoderado.component';
 import { ProgramacionComponent } from './pages/programacion/programacion.component';
 import { MatriculaComponent } from './pages/matricula/matricula.component';
 import { MatriculaRegistroComponent } from './pages/matricula/matricula-registro/matricula-registro.component';
+import { PagoComponent } from './pages/pago/pago.component';
 
 const routes: Routes = [
   { path: 'alumno', component: AlumnoComponent, children:[
@@ -16,7 +17,9 @@ const routes: Routes = [
     {path: 'nuevo', component: MatriculaRegistroComponent}
   ] },
   { path: 'apoderado', component:ApoderadoComponent},
-  { path: 'programacion', component:ProgramacionComponent}
+  { path: 'programacion', component:ProgramacionComponent},
+  { path: 'pago', component:PagoComponent}
+ 
 ];
 
 @NgModule({

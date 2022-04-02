@@ -18,7 +18,14 @@ export class AlumnoService extends GenericService<Alumno>{
     super(
       http,`${environment.HOST}/api/alumnos`
     );
-  } 
+  }
+
+  listarAlumnosPorMatricula(id: number){
+
+    console.log("Recibiendo ID Matricula :", id);
+    return this.http.get<Alumno[]>(`${this.url}/listar/programacion/${id}`);
+
+  }
   
   /*
   listar(){

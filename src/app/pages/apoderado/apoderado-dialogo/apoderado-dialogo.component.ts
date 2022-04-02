@@ -106,7 +106,7 @@ export class ApoderadoDialogoComponent implements OnInit {
                 this.apoderadoService.apoderadoCambio.next(data);
                 //this.apoderadoService.mensajeCambio.next('SE REGISTRO');
               });
-              Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
+              Swal.fire('Registrar Apoderado', 'Registro Exitoso!', 'success')
               this.dialogRef.close();
            }
           }

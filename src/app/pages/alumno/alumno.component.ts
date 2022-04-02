@@ -20,7 +20,7 @@ import Swal from 'sweetalert2';
 })
 export class AlumnoComponent implements OnInit {
 
-  //alumnos: Alumno[]= [];
+  alumnos: Array<Alumno>= [];
   displayedColumns =['idAlumno','nombre','apellidos','dni','genero','tipoDescuento','apoderados','fechaIngreso','fechaNacimiento','acciones'];
   dataSource!: MatTableDataSource<Alumno>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -54,6 +54,9 @@ export class AlumnoComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log('Data Alumnos', data)
+      this.alumnos = data;
+      console.log('Data Alumnos2', this.alumnos[1].apoderados)
     });
 
   }

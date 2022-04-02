@@ -21,6 +21,7 @@ import { Cronograma } from 'src/app/_model/cronograma';
 import { DetalleCronograma } from '../../_model/detalleCronograma';
 import {finalize} from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
+import { ProgramacionDetalleComponent } from '../programacion/programacion-detalle/programacion-detalle.component';
 
 @Component({
   selector: 'app-matricula',
@@ -88,7 +89,13 @@ export class MatriculaComponent implements OnInit {
       data:matricula
     });
   }
-
+  abrirDetalleProgramacionDialogo(matricula?: Matricula){
+    console.log(this.cronograma);
+    this.dialog.open(ProgramacionDetalleComponent, {
+      width: '950px',
+      data:matricula
+    });
+  }
   
   abrirCronogramaComponent(cronograma?: Cronograma) {
 
@@ -106,6 +113,18 @@ export class MatriculaComponent implements OnInit {
    operar(){
     console.log("Regresar")
     this.router.navigate(['nuevo'], {relativeTo: this.route});
+  }
+  descargarConstanciaMatricula(matricula?: Matricula){
+    this.matriculaService.generarConstanciaMatricula(matricula!.idMatricula).subscribe(data => {
+      const url = window.URL.createObjectURL(data);
+      //console.log(url);
+      const a = document.createElement('a');
+      a.setAttribute('style', 'display:none');
+      document.body.appendChild(a);
+      a.href = url;
+      a.download = 'archivo.pdf';
+      a.click();
+    });
   }
 
 }

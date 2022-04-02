@@ -17,4 +17,11 @@ export class MatriculaService  extends GenericService<Matricula>{
   constructor( http: HttpClient) {
     super(http,`${environment.HOST}/api/matriculas`);
    }
+
+   generarConstanciaMatricula(id: number){
+    return this.http.get(`${this.url}/generarConstanciaMatricula/${id}`, {
+      responseType: 'blob'
+    });
+  }
+
 }

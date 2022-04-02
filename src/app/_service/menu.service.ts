@@ -100,7 +100,7 @@ export class MenuService implements OnInit {
     m = new Menu();
     m.label = "Pagos";
     m.icon = "payment";
-    m.link = "/pagos";    
+    m.link = "/pago";    
     menus.push(m);
 
     m = new Menu();

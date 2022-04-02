@@ -41,12 +41,17 @@
 
     <ng-container matColumnDef="programacion">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Programacion </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.programacionMatricula.codigoMatricula}}</mat-cell>
-  </ng-container>
+      <!--<mat-cell *matCellDef="let row" (click)="abrirDialogo(row)" class="link-primary"> {{row.programacionMatricula.codigoMatricula}}</mat-cell>-->
+      <mat-cell *matCellDef="let row">
+        <button mat-stroked-button color="primary" (click)="abrirDetalleProgramacionDialogo(row)" >
+          {{row.programacionMatricula.codigoMatricula}}
+        </button>
+      </mat-cell>
+    </ng-container>
   <ng-container matColumnDef="constancia">
     <mat-header-cell *matHeaderCellDef mat-sort-header> Constancia </mat-header-cell>
     <mat-cell *matCellDef="let row">
-      <button mat-stroked-button color="primary" (click)="abrirDialogo(row)" >Ver Constancia</button>
+      <button mat-stroked-button color="primary" (click)="descargarConstanciaMatricula(row)" >Ver Constancia</button>
     </mat-cell>
   </ng-container>
 

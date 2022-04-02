@@ -23,6 +23,8 @@ import { ProgramacionAutocompleteComponent } from './pages/programacion/programa
 import { AlumnoAutocompleteComponent } from './pages/alumno/alumno-autocomplete/alumno-autocomplete.component';
 import { MatriculaRegistroComponent } from './pages/matricula/matricula-registro/matricula-registro.component';
 import { CronogramaComponent } from './pages/cronograma/cronograma.component';
+import { PagoComponent } from './pages/pago/pago.component';
+import { ProgramacionDetalleComponent } from './pages/programacion/programacion-detalle/programacion-detalle.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { CronogramaComponent } from './pages/cronograma/cronograma.component';
     ProgramacionAutocompleteComponent,
     AlumnoAutocompleteComponent,
     MatriculaRegistroComponent,
-    CronogramaComponent
+    CronogramaComponent,
+    PagoComponent,
+    ProgramacionDetalleComponent
   ],
   imports: [
     BrowserModule,

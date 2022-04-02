@@ -104,7 +104,7 @@ public static listaGrado:Grado[]=[
   },
   {
     idGrado:4,
-    desGrado:"Cuerto",
+    desGrado:"Cuarto",
     abreviatura:"4to" 
   },
   {
