@@ -7,6 +7,7 @@ import { ProgramacionComponent } from './pages/programacion/programacion.compone
 import { MatriculaComponent } from './pages/matricula/matricula.component';
 import { MatriculaRegistroComponent } from './pages/matricula/matricula-registro/matricula-registro.component';
 import { PagoComponent } from './pages/pago/pago.component';
+import { PagoRegistroComponent } from './pages/pago/pago-registro/pago-registro.component';
 
 const routes: Routes = [
   { path: 'alumno', component: AlumnoComponent, children:[
@@ -18,7 +19,9 @@ const routes: Routes = [
   ] },
   { path: 'apoderado', component:ApoderadoComponent},
   { path: 'programacion', component:ProgramacionComponent},
-  { path: 'pago', component:PagoComponent}
+  { path: 'pago', component:PagoComponent,children:[
+    {path: 'nuevo', component: PagoRegistroComponent}
+  ]}
  
 ];
 

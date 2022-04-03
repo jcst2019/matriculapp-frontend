@@ -1,1 +1,107 @@
-<p>pago works!</p>
+<!--
+<ul>
+    <li *ngFor="let al of alumnos" >{{al.nombre}}</li>
+</ul>
+-->
+
+<router-outlet></router-outlet>
+
+<mat-toolbar>Pagos</mat-toolbar>
+
+<div class=".example-container">
+<div class="animate__animated animate__fadeIn animate__delay-0.7s">
+<div class="example-header" >
+    <mat-form-field>
+      <!--<input matInput (keyup)="filtrar($event.target.value)" placeholder="Buscar paciente">-->
+      <input matInput (keyup)="filtrar($any($event.target).value)" placeholder="Buscar Pagos">
+    </mat-form-field>
+  </div>
+  
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="idPago">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.idPago}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="descripcion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.descripcion}}</mat-cell>
+      </ng-container>
+
+    <ng-container matColumnDef="fechaPago">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Pago </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.fechaPago|date:"dd-MM-yyyy"}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{retornarEstadoDescuento(row.estado)}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="programacion">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Código Prgramación </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.cronograma.matricula.programacionMatricula.codigoMatricula}} </mat-cell>
+    </ng-container>
+
+     <ng-container matColumnDef="alumno">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Alumno </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.cronograma.matricula.alumno.nombre}} {{row.cronograma.matricula.alumno.apellidos}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mtoPagar">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Pagar </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.cronograma.detalleCronograma[row.idDetalleCronograma].montoPagar}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mtoPago">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Pagado </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.cronograma.detalleCronograma[row.idDetalleCronograma].montoPagado}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="periodo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Periodo</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.cronograma.detalleCronograma[row.idDetalleCronograma].periodo}}</mat-cell>
+    </ng-container>
+
+  <ng-container matColumnDef="constancia">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Constancia </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-stroked-button color="primary" (click)="descargarConstanciaMatricula(row)" >Ver Constancia</button>
+    </mat-cell>
+  </ng-container>
+
+    <ng-container matColumnDef="cronograma">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cronograma </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-stroked-button color="primary" (click)="abrirDialogo(row)" >Ver Cronograma</button>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <!--<button mat-button color="primary" [routerLink]="['edicion',row.idAlumno]" ><mat-icon>ballot</mat-icon></button>-->
+        <button mat-raised-button color="accent" (click)="abrirDialogo(row)" >Dar de Baja</button>
+        <!--<button mat-button color="accent" (click)="eliminar(row.idAlumno)"><mat-icon>delete</mat-icon></button>-->
+      </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+  
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
+
+  <button mat-fab color="accent" (click)="operar()" style="float: right; margin-right: 20px">
+    <mat-icon>queue</mat-icon>
+  </button>
+</div>
+</div>
+
+
+  
+
+

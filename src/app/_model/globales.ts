@@ -159,4 +159,15 @@ public static listaEstadoProgramacion:Estado[]=[
     desEstado:"Anulado"
   }
 ];
+
+public static listaEstadoPago:Estado[]=[
+  {
+    idEstado:1,
+    desEstado:"Registrado"   
+  },
+  {
+    idEstado:2,
+    desEstado:"Anulado"
+  }
+];
 }

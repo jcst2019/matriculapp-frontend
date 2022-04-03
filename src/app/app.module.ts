@@ -25,6 +25,7 @@ import { MatriculaRegistroComponent } from './pages/matricula/matricula-registro
 import { CronogramaComponent } from './pages/cronograma/cronograma.component';
 import { PagoComponent } from './pages/pago/pago.component';
 import { ProgramacionDetalleComponent } from './pages/programacion/programacion-detalle/programacion-detalle.component';
+import { PagoRegistroComponent } from './pages/pago/pago-registro/pago-registro.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ProgramacionDetalleComponent } from './pages/programacion/programacion-
     MatriculaRegistroComponent,
     CronogramaComponent,
     PagoComponent,
-    ProgramacionDetalleComponent
+    ProgramacionDetalleComponent,
+    PagoRegistroComponent
   ],
   imports: [
     BrowserModule,
