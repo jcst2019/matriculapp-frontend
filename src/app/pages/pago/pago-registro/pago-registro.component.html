@@ -1,6 +1,6 @@
 <div class="animate__animated animate__fadeIn animate__delay-0.7s">
   <mat-toolbar>Registrar Pago</mat-toolbar>
-  <mat-stepper #stepper (click)="activarFormMatricula()">
+  <mat-stepper #stepper (click)="activarFormPago()">
       <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Seleccionar Alumno</ng-template>
@@ -74,69 +74,47 @@
          </div>
         </form>
       </mat-step>
-      <mat-step [stepControl]="secondFormGroup" errorMessage="Se requiere Seleccionar Alumno.">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Seleccionar Periodo a Pagar</ng-template>
-          <mat-form-field appearance="fill" class="ocultar"><!--Ocultamos la cja de Texto que se evalua para continuar con la siguiente stepper-->
-            <mat-label>ID Alumno</mat-label>
-            <input matInput placeholder="ID Alumno" formControlName="secondCtrl"
-                   required [(ngModel)]="idAlumno">
-          </mat-form-field>
-          <app-alumno-autocomplete (alumnoSeleccionadoGlobal)="procesarEventoAlumno($event)">
-          </app-alumno-autocomplete>
-          <mat-table [dataSource]="dataSourceAlumno" matSort>
-            <ng-container matColumnDef="idAlumno">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.idAlumno}} </mat-cell>
-            </ng-container>
-          
-            <ng-container matColumnDef="nombre">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.nombre}}</mat-cell>
-            </ng-container>
-          
-            <ng-container matColumnDef="apellidos">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
-              <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
-            </ng-container>
-        
-            <ng-container matColumnDef="dni">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.dni}} </mat-cell>
-            </ng-container>
-        
-            <ng-container matColumnDef="genero">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Género </mat-header-cell>
-              <mat-cell *matCellDef="let row">  {{retornarGenero(row.genero)}} </mat-cell>
-          </ng-container>
-        
-            <ng-container matColumnDef="tipoDescuento">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> TipoDescuento </mat-header-cell>
-                <mat-cell *matCellDef="let row">  {{retornarDescuento(row.tipoDescuento)}}</mat-cell>
-            </ng-container>
-        
-            <ng-container matColumnDef="apoderados">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Apoderado </mat-header-cell>
-              <mat-cell *matCellDef="let row">  {{row.apoderados[0].nombre}} {{row.apoderados[0].apellidos}}</mat-cell>
-              <!--Si row.apoderados[0].apellidos vuene "Cannot read properties of undefine" entonces se cae el aplictaivo -->
-              <!--Pero la premisa indica que siempre un alumno tiene un apoderado -->
-          </ng-container>
-        
-            <ng-container matColumnDef="fechaIngreso">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Ingreso </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.fechaIngreso|date:"dd-MM-yyyy"}} </mat-cell>
-            </ng-container>
-        
-            <ng-container matColumnDef="fechaNacimiento">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Nacimiento </mat-header-cell>
-                <mat-cell *matCellDef="let row"> {{row.fechaNacimiento|date:"dd-MM-yyyy"}} </mat-cell>
-            </ng-container>
-          
-            <mat-header-row *matHeaderRowDef="displayedColumnsAlumno"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumnsAlumno;">
-          
-            </mat-row>
-          </mat-table>
+      <mat-step [stepControl]="secondFormGroup" errorMessage="Se requiere Periodo a Pagar.">
+        <ng-template matStepLabel>Seleccionar Periodo a Pagar</ng-template>
+        <form [formGroup]="secondFormGroup" class="border p-3 form" >
+          <div class = "tp-container">
+              <mat-form-field appearance = "outline">
+                <mat-label >Código de Matricula</mat-label>
+                <mat-select  placeholder="Selecionar Matrícula"  [(ngModel)]="idCronogramaSeleccionado" (selectionChange)="cargarPeriodoPagar(idCronogramaSeleccionado)"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option *ngFor="let p of listaCronograma" [value]="p.idCronograma">{{p.matricula.programacionMatricula.codigoMatricula}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance = "outline">
+                <mat-label >Periodo a Cancelar</mat-label>
+                <mat-select placeholder="Selecionar Periodo"  [(ngModel)]="idDetalleCronogramaSeleccionado" (selectionChange)="mostrarSeleccion(idDetalleCronogramaSeleccionado)" 
+                  [ngModelOptions]="{standalone: true}">
+                  <mat-option *ngFor="let p of listaDetalleCronograma" [value]="p.idDetalleCronograma">{{p.periodo }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance = "standard">
+                <mat-label >Monto a Pagar</mat-label>
+                <input matInput placeholder = "Registrar Monto a Pagar"  [(ngModel)]="montoRegistrado" (input)="mostrarMontoRegistrado(montoRegistrado)"
+                [ngModelOptions]="{standalone: true}" type="number" value=0 min="1" pattern="^[0-9]+">  
+             </mat-form-field>
+             <mat-form-field appearance = "standard">
+              <mat-label >Descripción</mat-label>
+              <input matInput placeholder = "Registrar Descripción del Pago"  [(ngModel)]="descripcionRegistrada" (input)="mostrarDescripcionRegistrado(descripcionRegistrada)"
+              [ngModelOptions]="{standalone: true}" >  
+           </mat-form-field>
+         </div>
+          <!--Se comenta porque usaremos bostrap5 para este formulario-->
+          <!--Se coloco  [ngModelOptions]="{standalone: true} porque No reconoce la referencia a ngModel -->
+          <!--
+           <mat-select placeholder="Selecionar Matrícula"  [(ngModel)]="idMatriculaSeleccionado" (selectionChange)="cargarPeriodoPagar(idMatriculaSeleccionado)"
+           [ngModelOptions]="{standalone: true}">
+             <mat-option *ngFor="let p of listaCronograma" [value]="p.matricula.idMatricula">{{p.matricula.programacionMatricula.codigoMatricula}}</mat-option>
+           </mat-select>
+           <mat-select placeholder="Selecionar Periodo"  [(ngModel)]="idDetalleCronogramaSeleccionado" 
+           [ngModelOptions]="{standalone: true}">
+            <mat-option *ngFor="let p of listaDetalleCronograma" [value]="p.idDetalleCronograma">{{p.periodo }}</mat-option>
+          </mat-select>
+           -->
           <div  class="mat-form-field">
             <button  mat-raised-button matStepperPrevious color="primary" >Anterior</button>
             <button  mat-raised-button matStepperNext color="primary" >Siguiente</button>
@@ -173,27 +151,6 @@
               <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
                   <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal">Programación</h4>
-                  </div>
-                  <div class="card-body">
-                    <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">[ {{programacionMatriculado.idProgMatricula}}]</small>
-                      {{programacionMatriculado.codigoMatricula}}
-                    </h1>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li><strong>Descripción: </strong>  {{programacionMatriculado.descripcion}}</li>
-                      <li><strong>Año        : </strong>  {{programacionMatriculado.year}}</li>
-                      <li><strong>Nivel      : </strong>  {{retornarNivel(programacionMatriculado.nivel)}}</li>
-                      <li><strong>Grado      : </strong>  {{retornarGrado(programacionMatriculado.grado)}}</li>
-                      <li><strong>Sección    : </strong>  {{retornarSeccion(programacionMatriculado.seccion)}}</li>
-                      <li><strong>Vacantes   : </strong>  {{programacionMatriculado.cantidadCuposTotal}}</li>
-                      <li><strong>Matriculados: </strong>  {{programacionMatriculado.cantidadCuposRegistrados}}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="card mb-4 rounded-3 shadow-sm">
-                  <div class="card-header py-3">
                     <h4 class="my-0 fw-normal">Alumno</h4>
                   </div>
                   <div class="card-body">
@@ -214,57 +171,30 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-1 mb-1 text-center" *ngIf="isShown">
               <div class="col">
                 <div class="card mb-4 rounded-3 shadow-sm">
                   <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal"> Datos de Registro</h4>
+                    <h4 class="my-0 fw-normal">Detalle Pago</h4>
                   </div>
                   <div class="card-body">
-                    <ul class="list-group mb-3">
-                      <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                          <small class="text-muted">Monto Matrícula:</small>
-                        </div>
-                        <span class="text-muted">S/. {{programacionMatriculado.montoMatricula}}</span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-danger">
-                          <small class="text-danger">Descuento:</small>
-                        </div>
-                        <span class="text-danger">S/. {{programacionMatriculado.montoMatricula - programacionMatriculado.montoMatricula}}</span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between">
-                        <small class="text-muted">Total:</small>
-                        <strong>S/. {{programacionMatriculado.montoMatricula}}</strong>
-                      </li>
-                    </ul>
-                    <hr class="my-4">
-                    <ul class="list-group mb-3">
-                      <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                          <small class="text-muted">Monto Pensión:</small>
-                        </div>
-                        <span class="text-muted">S/. {{programacionMatriculado.montoMensualidad}}</span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between bg-light">
-                        <div class="text-danger">
-                          <small class="text-danger">Descuento:</small>
-                        </div>
-                        <span class="text-danger">S/. {{descuentoMensualidad}}</span>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between">
-                        <small class="text-muted">Total:</small>
-                        <strong>S/.{{programacionMatriculado.montoMensualidad - descuentoMensualidad}} </strong>
-                      </li>
+                    <h1 class="card-title pricing-card-title"><small class="text-muted fw-light">[ {{pago.cronograma.matricula.programacionMatricula.idProgMatricula}}]</small>
+                      {{pago.cronograma.matricula.programacionMatricula.codigoMatricula}}
+                    </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li><strong>Fecha de Pago   : </strong>  {{pago.fechaPago|date:"dd-MM-yyyy"}}</li>
+                      <li><strong>Monto a Pagar   : </strong> S/. {{pago.mtoPago| number: '0.2-2'}}</li>
+                      <li><strong>Monto Deuda     : </strong> S/. {{pago.cronograma.detalleCronograma[retornarPosicionDetalle(pago.idDetalleCronograma)].montoPagar| number: '0.2-2'}}</li>
+                      <li><strong>Monto Pagado    : </strong> S/. {{pago.cronograma.detalleCronograma[retornarPosicionDetalle(pago.idDetalleCronograma)].montoPagado| number: '0.2-2'}}</li>
+                      <li><strong>Periodo         : </strong>  {{pago.cronograma.detalleCronograma[retornarPosicionDetalle(pago.idDetalleCronograma)].periodo}}</li>
+                      <li><strong>Descripción Pago: </strong>  {{pago.descripcion}}</li>
+                      <li><strong>Fecha Cronograma: </strong>  {{pago.cronograma.fechaCronograma|date:"dd-MM-yyyy"}}</li>
                     </ul>
                   </div>
                 </div>
               </div>
             </div>
             <div  class="mat-form-field">
-              <button  mat-raised-button  color="primary" (click)="operar()">Registrar Matricula</button>
+              <button  mat-raised-button  color="primary" (click)="operar()">Registrar Pago</button>
             </div>
             <div class="d-flex flex-row justify-content-center alig-items-center">
               <button mat-fab color="accent" (click)="regresarComponentePrincipal()" >

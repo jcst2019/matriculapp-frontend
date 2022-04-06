@@ -163,12 +163,12 @@ export class MatriculaRegistroComponent  implements OnInit {
          })).subscribe( data => {
             this.matriculaService.matriculaCambio.next(data);
         });
-      this.router.navigate(['matricula']);   
       Swal.fire('Registrar Matrícula', 'Registro Exitoso!', 'success')
+      this.router.navigate(['matricula']);   
     }else{
           Swal.fire('Registrar Matricula', 'Falta llenar campos Obligatorios!', 'warning')
     }
-    this.router.navigate(['matricula']); 
+    //this.router.navigate(['matricula']); 
   }
   
   regresarComponentePrincipal(){

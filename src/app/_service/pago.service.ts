@@ -12,7 +12,7 @@ import { Pago } from '../_model/pago';
 export class PagoService   extends GenericService<Pago>{
 
 
-  matriculaCambio = new Subject<Matricula[]>();
+  pagoCambio = new Subject<Pago[]>();
   mensajeCambio = new Subject<string>();
 
   constructor( http: HttpClient) {

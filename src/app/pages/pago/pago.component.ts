@@ -32,7 +32,7 @@ import { Pago } from 'src/app/_model/pago';
 })
 export class PagoComponent implements OnInit {
 
-  displayedColumns =['idPago','descripcion','fechaPago','estado','programacion','alumno','mtoPagar','mtoPago','periodo','constancia'];
+  displayedColumns =['idPago','descripcion','fechaPago','programacion','alumno','estado','mtoPagar','mtoPago','mtoPagoTotal','periodo','constancia'];
   pagos!:Array<Pago>;
   dataSource!: MatTableDataSource<Pago>;
   cronograma$!: Subscription;
@@ -51,6 +51,13 @@ export class PagoComponent implements OnInit {
 
   ngOnInit() {
 
+    this.pagoService.pagoCambio.subscribe(data=>{
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.pagos= data;
+    });
+    
     this.pagoService.listar().subscribe(data =>{
       console.log(data);
       //this.programacions =data;
@@ -135,6 +142,24 @@ export class PagoComponent implements OnInit {
        }
     }
     return "";
+   }
+
+   retornarPosicionDetalle(idCronograma:number,idDetalleCronograma:number):number{
+    //console.log('retornarPosicionDetalle');
+    //console.log('idCronograma',idCronograma);
+    //console.log('Pagos',this.pagos);
+
+    const pagoFiltrado = this.pagos.filter( data => data.cronograma.idCronograma === idCronograma);
+    const index = pagoFiltrado[0].cronograma.detalleCronograma.findIndex(
+        data => data.idDetalleCronograma === idDetalleCronograma
+      );
+    /*
+    this.pagos.filter( data => data.cronograma.idCronograma === idCronograma).forEach(function (value) {
+      if(value.idDetalleCronograma = idDetalleCronograma){
+        console.log(value.idDetalleCronograma);
+      }
+    });*/
+    return index;
    }
 
 }

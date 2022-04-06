@@ -34,11 +34,6 @@
         <mat-cell *matCellDef="let row"> {{row.fechaPago|date:"dd-MM-yyyy"}}</mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="estado">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{retornarEstadoDescuento(row.estado)}}</mat-cell>
-    </ng-container>
-
     <ng-container matColumnDef="programacion">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Código Prgramación </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{row.cronograma.matricula.programacionMatricula.codigoMatricula}} </mat-cell>
@@ -49,19 +44,29 @@
         <mat-cell *matCellDef="let row"> {{row.cronograma.matricula.alumno.nombre}} {{row.cronograma.matricula.alumno.apellidos}}</mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="estado">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{retornarEstadoDescuento(row.estado)}}</mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef="mtoPagar">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Pagar </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.cronograma.detalleCronograma[row.idDetalleCronograma].montoPagar}}</mat-cell>
+        <mat-cell *matCellDef="let row">S/. {{row.cronograma.detalleCronograma[retornarPosicionDetalle(row.cronograma.idCronograma,row.idDetalleCronograma)].montoPagar| number: '0.2-2'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="mtoPago">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Pagado </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.cronograma.detalleCronograma[row.idDetalleCronograma].montoPagado}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Pagado </mat-header-cell>
+      <mat-cell *matCellDef="let row">S/. {{row.mtoPago| number: '0.2-2'}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="mtoPagoTotal">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Monto Pagado Acumulado </mat-header-cell>
+        <mat-cell *matCellDef="let row">S/. {{row.cronograma.detalleCronograma[retornarPosicionDetalle(row.cronograma.idCronograma,row.idDetalleCronograma)].montoPagado| number: '0.2-2'}}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="periodo">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Periodo</mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.cronograma.detalleCronograma[row.idDetalleCronograma].periodo}}</mat-cell>
+        <mat-cell *matCellDef="let row"> {{row.cronograma.detalleCronograma[retornarPosicionDetalle(row.cronograma.idCronograma,row.idDetalleCronograma)].periodo}}</mat-cell>
     </ng-container>
 
   <ng-container matColumnDef="constancia">

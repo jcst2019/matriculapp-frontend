@@ -122,7 +122,7 @@ export class MatriculaComponent implements OnInit {
       a.setAttribute('style', 'display:none');
       document.body.appendChild(a);
       a.href = url;
-      a.download = 'archivo.pdf';
+      a.download = 'constancia_matricula.pdf';
       a.click();
     });
   }

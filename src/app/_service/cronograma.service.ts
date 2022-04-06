@@ -30,4 +30,11 @@ export class CronogramaService {
 
   }
 
+  obtenerCronogramaPorAlumno(id: number){
+
+    console.log("Recibiendo ID Alumno :", id);
+    return this.http.get<Cronograma[]>(`${this.url}/listardetalle/alumno/${id}`);
+
+  }
+
 }

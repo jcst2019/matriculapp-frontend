@@ -1,11 +1,10 @@
 .mat-form-field {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 10vh;
-    padding: 1%;
-  }
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 5vh;
+  padding: 0.05%;
+}
   .ocultar {
     display:none;
   }
@@ -19,3 +18,10 @@
     color:rgb(0, 17, 255);
     font-weight: bold;
 }
+
+.md-select {
+  border-radius: 10px !important;
+  border: 1px solid gray !important;
+  padding: 8px;
+}
+
