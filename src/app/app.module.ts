@@ -26,7 +26,13 @@ import { CronogramaComponent } from './pages/cronograma/cronograma.component';
 import { PagoComponent } from './pages/pago/pago.component';
 import { ProgramacionDetalleComponent } from './pages/programacion/programacion-detalle/programacion-detalle.component';
 import { PagoRegistroComponent } from './pages/pago/pago-registro/pago-registro.component';
+import { LoginComponent } from './pages/login/login.component';
+import { environment } from 'src/environments/environment';
+import { JwtHelperService,JwtModule  } from "@auth0/angular-jwt";
 
+export function tokenGetter() {
+  return sessionStorage.getItem(environment.TOKEN_NAME);
+}
 
 @NgModule({
   declarations: [
@@ -48,7 +54,8 @@ import { PagoRegistroComponent } from './pages/pago/pago-registro/pago-registro.
     CronogramaComponent,
     PagoComponent,
     ProgramacionDetalleComponent,
-    PagoRegistroComponent
+    PagoRegistroComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,14 @@ import { PagoRegistroComponent } from './pages/pago/pago-registro/pago-registro.
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    NgMaterialMultilevelMenuModule   
+    NgMaterialMultilevelMenuModule,
+    JwtModule.forRoot({
+      config:{
+       tokenGetter: tokenGetter,
+       allowedDomains: [environment.HOST_SIN_HTTP],
+       disallowedRoutes: [environment.RUTA_OAUTH]
+      }
+    })   
   ],
   providers: [MultilevelMenuService],
   bootstrap: [AppComponent]

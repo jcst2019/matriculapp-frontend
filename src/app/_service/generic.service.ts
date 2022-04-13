@@ -12,6 +12,7 @@ export class GenericService<T> {
   ) { }
 
   listar(){
+
     return this.http.get<T[]>(`${this.url}/listar`);
   }
 

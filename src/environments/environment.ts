@@ -4,7 +4,13 @@
 
 export const environment = {
   production: false,
-  HOST:'http://localhost:8080'
+  HOST:'http://localhost:8080',
+  HOST_SIN_HTTP:'localhost:8080',
+  RUTA_OAUTH:'http://localhost:8080/oauth/token',
+  TOKEN_AUTH_USERNAME: 'matriculapp',
+  TOKEN_AUTH_PASSWORD: 'clave1985',
+  TOKEN_NAME: 'access_token',
+  REINTENTOS: 2,
 };
 
 /*
