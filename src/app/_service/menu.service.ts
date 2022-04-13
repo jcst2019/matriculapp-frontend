@@ -1,16 +1,51 @@
 import { SubMenu } from './../_model/submenu';
 import { Menu } from './../_model/menu';
 import { Injectable, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { GenericService } from './generic.service';
+import { Subject } from 'rxjs';
+import { MenuBD } from '../_model/menuBD';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MenuService implements OnInit {
+export class MenuService extends GenericService<Menu>{
+  
+  private menuCambio = new Subject<MenuBD[]>();//Usa Programación Reactiva
 
-  constructor() { }
+  constructor( http: HttpClient) {
+    super(http,`${environment.HOST}/api/menus`);
+   }
 
   ngOnInit(){
         
+  }
+
+  getMenuCambio(){
+    return this.menuCambio.asObservable();
+  }
+
+  setMenuCambio(menus : MenuBD[]){
+    console.log('setMenuCambio OK',menus)
+    this.menuCambio.next(menus);
+    console.log(this.menuCambio);
+  }
+
+  listarAll(){
+    let token = sessionStorage.getItem(environment.TOKEN_NAME);
+
+    return this.http.get<MenuBD[]>(`${this.url}/listar`, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+  listarPorUsuario(nombre: string){
+    let token = sessionStorage.getItem(environment.TOKEN_NAME);
+
+    return this.http.post<MenuBD[]>(`${this.url}/usuario`, nombre, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${token}`).set('Content-Type', 'application/json')
+    });
   }
 
   getMenu(){

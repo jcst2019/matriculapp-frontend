@@ -3,6 +3,9 @@ import { MenuService } from './../_service/menu.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '../../../node_modules/@angular/router';
 import { MatSidenav } from '@angular/material/sidenav';
+import { MenuBD } from '../_model/menuBD';
+import { SubMenuService } from '../_service/submenu.service';
+import { SubMenu } from '../_model/submenu';
 
 
 @Component({
@@ -22,14 +25,75 @@ export class NavComponent implements OnInit{
   };*/
 
   @ViewChild('drawer') drawer!: MatSidenav;
-  appitems!: Menu[];
+  menuTemporal:Array<Menu>=[];
+  subMenusTemporal:Array<SubMenu>=[];
+  appitems: Menu[] = [];
+  subMenus: SubMenu[] = []; 
+  menusBD:Array<MenuBD>=[];
 
-  constructor(private menuService: MenuService, private router: Router) { }
+  constructor(private menuService: MenuService, 
+              private subMenuService :SubMenuService,
+              private router: Router
+              ) { }
 
   ngOnInit(){
+    //Para el BUG de que se pierde el menú cuando se actualiza la página, podría intentar de guardar esta lista en el sesión Storage
     //Reemplazar por la llamada al service para suscribirse al observable
-    this.appitems = this.menuService.getMenu();
-    console.log(this.appitems);
+    this.menuService.getMenuCambio().subscribe( data=>{
+      this.menusBD = data
+      console.log('Data Observable',data);
+      console.log('Data MenuBD',this.menusBD);
+      for (let item of this.menusBD) {
+        let iten:Menu = new Menu();
+        iten.icon = item.icono;
+        //iten.items = Submenú
+        iten.label = item.nombre;
+        iten.link = item.url;
+
+        //Trabajar con los Submenus
+        
+        let listaSubmenu:Array<SubMenu> = [];
+        this.subMenuService.listarPorIdMatricula(item.idMenu).subscribe(data => {
+          if(data.length>0){
+            console.log('Ingresoooo');
+            this.subMenus=data;
+            for (let itemSubmenu of data) {
+                 let itenSubmenu:SubMenu = new SubMenu();
+                 itenSubmenu.icon = itemSubmenu.icon;
+                 itenSubmenu.label = itemSubmenu.label;
+                 itenSubmenu.link = itemSubmenu.link;
+                 this.subMenusTemporal.push(itenSubmenu);
+            }
+            this.subMenus = this.subMenusTemporal;
+            iten.items = this.subMenus;
+          }
+          //console.log('Item Agregado',iten);
+          //this.menuTemporal.push(iten);
+          //console.log('menuTemporal',this.menuTemporal);
+        });
+        console.log('Item Agregado',iten);
+        this.menuTemporal.push(iten);
+        console.log('menuTemporal',this.menuTemporal);
+      }
+      this.appitems =this.menuTemporal; 
+      console.log('APPITEMS',this.appitems);
+    });
+    /*
+    Dentro del Foreach No hay referencia para this. 
+    this.menusBD.forEach(function (value) {
+        let iten:Menu = new Menu();
+        iten.icon = value.icono;
+        //iten.items = Submenú
+        iten.label = value.nombre;
+        iten.link = value.url;
+      })*/
+
+    //Esto es cuando es estático y NO leyendo de la BD
+    //this.appitems = this.menuService.getMenu();
+    console.log('Lista del Antigua',this.menuService.getMenu());
+    console.log('Lista del Menu',this.appitems); //No pinta en el console log porque este se ejecuta antes de que se termine de llenar appitems
+    //this.appitems = this.menuService.getMenu();
+    //console.log('appitems = ',this.appitems)
   }
 
   selectedItem(e: any){

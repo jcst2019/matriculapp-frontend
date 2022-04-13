@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Menu } from './_model/menu';
+import { MenuService } from './_service/menu.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'matriculapp-frontend';
+
+  constructor(
+   
+    ){}
+
 }

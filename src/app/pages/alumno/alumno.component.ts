@@ -56,7 +56,7 @@ export class AlumnoComponent implements OnInit {
       this.dataSource.sort = this.sort;
       console.log('Data Alumnos', data)
       this.alumnos = data;
-      console.log('Data Alumnos2', this.alumnos[1].apoderados)
+      //console.log('Data Alumnos2', this.alumnos[1].apoderados)
     });
 
   }

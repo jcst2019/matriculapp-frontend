@@ -4,6 +4,5 @@ export class Menu {
     label!: string;
     link!: string;
     icon!: string;
-    items!: SubMenu[];
-    hidden!: boolean;    
+    items!: SubMenu[];  
 }

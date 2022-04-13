@@ -43,10 +43,11 @@ export class LoginComponent implements OnInit {
 
       let decodedToken = helper.decodeToken(data.access_token);
 
-      //this.menuService.listarPorUsuario(decodedToken.user_name).subscribe(data => {
-      //  this.menuService.setMenuCambio(data);
-      //  this.router.navigate(['paciente']);
-      //});
+      this.menuService.listarPorUsuario(decodedToken.user_name).subscribe(data => {
+        console.log("DATA Menu BD",data);
+        this.menuService.setMenuCambio(data);
+        this.router.navigate(['alumno']);
+      });
 
       
     })
