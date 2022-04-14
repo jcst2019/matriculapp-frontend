@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container class="sidenav-container" >
     <mat-sidenav #drawer class="sidenav">
       <mat-toolbar color="primary">Menu
         <button mat-icon-button (click)="drawer.toggle()">
@@ -10,7 +10,7 @@
       </ng-material-multilevel-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-      <mat-toolbar color="primary">
+      <mat-toolbar color="primary" *ngIf="loginService.estaLogueado()">
   
         <button mat-icon-button (click)="drawer.toggle()">
           <mat-icon *ngIf="!drawer.opened">menu</mat-icon>
@@ -26,7 +26,7 @@
              <mat-icon>account_box</mat-icon>
              <span>Mi Perfil</span>
          </button>
-         <button mat-menu-item >
+         <button mat-menu-item (click)="loginService.cerrarSesion()">
              <mat-icon>exit_to_app</mat-icon>
              <span>Cerrar Sesión</span>
          </button>

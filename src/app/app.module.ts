@@ -29,6 +29,8 @@ import { PagoRegistroComponent } from './pages/pago/pago-registro/pago-registro.
 import { LoginComponent } from './pages/login/login.component';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService,JwtModule  } from "@auth0/angular-jwt";
+import { Not403Component } from './pages/not403/not403.component';
+import { Not404Component } from './pages/not404/not404.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -55,7 +57,9 @@ export function tokenGetter() {
     PagoComponent,
     ProgramacionDetalleComponent,
     PagoRegistroComponent,
-    LoginComponent
+    LoginComponent,
+    Not403Component,
+    Not404Component
   ],
   imports: [
     BrowserModule,

@@ -29,6 +29,7 @@ export class LoginService {
   }
 
   cerrarSesion(){
+
     let token = sessionStorage.getItem(environment.TOKEN_NAME);
 
     if(token){

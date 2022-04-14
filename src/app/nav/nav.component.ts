@@ -6,6 +6,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { MenuBD } from '../_model/menuBD';
 import { SubMenuService } from '../_service/submenu.service';
 import { SubMenu } from '../_model/submenu';
+import { LoginService } from '../_service/login.service';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class NavComponent implements OnInit{
 
   constructor(private menuService: MenuService, 
               private subMenuService :SubMenuService,
+              public loginService:LoginService,//SE coloco público para que se pueda usar directamente en el HTML 
               private router: Router
               ) { }
 
