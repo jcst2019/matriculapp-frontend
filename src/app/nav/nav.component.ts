@@ -55,8 +55,9 @@ export class NavComponent implements OnInit{
         let listaSubmenu:Array<SubMenu> = [];
         this.subMenuService.listarPorIdMatricula(item.idMenu).subscribe(data => {
           if(data.length>0){
-            console.log('Ingresoooo');
+            console.log('Ingresoooo ',data);
             this.subMenus=data;
+            this.subMenusTemporal=[];
             for (let itemSubmenu of data) {
                  let itenSubmenu:SubMenu = new SubMenu();
                  itenSubmenu.icon = itemSubmenu.icon;
