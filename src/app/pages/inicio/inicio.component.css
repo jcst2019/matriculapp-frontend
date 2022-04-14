@@ -1,0 +1,32 @@
+.centrador{
+    position: relative;
+    width: 800px;
+    height: 800px;
+  }
+
+  .imagen{
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 600px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    opacity: 0.5;
+}
+.sample-div {
+    position: relative;
+  }
+  .transpa-bg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100;
+    opacity: 0.5;
+  }
+  .content {
+    position: relative;
+    z-index: 10;
+  }

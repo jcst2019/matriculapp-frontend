@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AlumnoComponent } from './pages/alumno/alumno.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { AlumnoEdicionComponent } from './pages/alumno/alumno-edicion/alumno-edicion.component';
@@ -31,6 +31,8 @@ import { environment } from 'src/environments/environment';
 import { JwtHelperService,JwtModule  } from "@auth0/angular-jwt";
 import { Not403Component } from './pages/not403/not403.component';
 import { Not404Component } from './pages/not404/not404.component';
+import { ServerErrorsInterceptor } from './_shared/server-errors.interceptor';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -59,7 +61,8 @@ export function tokenGetter() {
     PagoRegistroComponent,
     LoginComponent,
     Not403Component,
-    Not404Component
+    Not404Component,
+    InicioComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,11 @@ export function tokenGetter() {
       }
     })   
   ],
-  providers: [MultilevelMenuService],
+  providers: [{
+              provide: HTTP_INTERCEPTORS,
+              useClass: ServerErrorsInterceptor,
+              multi: true,
+               },MultilevelMenuService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

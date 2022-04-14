@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.menuService.listarPorUsuario(decodedToken.user_name).subscribe(data => {
         console.log("DATA Menu BD",data);
         this.menuService.setMenuCambio(data);
-        this.router.navigate(['alumno']);
+        this.router.navigate(['inicio']);
       });
 
       

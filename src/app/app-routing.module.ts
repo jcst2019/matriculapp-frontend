@@ -12,8 +12,11 @@ import { LoginComponent } from './pages/login/login.component';
 import { GuardService } from './_service/guard.service';
 import { Not403Component } from './pages/not403/not403.component';
 import { Not404Component } from './pages/not404/not404.component';
+import { InicioComponent } from './pages/inicio/inicio.component';
 
 const routes: Routes = [
+  
+  { path: 'inicio', component:InicioComponent},
   { path: 'alumno', component: AlumnoComponent, children:[
       {path: 'nuevo', component: AlumnoEdicionComponent},
       {path: 'edicion/:id', component: AlumnoEdicionComponent}
