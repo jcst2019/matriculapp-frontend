@@ -26,12 +26,14 @@ const routes: Routes = [
       {path: 'nuevo', component: MatriculaRegistroComponent}
    ],canActivate:[GuardService]  
   },
+  {path: 'matriculanuevo', component: MatriculaRegistroComponent,canActivate:[GuardService]},//Para no usar la RUTA Hija
   { path: 'apoderado', component:ApoderadoComponent,canActivate:[GuardService] },
   { path: 'programacion', component:ProgramacionComponent,canActivate:[GuardService] },
   { path: 'pago', component:PagoComponent,children:[
       {path: 'nuevo', component: PagoRegistroComponent}
    ],canActivate:[GuardService] 
   },
+  {path: 'pagonuevo', component: PagoRegistroComponent,canActivate:[GuardService]},//Para no usar la RUTA Hija
   { path: 'login', component: LoginComponent },
   { path: 'not-403', component: Not403Component },
   { path: 'not-404', component: Not404Component },

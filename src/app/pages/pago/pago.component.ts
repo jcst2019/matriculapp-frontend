@@ -119,7 +119,9 @@ export class PagoComponent implements OnInit {
   }
    operar(){
     console.log("Regresar")
-    this.router.navigate(['nuevo'], {relativeTo: this.route});
+    //this.router.navigate(['nuevo'], {relativeTo: this.route});
+    this.router.navigate(['pagonuevo']);
+    
   }
   descargarConstanciaMatricula(matricula?: Matricula){
     this.matriculaService.generarConstanciaMatricula(matricula!.idMatricula).subscribe(data => {

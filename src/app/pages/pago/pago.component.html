@@ -6,7 +6,17 @@
 
 <router-outlet></router-outlet>
 
-<mat-toolbar>Pagos</mat-toolbar>
+<br>
+<div class="row">
+  <div class="col-lg-6" style="text-align: right;  padding: 8px 24px 0;">
+   <H1><strong>Pagos</strong></H1>
+  </div>
+    <div class="col-lg-6" style="text-align: right;  padding: 8px 24px 0;">
+      <button mat-raised-button color="accent"  (click)="operar()">AGREGAR</button>
+    </div>
+</div>
+
+<!--<mat-toolbar>Pagos</mat-toolbar>-->
 
 <div class=".example-container">
 <div class="animate__animated animate__fadeIn animate__delay-0.7s">
@@ -100,9 +110,10 @@
 
   <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" ></mat-paginator>
 
-  <button mat-fab color="accent" (click)="operar()" style="float: right; margin-right: 20px">
+  <!--<button mat-fab color="accent" (click)="operar()" style="float: right; margin-right: 20px">
     <mat-icon>queue</mat-icon>
   </button>
+  -->
 </div>
 </div>
 

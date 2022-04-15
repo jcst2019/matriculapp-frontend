@@ -112,7 +112,8 @@ export class MatriculaComponent implements OnInit {
   }
    operar(){
     console.log("Regresar")
-    this.router.navigate(['nuevo'], {relativeTo: this.route});
+    //this.router.navigate(['nuevo'], {relativeTo: this.route});
+    this.router.navigate(['matriculanuevo']);
   }
   descargarConstanciaMatricula(matricula?: Matricula){
     this.matriculaService.generarConstanciaMatricula(matricula!.idMatricula).subscribe(data => {
