@@ -24,6 +24,7 @@
     "@angular/router": "~13.0.0",
     "@auth0/angular-jwt": "^5.0.2",
     "animate.css": "^4.1.1",
+    "chart.js": "^3.7.1",
     "express": "^4.17.1",
     "moment": "^2.29.1",
     "ng-material-multilevel-menu": "^5.5.3",

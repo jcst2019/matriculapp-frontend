@@ -1,0 +1,12 @@
+<mat-toolbar>Reporte de Pagos</mat-toolbar>
+
+<button mat-button color="primary" (click)="cambiar('line')">Lineal</button>
+<button mat-button color="primary" (click)="cambiar('bar')">Barras</button>
+<button mat-button color="primary" (click)="cambiar('doughnut')">Rosquilla</button>
+<button mat-button color="primary" (click)="cambiar('radar')">Radar</button>
+<button mat-button color="primary" (click)="cambiar('pie')">Pie</button>
+<div [hidden] = "!chart" style="width : 40%; padding: 8px 24px 0;">
+    <canvas id="canvas" >
+        {{chart}}
+    </canvas>
+</div>
