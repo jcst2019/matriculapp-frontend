@@ -65,7 +65,7 @@ export class ReporteComponent implements OnInit {
           labels: fechas,
           datasets: [
             {
-              label: 'Cantidad',
+              label: 'Monto S/.',
               data: cantidades,
               borderColor: "#3cba9f",
               backgroundColor: [
