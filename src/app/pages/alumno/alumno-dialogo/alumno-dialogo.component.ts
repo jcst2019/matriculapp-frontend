@@ -27,6 +27,7 @@ export class AlumnoDialogoComponent implements OnInit {
                 apoderado_text:false};
 
   alumno!: Alumno;
+  tituloVentana: string ='';
   tipoDescuento!:Descuento[];
   tipoGenero!:Genero[];
   idTipoGeneroSeleccionado!:number;
@@ -43,6 +44,12 @@ export class AlumnoDialogoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
+    if (this.data.idAlumno>0){
+      this.tituloVentana = "MODIFICAR ALUMNO";
+    }else{
+      this.tituloVentana = "REGISTRAR ALUMNO";
+    }
+   
     this.alumno = new Alumno();
     this.alumno.idAlumno= this.data.idAlumno;
     //Debes de inicializar tus arreglos. Por defecto están como undefined y este no contiene la propiedad push.

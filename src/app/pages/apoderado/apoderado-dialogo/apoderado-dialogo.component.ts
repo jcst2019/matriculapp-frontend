@@ -19,6 +19,7 @@ export class ApoderadoDialogoComponent implements OnInit {
               apellido_text: false,apellido_count:false, 
               dni_text: false,dni_count:false};
   apoderado!: Apoderado;
+  tituloVentana: string ='';
   parentesto!:Parentesco[];
   idParentescoSeleccionado!:number;
   fechaSeleccionada: Date = new Date();
@@ -32,6 +33,11 @@ export class ApoderadoDialogoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
+    if (this.data.idApoderado>0){
+      this.tituloVentana = "MODIFICAR APODERADO";
+    }else{
+      this.tituloVentana = "REGISTRAR APODERADO";
+    }
     this.apoderado = new Apoderado();
     this.apoderado.idApoderado= this.data.idApoderado;
     this.apoderado.nombre= this.data.nombre;

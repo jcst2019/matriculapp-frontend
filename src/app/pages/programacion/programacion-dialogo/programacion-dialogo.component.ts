@@ -23,6 +23,7 @@ export class ProgramacionDialogoComponent implements OnInit {
               apellido_text: false,apellido_count:false, 
               dni_text: false,dni_count:false};
   programacion!: ProgramacionMatricula;
+  tituloVentana: string ='';
   parentesto!:Parentesco[];
   nivel!:Nivel[];
   grado!:Grado[];
@@ -44,6 +45,11 @@ export class ProgramacionDialogoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data);
+    if (this.data.idProgMatricula>0){
+      this.tituloVentana = "MODIFICAR PROGRAMACIÓN ACADEMICA";
+    }else{
+      this.tituloVentana = "REGISTRAR PROGRAMACIÓN ACADEMICA";
+    }
     this.programacion = new ProgramacionMatricula();
     this.programacion.idProgMatricula= this.data.idProgMatricula;
     this.programacion.codigoMatricula= this.data.codigoMatricula;
