@@ -34,6 +34,8 @@ import { Not404Component } from './pages/not404/not404.component';
 import { ServerErrorsInterceptor } from './_shared/server-errors.interceptor';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
+import { ConsultaComponent } from './pages/consulta/consulta.component';
+import { ConsultaAlumnoDetalleComponent } from './pages/consulta/consulta-alumno-detalle/consulta-alumno-detalle.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -64,7 +66,9 @@ export function tokenGetter() {
     Not403Component,
     Not404Component,
     InicioComponent,
-    ReporteComponent
+    ReporteComponent,
+    ConsultaComponent,
+    ConsultaAlumnoDetalleComponent
   ],
   imports: [
     BrowserModule,

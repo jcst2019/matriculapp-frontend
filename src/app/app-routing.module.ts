@@ -14,6 +14,7 @@ import { Not403Component } from './pages/not403/not403.component';
 import { Not404Component } from './pages/not404/not404.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
+import { ConsultaComponent } from './pages/consulta/consulta.component';
 
 const routes: Routes = [
   
@@ -36,6 +37,7 @@ const routes: Routes = [
   },
   {path: 'pagonuevo', component: PagoRegistroComponent,canActivate:[GuardService]},//Para no usar la RUTA Hija
   {path: 'reporte', component: ReporteComponent,canActivate:[GuardService]},
+  {path: 'consulta', component: ConsultaComponent,canActivate:[GuardService]},
   { path: 'login', component: LoginComponent },
   { path: 'not-403', component: Not403Component },
   { path: 'not-404', component: Not404Component },

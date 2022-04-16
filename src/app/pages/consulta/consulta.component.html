@@ -1,0 +1,329 @@
+<mat-toolbar>{{tituloConsulta}}</mat-toolbar>
+<div style="  padding: 10px 24px 0;">
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Tipo de Consulta:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <select _ngcontent-yqb-c57="" formcontrolname="cbValorTipoRecurso" id="cbValorTipoRecurso"
+                        [(ngModel)]="idTipoConsulta"(change) ="validarSeleccion(t.value)" [ngModelOptions]="{standalone: true}"
+                         class="form-control form-control-sm ng-untouched ng-pristine ng-valid" #t>
+
+                            <option _ngcontent-yqb-c57="" value="0"> Seleccione</option>
+                            <option _ngcontent-yqb-c57="" value="1"> Alumnos</option>
+                            <option _ngcontent-yqb-c57="" value="2"> Apoderados</option>
+                            <option _ngcontent-yqb-c57="" value="3"> Programación Academica</option>
+                            <option _ngcontent-yqb-c57="" value="4"> Matrícula</option>
+                            <option _ngcontent-yqb-c57="" value="5"> Pagos</option>
+                            <option _ngcontent-yqb-c57="" value="6"> Deuda</option>
+                        </select>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                    </div>
+                    <!--
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150"> Flitrar </button>
+                    </div>
+                    -->
+                </div>
+           </form>
+  </div>
+  </div>
+  </div>
+  <div style="  padding: 10px 24px 0;" [hidden]="!filtros[1]">
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Nombre:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtNombre" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="70"
+                        [(ngModel)]="filtroAlumno.nombre" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Apellido:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtApellido" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="70"
+                        [(ngModel)]="filtroAlumno.apellido" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Documento:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtTipoDocumento" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="70"
+                        [(ngModel)]="filtroAlumno.documento" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Tipo Descuento:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <select _ngcontent-yqb-c57="" formcontrolname="cbTipoDescuento" id="cbTipoDescuento"
+                        [(ngModel)]="filtroAlumno.tipoDescuento"(change) ="seleccionarTipoDescuento(filtroAlumno.tipoDescuento)" [ngModelOptions]="{standalone: true}"
+                         class="form-control form-control-sm ng-untouched ng-pristine ng-valid" #t>
+                            <option _ngcontent-yqb-c57="" *ngFor="let p of tipoDescuento" [value]="p.idDescuento"> 
+                                {{p.desTipoDescuento }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha de Nacimiento:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker1" placeholder="Fecha de Nacimiento" [max]="maxFecha"
+                            [(ngModel)]="filtroAlumno.fechaNacimiento" (dateChange)="cambieFecha($event)" [ngModelOptions]="{standalone: true}">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha de Ingreso:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker2" placeholder="Fecha de Ingreso" [max]="maxFecha"
+                            [(ngModel)]="filtroAlumno.fechaIngreso" (dateChange)="cambieFecha($event)" [ngModelOptions]="{standalone: true}">
+                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                            <mat-datepicker #picker2></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-3">
+                    </div>
+                    <div _ngcontent-yqb-c57=""   style="text-align: center;">
+                        <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150" (click)="abrirConsultaAlumnoDialogo()"> 
+                            Buscar 
+                        </button>
+                    </div>
+                </div>
+           </form>
+       </div>
+     </div>
+  </div> 
+  <div style="  padding: 10px 24px 0;" [hidden]="!filtros[2]">
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                  <div _ngcontent-yqb-c57="" class="form-group row">
+                      <div _ngcontent-yqb-c57="" class="col-md-2">
+                      <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha del Recurso2:</label>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="col-sm-4">
+                      <div _ngcontent-yqb-c57="" class="input-group">
+                              <input _ngcontent-yqb-c57="" formcontrolname="dfechaRecurso" pinputtext="" maxlength="10" id="dfechaRecurso" ngbdatepicker="" placeholder="DD/MM/AAAA" class="form-control form-control-sm ng-untouched ng-pristine ng-valid"><!---->
+                              <div _ngcontent-yqb-c57="" class="input-group-append">
+                                  <button _ngcontent-yqb-c57="" type="button" class="form-control form-control-sm"><i _ngcontent-yqb-c57="" class="fa fa-calendar"></i>
+                                  </button>
+                              </div>
+                      </div>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="form-group row">
+                          <div _ngcontent-yqb-c57="" class="col-md-2"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-4"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-3"></div><div _ngcontent-yqb-c57="" class="col-md-3">
+                              <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150"> Buscar </button>
+                          </div>
+                      </div>
+                  </div>
+            </form>
+       </div>
+     </div>
+  </div> 
+  <div style="  padding: 10px 24px 0;" [hidden]="!filtros[3]">
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                  <div _ngcontent-yqb-c57="" class="form-group row">
+                      <div _ngcontent-yqb-c57="" class="col-md-2">
+                      <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha del Recurso3:</label>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="col-sm-4">
+                      <div _ngcontent-yqb-c57="" class="input-group">
+                              <input _ngcontent-yqb-c57="" formcontrolname="dfechaRecurso" pinputtext="" maxlength="10" id="dfechaRecurso" ngbdatepicker="" placeholder="DD/MM/AAAA" class="form-control form-control-sm ng-untouched ng-pristine ng-valid"><!---->
+                              <div _ngcontent-yqb-c57="" class="input-group-append">
+                                  <button _ngcontent-yqb-c57="" type="button" class="form-control form-control-sm"><i _ngcontent-yqb-c57="" class="fa fa-calendar"></i>
+                                  </button>
+                              </div>
+                      </div>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="form-group row">
+                          <div _ngcontent-yqb-c57="" class="col-md-2"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-4"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-3"></div><div _ngcontent-yqb-c57="" class="col-md-3">
+                              <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150"> Buscar </button>
+                          </div>
+                      </div>
+                  </div>
+            </form>
+       </div>
+     </div>
+  </div> 
+  <div style="  padding: 10px 24px 0;" [hidden]="!filtros[4]">
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                  <div _ngcontent-yqb-c57="" class="form-group row">
+                      <div _ngcontent-yqb-c57="" class="col-md-2">
+                      <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha del Recurso4:</label>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="col-sm-4">
+                      <div _ngcontent-yqb-c57="" class="input-group">
+                              <input _ngcontent-yqb-c57="" formcontrolname="dfechaRecurso" pinputtext="" maxlength="10" id="dfechaRecurso" ngbdatepicker="" placeholder="DD/MM/AAAA" class="form-control form-control-sm ng-untouched ng-pristine ng-valid"><!---->
+                              <div _ngcontent-yqb-c57="" class="input-group-append">
+                                  <button _ngcontent-yqb-c57="" type="button" class="form-control form-control-sm"><i _ngcontent-yqb-c57="" class="fa fa-calendar"></i>
+                                  </button>
+                              </div>
+                      </div>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="form-group row">
+                          <div _ngcontent-yqb-c57="" class="col-md-2"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-4"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-3"></div><div _ngcontent-yqb-c57="" class="col-md-3">
+                              <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150"> Buscar </button>
+                          </div>
+                      </div>
+                  </div>
+            </form>
+       </div>
+     </div>
+  </div> 
+  <div style="  padding: 10px 24px 0;" [hidden]="!filtros[6]">
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                  <div _ngcontent-yqb-c57="" class="form-group row">
+                      <div _ngcontent-yqb-c57="" class="col-md-2">
+                      <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha del Recurso6:</label>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="col-sm-4">
+                      <div _ngcontent-yqb-c57="" class="input-group">
+                              <input _ngcontent-yqb-c57="" formcontrolname="dfechaRecurso" pinputtext="" maxlength="10" id="dfechaRecurso" ngbdatepicker="" placeholder="DD/MM/AAAA" class="form-control form-control-sm ng-untouched ng-pristine ng-valid"><!---->
+                              <div _ngcontent-yqb-c57="" class="input-group-append">
+                                  <button _ngcontent-yqb-c57="" type="button" class="form-control form-control-sm"><i _ngcontent-yqb-c57="" class="fa fa-calendar"></i>
+                                  </button>
+                              </div>
+                      </div>
+                      </div>
+                      <div _ngcontent-yqb-c57="" class="form-group row">
+                          <div _ngcontent-yqb-c57="" class="col-md-2"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-4"></div>
+                          <div _ngcontent-yqb-c57="" class="col-md-3"></div><div _ngcontent-yqb-c57="" class="col-md-3">
+                              <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150"> Buscar </button>
+                          </div>
+                      </div>
+                  </div>
+            </form>
+       </div>
+     </div>
+  </div> 
+<div style="  padding: 10px 24px 0;" [hidden]="!filtros[5]">
+  <div _ngcontent-yqb-c57="" class="card border-primary" >
+      <div _ngcontent-yqb-c57="" class="card-body">
+          <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+              <div _ngcontent-yqb-c57="" class="row mt-20">
+                  <div _ngcontent-yqb-c57="" class="col-md-12 text-left">
+                      <div _ngcontent-yqb-c57="" class="form-group row">
+                          <div _ngcontent-yqb-c57="" class="col-md-2">
+                              <label _ngcontent-yqb-c57="" for="tipoDocumento" class="form-control-sm">Tipo de Documento1:</label>
+                          </div>
+                          <div _ngcontent-yqb-c57="" class="col-md-4">
+                          <select _ngcontent-yqb-c57="" formcontrolname="cbValorTipoDocumento" class="form-control form-control-sm ng-pristine ng-valid ng-touched">
+                              <option _ngcontent-yqb-c57="" value="" disabled="">Seleccionar</option>
+                              <option _ngcontent-yqb-c57="" value="01"> DNI</option>
+                              <option _ngcontent-yqb-c57="" value="06"> RUC</option>
+                              <option _ngcontent-yqb-c57="" value="07"> PASAPORTE</option>
+                              <option _ngcontent-yqb-c57="" value="04"> CE</option>
+                              <option _ngcontent-yqb-c57="" value="00"> PTP</option>
+                              <option _ngcontent-yqb-c57="" value="10"> No domiciliado</option>
+                         </select>
+                        </div>
+                        <div _ngcontent-yqb-c57="" class="col-md-2">
+                            <label _ngcontent-yqb-c57="" for="nroDocumento" class="form-control-sm">Número de Documento:</label>
+                        </div>
+                        <div _ngcontent-yqb-c57="" class="col-md-4">
+                            <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtNumDoc" appstringutils="" pinputtext="" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="11">
+                        </div>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="form-group row">
+                        <div _ngcontent-yqb-c57="" class="col-md-2">
+                            <label _ngcontent-yqb-c57="" for="nroDocUsuario" class="form-control-sm">Nombre o Razón Social:
+                            </label>
+                        </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-10">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtRazSocial" appstringutils="" class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="40">
+                    </div>
+                </div>
+                <hr _ngcontent-yqb-c57="">
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Materia del Recurso:
+                        </label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-10">
+                        <div _ngcontent-yqb-c57="" class="custom-control custom-radio custom-control-inline col-md-12 text-left">
+                            <input _ngcontent-yqb-c57="" type="radio" formcontrolname="materiaRecursoTributo" id="materiaRecursoTributo" name="materiaRecursoTributo" value="true" class="custom-control-input ng-untouched ng-pristine ng-valid">
+                            <label _ngcontent-yqb-c57="" for="materiaRecursoTributo" class="custom-control-label">Tributos
+                            </label>
+                        </div>
+                        <div _ngcontent-yqb-c57="" class="custom-control custom-radio custom-control-inline col-md-12 text-left">
+                            <input _ngcontent-yqb-c57="" type="radio" formcontrolname="materiaRecursoTributo" id="materiaRecursoAduana" name="materiaRecursoTributo" value="false" class="custom-control-input ng-untouched ng-pristine ng-valid">
+                            <label _ngcontent-yqb-c57="" for="materiaRecursoAduana" class="custom-control-label">Aduanas
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            <div _ngcontent-yqb-c57="" class="form-group row">
+                <div _ngcontent-yqb-c57="" class="col-md-2">
+                    <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Tipo del Recurso:</label>
+                </div>
+                <div _ngcontent-yqb-c57="" class="col-md-4">
+                    <select _ngcontent-yqb-c57="" formcontrolname="cbValorTipoRecurso" id="cbValorTipoRecurso" class="form-control form-control-sm ng-untouched ng-pristine ng-valid">
+                        <option _ngcontent-yqb-c57="" value=""> Seleccione</option>
+                        <option _ngcontent-yqb-c57="" value="1"> RECLAMACIÓN</option>
+                        <option _ngcontent-yqb-c57="" value="2"> APELACIÓN</option>
+                        <option _ngcontent-yqb-c57="" value="3"> QUEJA</option>
+                    </select>
+                </div>
+            </div>
+            <div _ngcontent-yqb-c57="" class="form-group row"><div _ngcontent-yqb-c57="" class="col-md-2">
+                <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha del Recurso:</label>
+            </div>
+            <div _ngcontent-yqb-c57="" class="col-sm-4">
+                <div _ngcontent-yqb-c57="" class="input-group">
+                    <input _ngcontent-yqb-c57="" formcontrolname="dfechaRecurso" pinputtext="" maxlength="10" id="dfechaRecurso" ngbdatepicker="" placeholder="DD/MM/AAAA" class="form-control form-control-sm ng-untouched ng-pristine ng-valid"><!---->
+                    <div _ngcontent-yqb-c57="" class="input-group-append">
+                        <button _ngcontent-yqb-c57="" type="button" class="form-control form-control-sm"><i _ngcontent-yqb-c57="" class="fa fa-calendar"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div _ngcontent-yqb-c57="" class="form-group row"><div _ngcontent-yqb-c57="" class="col-md-2"></div>
+        <div _ngcontent-yqb-c57="" class="col-md-4"></div>
+        <div _ngcontent-yqb-c57="" class="col-md-3"></div><div _ngcontent-yqb-c57="" class="col-md-3">
+            <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150"> Buscar </button>
+        </div>
+    </div>
+</div>
+
+</div>
+</form>
+</div>
+</div>
+
