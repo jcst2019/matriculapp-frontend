@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Alumno } from 'src/app/_model/alumno';
 import { Descuento } from 'src/app/_model/descuento';
 import { Globales } from 'src/app/_model/globales';
+import { ProgramacionMatricula } from 'src/app/_model/programacionMatricula';
 import { ConsultaAlumnoDetalleComponent } from './consulta-alumno-detalle/consulta-alumno-detalle.component';
 
 interface ConsultaAlumnoDTO {
@@ -34,6 +36,10 @@ export class ConsultaComponent implements OnInit {
   tipoDescuento!:Descuento[];
   fechaIngresoSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
+  alumno!: Alumno[];
+  alumnoMatriculado: Alumno = new Alumno; //Variable que tiene el alumno seleccionado por el Usuario
+  programacion!: ProgramacionMatricula[];
+  programacionMatriculado: ProgramacionMatricula = new ProgramacionMatricula; //Variable que tiene la programación seleccionado por el Usuario
   filtroAlumno:ConsultaAlumnoDTO= {
                                     nombre: "",
                                     apellido: "",
@@ -129,6 +135,28 @@ export class ConsultaComponent implements OnInit {
   }
   seleccionarTipoDescuento(tipo:number){
     console.log('Tipo Descuento',tipo)
+  }
+  procesarEventoAlumno(response: Alumno) {
+    console.log("Procesar Evento Alumno");    
+    console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
+    this.alumno=[];//Inicializamos el valor en cero
+    this.alumno.push(response);
+    this.alumnoMatriculado=this.alumno[0];
+
+    console.log("Después de Asignar");  
+    console.log( this.alumno);
+
+  }
+  procesarEventoProgramacion(response: ProgramacionMatricula) {
+    console.log("Procesar Evento Programación");    
+    console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
+    this.programacion=[];//Inicializamos el valor en cero
+    this.programacion.push(response);
+    this.programacionMatriculado = this.programacion[0];
+
+    console.log("Después de Asignar");  
+    console.log( this.programacion);
+
   }
 
 }

@@ -343,17 +343,16 @@
                         <label _ngcontent-yqb-c57="" for="numeroDocumento" class="form-control-sm">Alumno:</label>
                     </div>
                     <div _ngcontent-yqb-c57="" class="col-md-4">
-                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtTipoDocumento" appstringutils="" pinputtext="" 
-                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="70"
-                        [(ngModel)]="filtroApoderado.documento" [ngModelOptions]="{standalone: true}">
+                        <app-alumno-autocomplete  (alumnoSeleccionadoGlobal)="procesarEventoAlumno($event)">
+                        </app-alumno-autocomplete>
                     </div>
+
                     <div _ngcontent-yqb-c57="" class="col-md-2">
-                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Códido de Programación Académica:</label>
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Código de Programación Académica:</label>
                     </div>
                     <div _ngcontent-yqb-c57="" class="col-md-4">
-                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtTeleéfono" appstringutils="" pinputtext="" 
-                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="25"
-                        [(ngModel)]="filtroApoderado.telefono" [ngModelOptions]="{standalone: true}">
+                        <app-programacion-autocomplete (programacionSeleccionadoGlobal)="procesarEventoProgramacion($event)"> 
+                        </app-programacion-autocomplete>
                     </div>
                 </div>
                 <br>
@@ -411,30 +410,36 @@
                         <label _ngcontent-yqb-c57="" for="numeroDocumento" class="form-control-sm">Alumno:</label>
                     </div>
                     <div _ngcontent-yqb-c57="" class="col-md-4">
-                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtTipoDocumento" appstringutils="" pinputtext="" 
-                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="70"
-                        [(ngModel)]="filtroApoderado.documento" [ngModelOptions]="{standalone: true}">
+                        <app-alumno-autocomplete  (alumnoSeleccionadoGlobal)="procesarEventoAlumno($event)">
+                        </app-alumno-autocomplete>
                     </div>
                     <div _ngcontent-yqb-c57="" class="col-md-2">
-                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Códido de Programación Académica:</label>
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Código de Programación Académica:</label>
                     </div>
                     <div _ngcontent-yqb-c57="" class="col-md-4">
-                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtTeleéfono" appstringutils="" pinputtext="" 
-                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="25"
-                        [(ngModel)]="filtroApoderado.telefono" [ngModelOptions]="{standalone: true}">
+                        <app-programacion-autocomplete (programacionSeleccionadoGlobal)="procesarEventoProgramacion($event)"> 
+                        </app-programacion-autocomplete>
                     </div>
                 </div>
                 <br>
                 <div _ngcontent-yqb-c57="" class="form-group row">
                     <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Periodo:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtPeriodo" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="25"
+                        [(ngModel)]="filtroApoderado.telefono" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
                         <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha de Matrícula:</label>
                     </div>
                     <div _ngcontent-yqb-c57="" class="col-md-4">
                         <mat-form-field>
-                            <input matInput [matDatepicker]="picker6" placeholder="Fecha de Registro" [max]="maxFecha"
+                            <input matInput [matDatepicker]="picker7" placeholder="Fecha de Registro" [max]="maxFecha"
                             [(ngModel)]="filtroApoderado.fechaRegistro" (dateChange)="cambieFecha($event)" [ngModelOptions]="{standalone: true}">
-                            <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
-                            <mat-datepicker #picker6></mat-datepicker>
+                            <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                            <mat-datepicker #picker7></mat-datepicker>
                         </mat-form-field>
                     </div>
                 </div>
@@ -456,26 +461,24 @@
         <div _ngcontent-yqb-c57="" class="card-body">
             <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
                   <div _ngcontent-yqb-c57="" class="form-group row">
-                      <div _ngcontent-yqb-c57="" class="col-md-2">
-                      <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Fecha del Recurso6:</label>
-                      </div>
-                      <div _ngcontent-yqb-c57="" class="col-sm-4">
-                      <div _ngcontent-yqb-c57="" class="input-group">
-                              <input _ngcontent-yqb-c57="" formcontrolname="dfechaRecurso" pinputtext="" maxlength="10" id="dfechaRecurso" ngbdatepicker="" placeholder="DD/MM/AAAA" class="form-control form-control-sm ng-untouched ng-pristine ng-valid"><!---->
-                              <div _ngcontent-yqb-c57="" class="input-group-append">
-                                  <button _ngcontent-yqb-c57="" type="button" class="form-control form-control-sm"><i _ngcontent-yqb-c57="" class="fa fa-calendar"></i>
-                                  </button>
-                              </div>
-                      </div>
-                      </div>
-                      <div _ngcontent-yqb-c57="" class="form-group row">
-                          <div _ngcontent-yqb-c57="" class="col-md-2"></div>
-                          <div _ngcontent-yqb-c57="" class="col-md-4"></div>
-                          <div _ngcontent-yqb-c57="" class="col-md-3"></div><div _ngcontent-yqb-c57="" class="col-md-3">
-                              <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150"> Buscar </button>
-                          </div>
-                      </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Alumno</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <app-alumno-autocomplete  (alumnoSeleccionadoGlobal)="procesarEventoAlumno($event)">
+                        </app-alumno-autocomplete>
+                    </div>
                   </div>
+                  <br>
+                  <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-3">
+                    </div>
+                    <div _ngcontent-yqb-c57=""   style="text-align: center;">
+                        <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150" (click)="abrirConsultaAlumnoDialogo()"> 
+                            Buscar 
+                        </button>
+                    </div>
+                </div>
             </form>
        </div>
      </div>
