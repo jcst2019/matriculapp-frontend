@@ -12,6 +12,14 @@ interface ConsultaAlumnoDTO {
   fechaNacimiento: string;
   fechaIngreso: string;
 }
+interface ConsultaApoderadoDTO {
+  nombre: string;
+  apellido: string;
+  documento: string;
+  telefono: string;
+  fechaNacimiento: string;
+  fechaRegistro: string;
+}
 
 @Component({
   selector: 'app-consulta',
@@ -34,6 +42,14 @@ export class ConsultaComponent implements OnInit {
                                     fechaNacimiento: "",
                                     fechaIngreso: "",
                                    }; 
+  filtroApoderado:ConsultaApoderadoDTO= {
+                                    nombre: "",
+                                    apellido: "",
+                                    documento: "",
+                                    telefono:"",
+                                    fechaNacimiento: "",
+                                    fechaRegistro: "",
+                                   };                                  
   
   constructor( private dialog: MatDialog) { }
 

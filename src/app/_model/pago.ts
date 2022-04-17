@@ -4,7 +4,7 @@ export class Pago{
     
     idPago!:number;
     descripcion!:string;
-    concepto!:number;
+    indTipoPago!:number;
     cronograma!:Cronograma;
     idDetalleCronograma!:number;
     mtoPago!:number;
