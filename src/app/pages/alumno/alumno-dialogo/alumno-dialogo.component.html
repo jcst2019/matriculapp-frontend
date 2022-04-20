@@ -18,10 +18,21 @@
        <mat-icon matSuffix>people</mat-icon>
    </mat-form-field>
    <mat-form-field>
+    <mat-select placeholder="Tipo Documento"  [(ngModel)]="idTipoDocumentoSeleccionado" (click)="validarSeleccion(idTipoDocumentoSeleccionado)">
+        <mat-option *ngFor="let p of tipoDocumento" [value]="p.idTipoDoc">{{p.desTipoDoc }}</mat-option>
+    </mat-select>
+   </mat-form-field>
+   <!--
+   <mat-form-field>
        <input matInput placeholder="DNI" [(ngModel)]="alumno.dni" maxlength="8" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
        (keyup)="validarCampos()">
        <small *ngIf="validacion.dni_count" class="invalido" >Debe tener 8 caracteres</small>
        <small *ngIf="validacion.dni_text" class="invalido" >DNI es requerido</small>
+   </mat-form-field>
+   -->
+   <mat-form-field>
+    <input matInput placeholder="Número de Documento" [(ngModel)]="alumno.numDocumento"
+    (keyup)="validarCampos()">
    </mat-form-field>
    <app-apoderado-autocomplete  [apoderadoModificado]="alumno" (apoderadoSeleccionadoGlobal)="procesarEvento($event)"> 
    </app-apoderado-autocomplete>

@@ -7,6 +7,7 @@ import { ApoderadoService } from '../../../_service/apoderado.service';
 import * as moment from 'moment';
 import{ Globales } from '../../../_model/globales';
 import Swal from 'sweetalert2';
+import { TipoDocuemnto } from '../../../_model/tipoDocumento';
 
 @Component({
   selector: 'app-apoderado-dialogo',
@@ -22,6 +23,8 @@ export class ApoderadoDialogoComponent implements OnInit {
   tituloVentana: string ='';
   parentesto!:Parentesco[];
   idParentescoSeleccionado!:number;
+  idTipoDocumentoSeleccionado!:number;
+  tipoDocumento!:TipoDocuemnto[];
   fechaSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
 
@@ -42,7 +45,8 @@ export class ApoderadoDialogoComponent implements OnInit {
     this.apoderado.idApoderado= this.data.idApoderado;
     this.apoderado.nombre= this.data.nombre;
     this.apoderado.apellidos= this.data.apellidos;
-    this.apoderado.dni= this.data.dni;
+    this.apoderado.tipoDocumento= this.data.tipoDocumento;
+    this.apoderado.numDocumento= this.data.numDocumento;
     this.apoderado.telefono= this.data.telefono;
     this.apoderado.direccion= this.data.direccion;
     this.apoderado.email= this.data.email;
@@ -51,6 +55,7 @@ export class ApoderadoDialogoComponent implements OnInit {
    // this.listarParentesco();
     this.idParentescoSeleccionado =this.data.tipo;
     this.listarParentesco();
+    this.listarTipoDocumento();
     this.fechaSeleccionada = new Date(this.data.fechaNacimiento);
   }
   operar(){
@@ -87,6 +92,7 @@ export class ApoderadoDialogoComponent implements OnInit {
                 console.log(this.apoderado.fechaNacimiento);
                 console.log(this.apoderado.fechaModificacion);
                 this.apoderado.tipo = this.idParentescoSeleccionado;
+                this.apoderado.tipoDocumento = this.idTipoDocumentoSeleccionado;
                 this.apoderado.estado = 1;
                 this.apoderadoService.modificar(this.apoderado).pipe(switchMap( () => {
                   return this.apoderadoService.listar();
@@ -106,7 +112,7 @@ export class ApoderadoDialogoComponent implements OnInit {
       this.validarCampos();
       if( typeof this.apoderado.nombre === "undefined" ||
           typeof this.apoderado.apellidos === "undefined"||
-          typeof this.apoderado.dni === "undefined"){
+          typeof this.apoderado.numDocumento === "undefined"){
           Swal.fire('Registrar Apoderado', 'Falta llenar campos Obligatorios!', 'warning')
       }else{
           console.log(this.validacion.apellido_count);
@@ -134,6 +140,7 @@ export class ApoderadoDialogoComponent implements OnInit {
                       this.apoderado.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss'); 
                       this.apoderado.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
                       this.apoderado.tipo = this.idParentescoSeleccionado;
+                      this.apoderado.tipoDocumento = this.idTipoDocumentoSeleccionado;
                       this.apoderado.estado = 1;
                       this.apoderadoService.registrar(this.apoderado).pipe(switchMap( () => {
                         return this.apoderadoService.listar();
@@ -164,6 +171,12 @@ export class ApoderadoDialogoComponent implements OnInit {
     
   this.parentesto = Globales.listaParentesto;
  }
+ listarTipoDocumento(){
+    
+  this.tipoDocumento = Globales.listaTipoDocumento;
+
+}
+
  validarSeleccion(id: number){
 
   console.log(id);
@@ -206,14 +219,14 @@ if (this.apoderado.apellidos != null){
    }
   }
 
-  console.log(this.apoderado.dni);
-if (this.apoderado.dni != null){
-    if (this.apoderado.dni.length== 0 ){
+  console.log(this.apoderado.numDocumento);
+if (this.apoderado.numDocumento != null){
+    if (this.apoderado.numDocumento.length== 0 ){
         this.validacion.dni_text= true;
         this.validacion.dni_count= false;
     }else{
-      console.log(this.apoderado.dni.length);
-      if (this.apoderado.dni.length < 8 ){
+      console.log(this.apoderado.numDocumento.length);
+      if (this.apoderado.numDocumento.length < 8 ){
       this.validacion.dni_count= true;
       this.validacion.dni_text= false;
      }

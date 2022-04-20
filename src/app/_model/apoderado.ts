@@ -4,7 +4,8 @@ export class Apoderado{
     nombre!:string;
     apellidos!:string;
     tipo!:number;
-    dni!:string;
+    tipoDocumento!:number;
+    numDocumento!:string;
     direccion!:string;
     telefono!:string;
     fechaNacimiento!:string;

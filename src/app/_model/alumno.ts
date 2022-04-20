@@ -5,7 +5,8 @@ export class Alumno{
     nombre!:string;
     apellidos!:string;
     genero!:number;
-    dni!:string;
+    tipoDocumento!:number;
+    numDocumento!:string;
     direccion!:string;
     telefono!:string;
     fechaIngreso!:string;

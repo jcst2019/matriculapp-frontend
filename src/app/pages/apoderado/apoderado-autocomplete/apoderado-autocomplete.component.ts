@@ -61,12 +61,12 @@ export class ApoderadoAutocompleteComponent implements OnInit {
   filtrarApoderados(val : any){
     if(val != null && val.idApoderado > 0){
       return this.apoderados.filter(x => 
-        x.nombre.toLowerCase().includes(val.nombre.toLowerCase()) || x.apellidos.toLowerCase().includes(val.apellidos.toLowerCase()) || x.dni.includes(val.dni)
+        x.nombre.toLowerCase().includes(val.nombre.toLowerCase()) || x.apellidos.toLowerCase().includes(val.apellidos.toLowerCase()) || x.numDocumento.includes(val.numDocumento)
       );
     }else{
       //string
       return this.apoderados.filter(x => 
-        x.nombre.toLowerCase().includes(val.toLowerCase()) || x.apellidos.toLowerCase().includes(val.toLowerCase()) || x.dni.includes(val)
+        x.nombre.toLowerCase().includes(val.toLowerCase()) || x.apellidos.toLowerCase().includes(val.toLowerCase()) || x.numDocumento.includes(val)
       );
     }    
   }

@@ -21,7 +21,7 @@ import Swal from 'sweetalert2';
 export class AlumnoComponent implements OnInit {
 
   alumnos: Array<Alumno>= [];
-  displayedColumns =['idAlumno','nombre','apellidos','dni','genero','tipoDescuento','apoderados','fechaIngreso','fechaNacimiento','acciones'];
+  displayedColumns =['idAlumno','nombre','apellidos','tipoDocumento','documento','genero','tipoDescuento','apoderados','fechaIngreso','fechaNacimiento','acciones'];
   dataSource!: MatTableDataSource<Alumno>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -137,6 +137,16 @@ export class AlumnoComponent implements OnInit {
   for (let registro of Globales.listaTipoDescuento){
      if (registro.idDescuento == id){
           return registro.desTipoDescuento
+     }
+  }
+  return "";
+ }
+
+ retornarTipoDocumento( id:number):string {
+    
+  for (let registro of Globales.listaTipoDocumento){
+     if (registro.idTipoDoc == id){
+          return registro.desTipoDoc
      }
   }
   return "";

@@ -19,7 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class ApoderadoComponent implements OnInit {
 
-  displayedColumns = ['idApoderado', 'nombre', 'apellidos', 'dni','direccion','telefono','tipo','fechaNacimiento','email', 'acciones'];
+  displayedColumns = ['idApoderado', 'nombre', 'apellidos','tipoDocumento','documento','direccion','telefono','tipo','fechaNacimiento','email', 'acciones'];
   dataSource!: MatTableDataSource<Apoderado>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -104,6 +104,15 @@ export class ApoderadoComponent implements OnInit {
   for (let registro of Globales.listaParentesto){
      if (registro.idParentesco == id){
           return registro.desTipo
+     }
+  }
+  return "";
+ }
+ retornarTipoDocumento( id:number):string {
+    
+  for (let registro of Globales.listaTipoDocumento){
+     if (registro.idTipoDoc == id){
+          return registro.desTipoDoc
      }
   }
   return "";

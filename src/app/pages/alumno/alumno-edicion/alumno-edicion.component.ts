@@ -55,7 +55,7 @@ export class AlumnoEdicionComponent implements OnInit {
           'id' : new FormControl(data.idAlumno),
           'nombres' : new FormControl(data.nombre),
           'apellidos' : new FormControl(data.apellidos),
-          'dni' : new FormControl(data.dni),
+          'dni' : new FormControl(data.numDocumento),
           'telefono' : new FormControl(data.telefono),
           'direccion' : new FormControl(data.direccion)
         });
@@ -70,7 +70,7 @@ export class AlumnoEdicionComponent implements OnInit {
     alumno.idAlumno = this.form.value['id'];
     alumno.nombre = this.form.value['nombres'];
     alumno.apellidos = this.form.value['apellidos'];
-    alumno.dni = this.form.value['dni'];
+    alumno.numDocumento = this.form.value['numDocumento'];
     alumno.telefono = this.form.value['telefono'];
     alumno.direccion = this.form.value['direccion'];
     alumno.estado=1;

@@ -5,6 +5,7 @@ import { Nivel } from "./nivel";
 import { Grado } from "./grado";
 import { Seccion } from "./seccion";
 import { Estado } from './estado';
+import { TipoDocuemnto } from "./tipoDocumento";
 
 export class Globales {
  
@@ -170,4 +171,25 @@ public static listaEstadoPago:Estado[]=[
     desEstado:"Anulado"
   }
 ];
+
+public static listaTipoDocumento:TipoDocuemnto[]=[
+  {
+    idTipoDoc:1,
+    desTipoDoc:"DNI"   
+  },
+  {
+    idTipoDoc:2,
+    desTipoDoc:"PTP"
+  },
+  {
+    idTipoDoc:3,
+    desTipoDoc:"Cédula"
+  },
+  {
+    idTipoDoc:4,
+    desTipoDoc:"Pasaporte"
+  }
+];
+
+
 }

@@ -39,9 +39,14 @@
       <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="dni">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-      <mat-cell *matCellDef="let row"> {{row.dni}} </mat-cell>
+    <ng-container matColumnDef="tipoDocumento">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Documento </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{retornarTipoDocumento(row.tipoDocumento)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="documento">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Documento </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.numDocumento}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="direccion">

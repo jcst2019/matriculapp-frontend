@@ -112,10 +112,15 @@
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.apellidos}} </mat-cell>
               </ng-container>
-          
-              <ng-container matColumnDef="dni">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> DNI </mat-header-cell>
-                  <mat-cell *matCellDef="let row"> {{row.dni}} </mat-cell>
+
+              <ng-container matColumnDef="tipoDocumento">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Documento </mat-header-cell>
+                <mat-cell *matCellDef="let row"> {{retornarTipoDocumento(row.tipoDocumento)}} </mat-cell>
+             </ng-container>
+
+              <ng-container matColumnDef="documento">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Documento </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.numDocumento}} </mat-cell>
               </ng-container>
           
               <ng-container matColumnDef="genero">
@@ -215,7 +220,7 @@
                         {{alumnoMatriculado.nombre}}{{alumnoMatriculado.apellidos}}
                       </h1>
                       <ul class="list-unstyled mt-3 mb-4">
-                        <li><strong>DNI      : </strong>{{alumnoMatriculado.dni}}</li>
+                        <li><strong>Numero de Documento: </strong>{{alumnoMatriculado.numDocumento}}</li>
                         <li><strong>Descuento: </strong>{{retornarDescuento(alumnoMatriculado.tipoDescuento)}}</li>
                         <li><strong>Género   : </strong>{{retornarGenero(alumnoMatriculado.genero)}}</li>
                         <li><strong>Dirección: </strong>{{alumnoMatriculado.direccion}}</li>

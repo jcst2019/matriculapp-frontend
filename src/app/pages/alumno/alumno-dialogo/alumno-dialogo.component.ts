@@ -10,6 +10,7 @@ import { Genero } from 'src/app/_model/genero';
 import { Apoderado } from 'src/app/_model/apoderado';
 import { ApoderadoAutocompleteComponent } from '../../apoderado/apoderado-autocomplete/apoderado-autocomplete.component'
 import Swal from 'sweetalert2';
+import { TipoDocuemnto } from 'src/app/_model/tipoDocumento';
 
 
 @Component({
@@ -30,7 +31,9 @@ export class AlumnoDialogoComponent implements OnInit {
   tituloVentana: string ='';
   tipoDescuento!:Descuento[];
   tipoGenero!:Genero[];
+  tipoDocumento!:TipoDocuemnto[];
   idTipoGeneroSeleccionado!:number;
+  idTipoDocumentoSeleccionado!:number;
   idTipoDescuentoSeleccionado!:number;
   fechaSeleccionada: Date = new Date();
   fechaIngresoSeleccionada: Date = new Date();
@@ -59,17 +62,20 @@ export class AlumnoDialogoComponent implements OnInit {
     }
     this.alumno.nombre= this.data.nombre;
     this.alumno.apellidos= this.data.apellidos;
-    this.alumno.dni= this.data.dni;
+    this.alumno.numDocumento= this.data.numDocumento;
     this.alumno.telefono= this.data.telefono;
     this.alumno.direccion= this.data.direccion;
     this.alumno.email= this.data.email;
+    this.alumno.fechaRegistro= this.data.fechaRegistro;
     //let idTipoDescuentoSeleccionado =this.data.tipo;
     //Cargar Parentesco
    // this.listarParentesco();
     this.idTipoDescuentoSeleccionado =this.data.tipoDescuento;
     this.idTipoGeneroSeleccionado= this.data.genero;
+    this.idTipoDocumentoSeleccionado = this.data.tipoDocumento;
     this.listarDescuentos();
     this.listarGenero();
+    this.listarTipoDocumento();
     this.fechaSeleccionada = new Date(this.data.fechaNacimiento);
     this.fechaIngresoSeleccionada = new Date(this.data.fechaIngreso);
     this.validarCampos();
@@ -110,6 +116,7 @@ export class AlumnoDialogoComponent implements OnInit {
               this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
               this.alumno.estado = 1;
               this.alumno.genero=this.idTipoGeneroSeleccionado;
+              this.alumno.tipoDocumento=this.idTipoDocumentoSeleccionado;
               console.log(this.alumno);
               this.alumnoService.modificar(this.alumno).pipe(switchMap( () => {
                 return this.alumnoService.listar();
@@ -131,7 +138,7 @@ export class AlumnoDialogoComponent implements OnInit {
       this.validarCampos();
       if( typeof this.alumno.nombre === "undefined" ||
           typeof this.alumno.apellidos === "undefined"||
-          typeof this.alumno.dni === "undefined" ||
+          typeof this.alumno.numDocumento === "undefined" ||
           //isNaN(this.fechaIngresoSeleccionada.getTime()) || --Validar si el campo Date es válido
           this.alumno.apoderados.length == 0 ){
         Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
@@ -168,6 +175,7 @@ export class AlumnoDialogoComponent implements OnInit {
                     this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
                     this.alumno.estado = 1;
                     this.alumno.genero=this.idTipoGeneroSeleccionado;
+                    this.alumno.tipoDocumento=this.idTipoDocumentoSeleccionado;
                     console.log(this.alumno);
                     this.alumnoService.registrar(this.alumno).pipe(switchMap( () => {
                       return this.alumnoService.listar();
@@ -202,6 +210,11 @@ export class AlumnoDialogoComponent implements OnInit {
  listarGenero(){
     
   this.tipoGenero = Globales.listaGenero;
+
+}
+listarTipoDocumento(){
+    
+  this.tipoDocumento = Globales.listaTipoDocumento;
 
 }
 validarCampos(){
@@ -241,14 +254,14 @@ if (this.alumno.apellidos != null){
    }
   }
 
-  console.log(this.alumno.dni);
-if (this.alumno.dni != null){
-    if (this.alumno.dni.length== 0 ){
+  console.log(this.alumno.numDocumento);
+if (this.alumno.numDocumento != null){
+    if (this.alumno.numDocumento.length== 0 ){
         this.validacion.dni_text= true;
         this.validacion.dni_count= false;
     }else{
-      console.log(this.alumno.dni.length);
-      if (this.alumno.dni.length < 8 ){
+      console.log(this.alumno.numDocumento.length);
+      if (this.alumno.numDocumento.length < 8 ){
       this.validacion.dni_count= true;
       this.validacion.dni_text= false;
      }

@@ -39,7 +39,7 @@ export class MatriculaRegistroComponent  implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  displayedColumnsAlumno =['idAlumno','nombre','apellidos','dni','genero','tipoDescuento','apoderados','fechaIngreso','fechaNacimiento'];
+  displayedColumnsAlumno =['idAlumno','nombre','apellidos','tipoDocumento','documento','genero','tipoDescuento','apoderados','fechaIngreso','fechaNacimiento'];
   dataSourceAlumno!: MatTableDataSource<Alumno>;
 
   constructor(
@@ -143,6 +143,17 @@ export class MatriculaRegistroComponent  implements OnInit {
     }
     return "";
    }
+
+   retornarTipoDocumento( id:number):string {
+    
+    for (let registro of Globales.listaTipoDocumento){
+       if (registro.idTipoDoc == id){
+            return registro.desTipoDoc
+       }
+    }
+    return "";
+   }
+
    operar(){
     console.log(this.alumnoMatriculado.idAlumno)
     console.log(this.programacionMatriculado.idProgMatricula)
