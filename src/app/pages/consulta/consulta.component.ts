@@ -148,11 +148,17 @@ export class ConsultaComponent implements OnInit {
         console.log(data);
         this.listaCronograma = data;
         console.log('Lista Cronograma',this.listaCronograma);
-        //Abrir el diálogo
-        this.dialog.open(ConsultaDeudaDetalleComponent, {
-          width: '950px',
-          data:this.listaCronograma
-        });
+        if ( this.listaCronograma.length == 0){
+              var textoMensaje = 'El alumno '+this.alumnoSeleccionado.nombre+' '+this.alumnoSeleccionado.apellidos+' No tiene Deuda!'
+              Swal.fire('Consultar Deuda', textoMensaje, 'warning')
+        }else{
+            //Abrir el diálogo
+            this.dialog.open(ConsultaDeudaDetalleComponent, {
+              width: '950px',
+              data:this.listaCronograma
+            });
+        }
+
       });
     }else{
       Swal.fire('Consultar Deuda', 'Falta ingresar un alumno válido!', 'warning')

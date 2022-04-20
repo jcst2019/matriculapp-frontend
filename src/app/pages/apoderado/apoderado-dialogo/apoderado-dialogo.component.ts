@@ -63,26 +63,44 @@ export class ApoderadoDialogoComponent implements OnInit {
        //Instalar Moment JS y probar que se registre la fecha correctamente
       //let tzoffset = (this.fechaSeleccionada).getTimezoneOffset() * 60000;
       //let localISOTime = (new Date(Date.now() - tzoffset)).toISOString();
+      
+       //Validar Si la fecha de Nacimeinto es mayor a 18 años
+       if (!isNaN(this.fechaSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso 
+          var fechaAuxiliar = moment(this.fechaSeleccionada).add(18, 'y');
+          console.log('Fecha Nacimiento Sumada 18 años', fechaAuxiliar);
+          console.log('Fecha Nacimiento Sumada 18 años(DATE)',  moment(fechaAuxiliar, "DD-MM-YYYY").toDate());
+          console.log('Fecha Actual', moment().toDate());
+          if ( moment(fechaAuxiliar).isAfter( moment())){
+               console.log('Ingreso');
+               var fechaMinima =  moment().add(-18, 'y')
+               console.log('Fecha Mínima', fechaMinima)
+               var textoMensaje ='La Fecha de Nacimiento es errada. <br> Fecha mínima de Nacimiento '+ moment(fechaMinima).format('DD-MM-YYYY');
+               Swal.fire('Modificar Apoderado', textoMensaje, 'warning')
+          }else{
+                console.log('NO Ingreso');
+                this.apoderado.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+                var fecha = moment(this.fechaSeleccionada);
+                console.log(this.fechaSeleccionada);
+                console.log(fecha);
 
-      this.apoderado.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-
-      var fecha = moment(this.fechaSeleccionada);
-      console.log(this.fechaSeleccionada);
-      console.log(fecha);
-
-      this.apoderado.fechaModificacion= moment().format('YYYY-MM-DDTHH:mm:ss');
-      console.log(this.apoderado.fechaNacimiento);
-      console.log(this.apoderado.fechaModificacion);
-      this.apoderado.tipo = this.idParentescoSeleccionado;
-      this.apoderado.estado = 1;
-      this.apoderadoService.modificar(this.apoderado).pipe(switchMap( () => {
-        return this.apoderadoService.listar();
-      })).subscribe(data => {
-        this.apoderadoService.apoderadoCambio.next(data);
-        //this.apoderadoService.mensajeCambio.next('SE MODIFICO');
-      });
-      Swal.fire('Modifcar Apoderado', 'Modificación Exitoso!', 'success')
-      this.dialogRef.close();
+                this.apoderado.fechaModificacion= moment().format('YYYY-MM-DDTHH:mm:ss');
+                console.log(this.apoderado.fechaNacimiento);
+                console.log(this.apoderado.fechaModificacion);
+                this.apoderado.tipo = this.idParentescoSeleccionado;
+                this.apoderado.estado = 1;
+                this.apoderadoService.modificar(this.apoderado).pipe(switchMap( () => {
+                  return this.apoderadoService.listar();
+                })).subscribe(data => {
+                  this.apoderadoService.apoderadoCambio.next(data);
+                  //this.apoderadoService.mensajeCambio.next('SE MODIFICO');
+                });
+                Swal.fire('Modifcar Apoderado', 'Modificación Exitoso!', 'success')
+                this.dialogRef.close();
+          }
+       }else{
+        Swal.fire('Modifcar Apoderado', 'Por favor Ingresar la Fecha de Nacimeinto', 'warning')
+     } 
+      
     }else{
       //REGISTRAR
       this.validarCampos();
@@ -100,21 +118,36 @@ export class ApoderadoDialogoComponent implements OnInit {
               this.validacion.dni_text){
               Swal.fire('Registrar Apoderado', 'Falta llenar campos Obligatorios!', 'warning')
           }else{
+              //Validar Si la fecha de Nacimeinto es mayor a 18 años
               if (!isNaN(this.fechaSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso
-                this.apoderado.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-               }
-              this.apoderado.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
-              this.apoderado.tipo = this.idParentescoSeleccionado;
-              this.apoderado.estado = 1;
-              this.apoderadoService.registrar(this.apoderado).pipe(switchMap( () => {
-                return this.apoderadoService.listar();
-              })).subscribe(data => {
-                this.apoderadoService.apoderadoCambio.next(data);
-                //this.apoderadoService.mensajeCambio.next('SE REGISTRO');
-              });
-              Swal.fire('Registrar Apoderado', 'Registro Exitoso!', 'success')
-              this.dialogRef.close();
-           }
+                  var fechaAuxiliar = moment(this.fechaSeleccionada).add(18, 'y');
+                  console.log('Fecha Nacimiento Sumada 18 años', fechaAuxiliar);
+                  console.log('Fecha Nacimiento Sumada 18 años(DATE)',  moment(fechaAuxiliar, "DD-MM-YYYY").toDate());
+                  console.log('Fecha Actual', moment().toDate());
+                  if ( moment(fechaAuxiliar).isAfter( moment())){
+                      console.log('Ingreso');
+                      var fechaMinima =  moment().add(-18, 'y')
+                      console.log('Fecha Mínima', fechaMinima)
+                      var textoMensaje ='La Fecha de Nacimiento es errada. <br> Fecha mínima de Nacimiento '+ moment(fechaMinima).format('DD-MM-YYYY');
+                      Swal.fire('Registrar Apoderado', textoMensaje, 'warning')
+                  }else{
+                      this.apoderado.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss'); 
+                      this.apoderado.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
+                      this.apoderado.tipo = this.idParentescoSeleccionado;
+                      this.apoderado.estado = 1;
+                      this.apoderadoService.registrar(this.apoderado).pipe(switchMap( () => {
+                        return this.apoderadoService.listar();
+                      })).subscribe(data => {
+                        this.apoderadoService.apoderadoCambio.next(data);
+                        //this.apoderadoService.mensajeCambio.next('SE REGISTRO');
+                      });
+                      Swal.fire('Registrar Apoderado', 'Registro Exitoso!', 'success')
+                      this.dialogRef.close();
+                  }
+               }else{
+                  Swal.fire('Registrar Apoderado', 'Por favor Ingresar la Fecha de Nacimeinto', 'warning')
+               }              
+            }
           }
     }
     //this.dialogRef.close();
