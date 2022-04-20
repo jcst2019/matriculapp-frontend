@@ -82,31 +82,47 @@ export class AlumnoDialogoComponent implements OnInit {
        //ISO Date
        console.log(this.data.fechaNacimiento);
        console.log(this.fechaSeleccionada);
-       //Instalar Moment JS y probar que se registre la fecha correctamente
-      //let tzoffset = (this.fechaSeleccionada).getTimezoneOffset() * 60000;
-      //let localISOTime = (new Date(Date.now() - tzoffset)).toISOString();
-      this.alumno.fechaIngreso = moment(this.fechaIngresoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-      this.alumno.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
 
-      var fecha = moment(this.fechaSeleccionada);
-      console.log(this.fechaSeleccionada);
-      console.log(fecha);
-
-      this.alumno.fechaModificacion= moment().format('YYYY-MM-DDTHH:mm:ss');
-      console.log(this.alumno.fechaNacimiento);
-      console.log(this.alumno.fechaModificacion);
-      this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
-      this.alumno.estado = 1;
-      this.alumno.genero=this.idTipoGeneroSeleccionado;
-      console.log(this.alumno);
-      this.alumnoService.modificar(this.alumno).pipe(switchMap( () => {
-        return this.alumnoService.listar();
-      })).subscribe(data => {
-        this.alumnoService.alumnoCambio.next(data);
-        //this.alumnoService.mensajeCambio.next('SE MODIFICO');
-      });
-      Swal.fire('Modifcar Alumno', 'Modificación Exitoso!', 'success')
-      this.dialogRef.close();
+      //var fecha = moment(this.fechaSeleccionada);
+      //console.log(this.fechaSeleccionada);
+      //console.log(fecha);
+      //Validar que la Fecha de Nacimiento sea Mayor a 3 años
+      if (!isNaN(this.fechaSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso
+        var fechaAuxiliar = moment(this.fechaSeleccionada).add(3, 'y');
+        console.log('Fecha Nacimiento Sumada 3 años', fechaAuxiliar);
+        console.log('Fecha Nacimiento Sumada 3 años(DATE)',  moment(fechaAuxiliar, "DD-MM-YYYY").toDate());
+        console.log('Fecha Actual', moment().toDate());
+        if ( moment(fechaAuxiliar).isAfter( moment())){
+            console.log('Ingreso');
+            var fechaMinima =  moment().add(-3, 'y')
+            console.log('Fecha Mínima', fechaMinima)
+            var textoMensaje ='La Fecha de Nacimiento es errada. <br> Fecha mínima de Nacimiento '+ moment(fechaMinima).format('DD-MM-YYYY');
+            Swal.fire('Modificar Alumno', textoMensaje, 'warning')
+        }else{
+              //Instalar Moment JS y probar que se registre la fecha correctamente
+              //let tzoffset = (this.fechaSeleccionada).getTimezoneOffset() * 60000;
+              //let localISOTime = (new Date(Date.now() - tzoffset)).toISOString();
+              this.alumno.fechaIngreso = moment(this.fechaIngresoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+              this.alumno.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+              this.alumno.fechaModificacion= moment().format('YYYY-MM-DDTHH:mm:ss');
+              console.log(this.alumno.fechaNacimiento);
+              console.log(this.alumno.fechaModificacion);
+              this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
+              this.alumno.estado = 1;
+              this.alumno.genero=this.idTipoGeneroSeleccionado;
+              console.log(this.alumno);
+              this.alumnoService.modificar(this.alumno).pipe(switchMap( () => {
+                return this.alumnoService.listar();
+              })).subscribe(data => {
+                this.alumnoService.alumnoCambio.next(data);
+                //this.alumnoService.mensajeCambio.next('SE MODIFICO');
+              });
+              Swal.fire('Modifcar Alumno', 'Modificación Exitoso!', 'success')
+              this.dialogRef.close();
+            }
+      }else{
+        Swal.fire('Modifcar Alumno', 'Por favor Ingresar la Fecha de Nacimeinto', 'warning')
+      } 
     }else{
       //REGISTRAR
       console.log( this.alumno);
@@ -129,26 +145,45 @@ export class AlumnoDialogoComponent implements OnInit {
           this.validacion.dni_text){
         Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
       }else{
-           if (!isNaN(this.fechaIngresoSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso
-              this.alumno.fechaIngreso = moment(this.fechaIngresoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-           }
-           if (!isNaN(this.fechaSeleccionada.getTime())){//Validar si ha llenado el DatePicker de Fecha de Nacimiento
-              this.alumno.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
-           }   
-            this.alumno.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
-            this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
-            this.alumno.estado = 1;
-            this.alumno.genero=this.idTipoGeneroSeleccionado;
-            console.log(this.alumno);
-            this.alumnoService.registrar(this.alumno).pipe(switchMap( () => {
-              return this.alumnoService.listar();
-            })).subscribe(data => {
-              this.alumnoService.alumnoCambio.next(data);
-              //this.alumnoService.mensajeCambio.next('SE REGISTRO');
-            });
-            Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
-            this.dialogRef.close();
-     }}
+           //Validar Si la fecha de Nacimeinto es mayor a 3 años
+           if (!isNaN(this.fechaSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso
+              var fechaAuxiliar = moment(this.fechaSeleccionada).add(3, 'y');
+              console.log('Fecha Nacimiento Sumada 3 años', fechaAuxiliar);
+              console.log('Fecha Nacimiento Sumada 3 años(DATE)',  moment(fechaAuxiliar, "DD-MM-YYYY").toDate());
+              console.log('Fecha Actual', moment().toDate());
+              if ( moment(fechaAuxiliar).isAfter( moment())){
+                  console.log('Ingreso');
+                  var fechaMinima =  moment().add(-3, 'y')
+                  console.log('Fecha Mínima', fechaMinima)
+                  var textoMensaje ='La Fecha de Nacimiento es errada. <br> Fecha mínima de Nacimiento '+ moment(fechaMinima).format('DD-MM-YYYY');
+                  Swal.fire('Registrar Alumno', textoMensaje, 'warning')
+              }else{
+                    if (!isNaN(this.fechaIngresoSeleccionada.getTime())){ //Validar si ha llenado el DatePicker de Fecha de Ingreso
+                      this.alumno.fechaIngreso = moment(this.fechaIngresoSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+                       }
+                    if (!isNaN(this.fechaSeleccionada.getTime())){//Validar si ha llenado el DatePicker de Fecha de Nacimiento
+                        this.alumno.fechaNacimiento = moment(this.fechaSeleccionada).format('YYYY-MM-DDTHH:mm:ss');
+                    }   
+                    this.alumno.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
+                    this.alumno.tipoDescuento = this.idTipoDescuentoSeleccionado;
+                    this.alumno.estado = 1;
+                    this.alumno.genero=this.idTipoGeneroSeleccionado;
+                    console.log(this.alumno);
+                    this.alumnoService.registrar(this.alumno).pipe(switchMap( () => {
+                      return this.alumnoService.listar();
+                    })).subscribe(data => {
+                      this.alumnoService.alumnoCambio.next(data);
+                      //this.alumnoService.mensajeCambio.next('SE REGISTRO');
+                    });
+                    Swal.fire('Registrar Alumno', 'Registro Exitoso!', 'success')
+                    this.dialogRef.close();
+                  }
+              
+            }else{
+              Swal.fire('Registrar Alumno', 'Por favor Ingresar la Fecha de Nacimeinto', 'warning')
+            }                
+        }   
+      } 
     }
     //this.dialogRef.close();
   }
