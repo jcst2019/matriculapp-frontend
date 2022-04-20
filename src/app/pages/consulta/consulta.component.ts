@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Alumno } from 'src/app/_model/alumno';
+import { Cronograma } from 'src/app/_model/cronograma';
 import { Descuento } from 'src/app/_model/descuento';
 import { Globales } from 'src/app/_model/globales';
 import { ProgramacionMatricula } from 'src/app/_model/programacionMatricula';
+import { CronogramaService } from 'src/app/_service/cronograma.service';
+import Swal from 'sweetalert2';
 import { ConsultaAlumnoDetalleComponent } from './consulta-alumno-detalle/consulta-alumno-detalle.component';
+import { ConsultaDeudaDetalleComponent } from './consulta-deuda-detalle/consulta-deuda-detalle.component';
 
 interface ConsultaAlumnoDTO {
   nombre: string;
@@ -30,6 +34,7 @@ interface ConsultaApoderadoDTO {
 })
 export class ConsultaComponent implements OnInit {
 
+  listaCronograma!:Array<Cronograma>;
   idTipoConsulta:number = 0;
   tituloConsulta:string="Consulta";
   filtros: Array<boolean> = [false,false, false, false,false,false,false];
@@ -37,7 +42,7 @@ export class ConsultaComponent implements OnInit {
   fechaIngresoSeleccionada: Date = new Date();
   maxFecha: Date = new Date();
   alumno!: Alumno[];
-  alumnoMatriculado: Alumno = new Alumno; //Variable que tiene el alumno seleccionado por el Usuario
+  alumnoSeleccionado: Alumno = new Alumno; //Variable que tiene el alumno seleccionado por el Usuario
   programacion!: ProgramacionMatricula[];
   programacionMatriculado: ProgramacionMatricula = new ProgramacionMatricula; //Variable que tiene la programación seleccionado por el Usuario
   filtroAlumno:ConsultaAlumnoDTO= {
@@ -57,7 +62,8 @@ export class ConsultaComponent implements OnInit {
                                     fechaRegistro: "",
                                    };                                  
   
-  constructor( private dialog: MatDialog) { }
+  constructor( private dialog: MatDialog,
+               private cronogramaService : CronogramaService) { }
 
   ngOnInit(): void {
     console.log('Filtros Inicial',this.filtros);
@@ -133,6 +139,26 @@ export class ConsultaComponent implements OnInit {
       data:dto
     });
   }
+  abrirConsultaDeudaDialogo(){
+    let alumnoFiltro: Alumno = new Alumno();
+    if (this.alumnoSeleccionado.idAlumno > 0){
+      alumnoFiltro = this.alumnoSeleccionado;
+
+      this.cronogramaService.obtenerCronogramaPorAlumno(this.alumnoSeleccionado.idAlumno).subscribe(data =>{
+        console.log(data);
+        this.listaCronograma = data;
+        console.log('Lista Cronograma',this.listaCronograma);
+        //Abrir el diálogo
+        this.dialog.open(ConsultaDeudaDetalleComponent, {
+          width: '950px',
+          data:this.listaCronograma
+        });
+      });
+    }else{
+      Swal.fire('Consultar Deuda', 'Falta ingresar un alumno válido!', 'warning')
+    }
+
+ }
   seleccionarTipoDescuento(tipo:number){
     console.log('Tipo Descuento',tipo)
   }
@@ -141,7 +167,7 @@ export class ConsultaComponent implements OnInit {
     console.log(response);     // Esta es la función que se va a ejecutar en el componente padre 
     this.alumno=[];//Inicializamos el valor en cero
     this.alumno.push(response);
-    this.alumnoMatriculado=this.alumno[0];
+    this.alumnoSeleccionado=this.alumno[0];
 
     console.log("Después de Asignar");  
     console.log( this.alumno);

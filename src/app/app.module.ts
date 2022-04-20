@@ -36,6 +36,8 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
 import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { ConsultaAlumnoDetalleComponent } from './pages/consulta/consulta-alumno-detalle/consulta-alumno-detalle.component';
+import { ConsultaDeudaDetalleComponent } from './pages/consulta/consulta-deuda-detalle/consulta-deuda-detalle.component';
+import {DataTablesModule} from 'angular-datatables';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -68,7 +70,8 @@ export function tokenGetter() {
     InicioComponent,
     ReporteComponent,
     ConsultaComponent,
-    ConsultaAlumnoDetalleComponent
+    ConsultaAlumnoDetalleComponent,
+    ConsultaDeudaDetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ export function tokenGetter() {
     ReactiveFormsModule,
     FormsModule,
     NgMaterialMultilevelMenuModule,
+    DataTablesModule,
     JwtModule.forRoot({
       config:{
        tokenGetter: tokenGetter,
