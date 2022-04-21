@@ -23,5 +23,9 @@ export class MatriculaService  extends GenericService<Matricula>{
       responseType: 'blob'
     });
   }
+  actualizaEstadoAnulado(id: number){
+  
+    return this.http.get(`${this.url}/actualizaEstadoAnulado/${id}`);
+  }
 
 }

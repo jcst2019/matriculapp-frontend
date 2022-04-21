@@ -190,7 +190,7 @@ export class ApoderadoDialogoComponent implements OnInit {
         this.validacion.nombre_count= false;
         console.log("a");
     }else{
-      if (this.apoderado.nombre.length<=3 ){
+      if (this.apoderado.nombre.length<2 ){
       this.validacion.nombre_count= true;
       this.validacion.nombre_text= false;
       console.log("b");
@@ -208,7 +208,7 @@ if (this.apoderado.apellidos != null){
         this.validacion.apellido_count= false;
     }else{
       console.log(this.apoderado.apellidos.length);
-      if (this.apoderado.apellidos.length<= 3 ){
+      if (this.apoderado.apellidos.length< 2 ){
           this.validacion.apellido_count= true;
           this.validacion.apellido_text= false;
      }

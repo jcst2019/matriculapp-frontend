@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 import { DetalleCronograma } from '../../../_model/detalleCronograma';
 import { PagoService } from '../../../_service/pago.service';
 import { DetalleCronogramaService } from '../../../_service/detallecronograma.service';
+import { Estado } from 'src/app/_model/estado';
 
 
 
@@ -38,6 +39,8 @@ export class PagoRegistroComponent implements OnInit {
   cronogramaFiltrado!:Array<Cronograma>; //Cronograma que seleccioné el Usuario
   listaDetalleCronograma!:Array<DetalleCronograma>;
   idDetalleCronogramaSeleccionado!:number;
+  tipoPagoSeleccionado!:number;
+  listaTipoPago!:Estado[];
   montoRegistrado!:number;
   descripcionRegistrada!:string;
   validaMontoPagar: boolean = false ; // hidden by default
@@ -75,6 +78,8 @@ export class PagoRegistroComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required],
     });
+
+    this.listarTipoPago();
     
   }
   procesarEvento(response: ProgramacionMatricula) {
@@ -168,6 +173,15 @@ export class PagoRegistroComponent implements OnInit {
     }
     return "";
    }
+   retornarTipoPago( id:number):string {
+      
+    for (let registro of Globales.listaTipoPago){
+       if (registro.idEstado == id){
+            return registro.desEstado
+       }
+    }
+    return "";
+   }
    operar(){
     console.log(this.alumnoMatriculado.idAlumno)
     console.log(this.programacionMatriculado.idProgMatricula)
@@ -236,7 +250,7 @@ export class PagoRegistroComponent implements OnInit {
       this.isShown = false;
     }
   }
-  cargarPeriodoPagar(id:number){
+  cargarPeriodoPagar(id:number, tipoPago:number){
     
     console.log('ID Cronograma Seleccionada',id)
     if (id>0){
@@ -247,6 +261,23 @@ export class PagoRegistroComponent implements OnInit {
       //Filtramos El Detalle de Cronograma  que tenga deuda
       this.listaDetalleCronograma=this.cronogramaFiltrado[0].detalleCronograma.filter(
         data => (data.montoPagar-data.montoPagado)>0);
+
+      console.log('Substring',this.listaCronograma[0].detalleCronograma[0].periodo.slice(4))
+      console.log('TipoPagoSelecionado',tipoPago)
+      if (tipoPago == 1){//Matricula
+        
+        this.listaDetalleCronograma = this.listaDetalleCronograma.filter(data => data.periodo.slice(4) == "00");
+      }else{
+          if (tipoPago == 2){//Pension
+            this.listaDetalleCronograma = this.listaDetalleCronograma.filter(data => data.periodo.slice(4) != "00");
+          }
+          /* Solo debe de considerarse Tipo de Pago Matrícula y Pensión
+          else{
+            this.listaDetalleCronograma = [];
+            var textoMensaje = 'Al selecionar como Tipo de Pago "Otros, No cancelará ninguna cuota de la matrícula " '+ this.cronogramaFiltrado[0].matricula.programacionMatricula.codigoMatricula+'!'
+            Swal.fire('Registrar Pago', textoMensaje, 'warning')
+          }*/
+      }
       console.log('ListaDetalleCronograma',this.listaDetalleCronograma)
     }
   }
@@ -291,4 +322,15 @@ export class PagoRegistroComponent implements OnInit {
     }
     return "";
    }
+
+   listarTipoPago(){
+    
+    this.listaTipoPago = Globales.listaTipoPago;
+  
+  }
+  mostrarDataCombo(data :number){
+
+    console.log(data);
+
+  }
 }

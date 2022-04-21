@@ -39,7 +39,8 @@
 
     <ng-container matColumnDef="estado">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{row.estado}}</mat-cell>
+        <mat-cell *matCellDef="let row" [ngClass]="retornarEstadoMatricula(row.estado)==='Registrado' ? 'activo': 'eliminado'">
+          {{retornarEstadoMatricula(row.estado)}}</mat-cell>
       </ng-container>
 
     <ng-container matColumnDef="alumno">
@@ -69,13 +70,22 @@
         <button mat-stroked-button color="primary" (click)="abrirDialogo(row)" >Ver Cronograma</button>
       </mat-cell>
     </ng-container>
-
+    <!--
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">
+    -->
         <!--<button mat-button color="primary" [routerLink]="['edicion',row.idAlumno]" ><mat-icon>ballot</mat-icon></button>-->
-        <button mat-raised-button color="accent" (click)="abrirDialogo(row)" >Dar de Baja</button>
+        <!--<button mat-raised-button color="accent" (click)="abrirDialogo(row)" >Dar de Baja</button>-->
         <!--<button mat-button color="accent" (click)="eliminar(row.idAlumno)"><mat-icon>delete</mat-icon></button>-->
+      <!--
+      </mat-cell>
+    </ng-container>
+    -->
+    <ng-container matColumnDef="acciones">
+      <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-button color="accent" (click)="anularMatricula(row)"><mat-icon>delete</mat-icon></button>
       </mat-cell>
     </ng-container>
   

@@ -225,7 +225,7 @@ validarCampos(){
         this.validacion.nombre_count= false;
         console.log("a");
     }else{
-      if (this.alumno.nombre.length<=3 ){
+      if (this.alumno.nombre.length<2 ){
       this.validacion.nombre_count= true;
       this.validacion.nombre_text= false;
       console.log("b");
@@ -243,7 +243,7 @@ if (this.alumno.apellidos != null){
         this.validacion.apellido_count= false;
     }else{
       console.log(this.alumno.apellidos.length);
-      if (this.alumno.apellidos.length<= 3 ){
+      if (this.alumno.apellidos.length< 2 ){
       this.validacion.apellido_count= true;
       this.validacion.apellido_text= false;
      }

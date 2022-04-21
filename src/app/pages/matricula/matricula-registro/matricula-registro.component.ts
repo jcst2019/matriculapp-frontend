@@ -193,7 +193,7 @@ export class MatriculaRegistroComponent  implements OnInit {
         this.matricula.alumno = this.alumnoMatriculado;
         this.matricula.programacionMatricula =this.programacionMatriculado;
         this.matricula.fechaMatricula= moment().format('YYYY-MM-DDTHH:mm:ss');
-        this.matricula.estado = 0;
+        this.matricula.estado = 1;
         //El descuento del Alumno se calcula en el backend, por lo que obtendremos este monto desde el servicio de cronograma
         //descuentoMensualidad => Variable que almacenará el descuento obtenido del servicio de Cronograma
         this.descuentoMensualidad = this.cronogramaService.obtenerDescuento(this.matricula).subscribe(response=>this.descuentoMensualidad = response.dato );

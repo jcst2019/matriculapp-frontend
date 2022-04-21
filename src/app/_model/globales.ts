@@ -161,6 +161,22 @@ public static listaEstadoProgramacion:Estado[]=[
   }
 ];
 
+public static listaEstadoMatricula:Estado[]=[
+  {
+    idEstado:1,
+    desEstado:"Registrado"   
+  },
+  {
+    idEstado:2,
+    desEstado:"Cerrado"
+  }
+  ,
+  {
+    idEstado:3,
+    desEstado:"Anulado"
+  }
+];
+
 public static listaEstadoPago:Estado[]=[
   {
     idEstado:1,
@@ -188,6 +204,17 @@ public static listaTipoDocumento:TipoDocuemnto[]=[
   {
     idTipoDoc:4,
     desTipoDoc:"Pasaporte"
+  }
+];
+
+public static listaTipoPago:Estado[]=[
+  {
+    idEstado:1,
+    desEstado:"Matricula"   
+  },
+  {
+    idEstado:2,
+    desEstado:"Mensualidad"
   }
 ];
 

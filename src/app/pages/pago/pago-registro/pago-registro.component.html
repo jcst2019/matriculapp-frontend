@@ -85,9 +85,16 @@
           <div class = "tp-container">
               <mat-form-field appearance = "outline">
                 <mat-label >Código de Matricula</mat-label>
-                <mat-select  placeholder="Selecionar Matrícula"  [(ngModel)]="idCronogramaSeleccionado" (selectionChange)="cargarPeriodoPagar(idCronogramaSeleccionado)"
+                <mat-select  placeholder="Selecionar Matrícula"  [(ngModel)]="idCronogramaSeleccionado" (selectionChange)="mostrarDataCombo(idCronogramaSeleccionado)"
                     [ngModelOptions]="{standalone: true}">
                     <mat-option *ngFor="let p of listaCronograma" [value]="p.idCronograma">{{p.matricula.programacionMatricula.codigoMatricula}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance = "outline">
+                <mat-label >Tipo de Pago</mat-label>
+                <mat-select placeholder="Selecionar Tipo de Pago"  [(ngModel)]="tipoPagoSeleccionado" (selectionChange)= "cargarPeriodoPagar(idCronogramaSeleccionado,tipoPagoSeleccionado)" 
+                  [ngModelOptions]="{standalone: true}">
+                  <mat-option *ngFor="let p of listaTipoPago" [value]="p.idEstado">{{p.desEstado }}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance = "outline">

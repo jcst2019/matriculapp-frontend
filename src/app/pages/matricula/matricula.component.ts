@@ -19,7 +19,7 @@ import { MatriculaRegistroComponent } from './matricula-registro/matricula-regis
 import { CronogramaComponent } from '../cronograma/cronograma.component';
 import { Cronograma } from 'src/app/_model/cronograma';
 import { DetalleCronograma } from '../../_model/detalleCronograma';
-import {finalize} from 'rxjs/operators';
+import {finalize, switchMap} from 'rxjs/operators';
 import { Observable, Subscription } from 'rxjs';
 import { ProgramacionDetalleComponent } from '../programacion/programacion-detalle/programacion-detalle.component';
 
@@ -64,9 +64,12 @@ export class MatriculaComponent implements OnInit {
   
   filtrar (valor :string){
 
-    this.dataSource.filter = valor.trim().toLowerCase();
 
+    this.dataSource.filter = valor.trim().toLowerCase();
+    console.log('Filtrar',valor);
+    console.log('Filtrar', this.dataSource.filter);
   }
+
    abrirDialogo(matricula?: Matricula){
     
 
@@ -127,5 +130,47 @@ export class MatriculaComponent implements OnInit {
       a.click();
     });
   }
+  retornarEstadoMatricula( id:number):string {
+    
+    for (let registro of Globales.listaEstadoMatricula){
+       if (registro.idEstado == id){
+            return registro.desEstado
+       }
+    }
+    return "";
+   }
 
+   anularMatricula(matricula: Matricula){
+      console.log(matricula.idMatricula);
+      let textAnular: string = `Anularás la Matrícula ${matricula.idMatricula}.`;
+      let textAnulado: string = `Se anuló la Matrícula ${matricula.idMatricula}.`; 
+      Swal.fire({
+        title: '¿Estas seguro que quieres Anular?',
+        text: textAnular,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, Anularlo!',
+        cancelButtonText: 'No, Anularlo'
+      }).then((result) => {
+        if (result.value) {
+          this.matriculaService.actualizaEstadoAnulado(matricula.idMatricula).pipe(switchMap( () => {
+            return this.matriculaService.listar();
+          })).subscribe( data => {
+            this.matriculaService.matriculaCambio.next(data);
+            //this.alumnoService.mensajeCambio.next('SE ELIMINO');
+          });
+          Swal.fire(
+            'Eliminado!',
+            textAnulado,
+            'success'
+          )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          Swal.fire(
+            'Cancelado',
+            '',
+            'error'
+          )
+        }
+      })
+    }
 }

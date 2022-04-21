@@ -7,7 +7,7 @@
 
    <mat-form-field appearance="legacy">
          <input matInput placeholder="Nombres" [(ngModel)]="apoderado.nombre" (keyup)="validarCampos()">
-         <small *ngIf="validacion.nombre_count" class="invalido" >Debe tener más de 3 caracteres</small>
+         <small *ngIf="validacion.nombre_count" class="invalido" >Debe tener más de 2 caracteres</small>
          <small *ngIf="validacion.nombre_text" class="invalido" >Nombre es requerido</small>
          <mat-icon matSuffix>people</mat-icon>
     </mat-form-field>
@@ -21,7 +21,7 @@
     </div>-->
     <mat-form-field>
         <input matInput placeholder="Apellidos" [(ngModel)]="apoderado.apellidos"  (keyup)="validarCampos()">
-        <small *ngIf="validacion.apellido_count" class="invalido" >Debe tener más de 3 caracteres</small>
+        <small *ngIf="validacion.apellido_count" class="invalido" >Debe tener más de 2 caracteres</small>
         <small *ngIf="validacion.apellido_text" class="invalido" >Apellido es requerido</small>
         <mat-icon matSuffix>people</mat-icon>
     </mat-form-field>
