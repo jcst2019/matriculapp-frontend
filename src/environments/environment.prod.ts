@@ -7,4 +7,6 @@ export const environment = {
   TOKEN_AUTH_PASSWORD: 'clave1985',
   TOKEN_NAME: 'access_token',
   REINTENTOS: 2,
+  ID_USUARIO: 'id_user',
+  NAME_USUARIO: 'name_user',
 };

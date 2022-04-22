@@ -7,6 +7,7 @@ import { MenuBD } from '../_model/menuBD';
 import { SubMenuService } from '../_service/submenu.service';
 import { SubMenu } from '../_model/submenu';
 import { LoginService } from '../_service/login.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -32,16 +33,21 @@ export class NavComponent implements OnInit{
   subMenus: SubMenu[] = []; 
   menusBD:Array<MenuBD>=[];
 
+  nombreUsuario:string ="";
+
   constructor(private menuService: MenuService, 
               private subMenuService :SubMenuService,
               public loginService:LoginService,//SE coloco público para que se pueda usar directamente en el HTML 
               private router: Router
-              ) { }
+              ) { 
+                console.log('Nombre del Session Storage',sessionStorage.getItem(environment.NAME_USUARIO));
+                this.nombreUsuario = sessionStorage.getItem(environment.NAME_USUARIO)!;
+              }
 
   ngOnInit(){
     //Para el BUG de que se pierde el menú cuando se actualiza la página, podría intentar de guardar esta lista en el sesión Storage
     //Reemplazar por la llamada al service para suscribirse al observable
-    this.menuService.getMenuCambio().subscribe( data=>{
+      this.menuService.getMenuCambio().subscribe( data=>{
       this.menusBD = data
       console.log('Data Observable',data);
       console.log('Data MenuBD',this.menusBD);
@@ -97,6 +103,7 @@ export class NavComponent implements OnInit{
     console.log('Lista del Menu',this.appitems); //No pinta en el console log porque este se ejecuta antes de que se termine de llenar appitems
     //this.appitems = this.menuService.getMenu();
     //console.log('appitems = ',this.appitems)
+
   }
 
   selectedItem(e: any){
@@ -104,4 +111,13 @@ export class NavComponent implements OnInit{
     this.drawer.toggle();
     this.router.navigate([e.link]);    
   }
+
+  cerrarSesion(){
+
+    //this.refreshPage();
+    this.loginService.cerrarSesion();
+    
+  }
+
+  
 }

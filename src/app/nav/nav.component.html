@@ -18,15 +18,18 @@
   
         <span>Sistema de Matrículas IEP El Triunfo </span>
         <span class="example-spacer"></span>
+        <h1>{{nombreUsuario}}</h1>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
+        
         <mat-menu #menu="matMenu">
          <button mat-menu-item routerLink="/perfil">
              <mat-icon>account_box</mat-icon>
              <span>Mi Perfil</span>
          </button>
-         <button mat-menu-item (click)="loginService.cerrarSesion()">
+         <!--<button mat-menu-item (click)="loginService.cerrarSesion()">-->
+         <button mat-menu-item (click)="cerrarSesion()">
              <mat-icon>exit_to_app</mat-icon>
              <span>Cerrar Sesión</span>
          </button>

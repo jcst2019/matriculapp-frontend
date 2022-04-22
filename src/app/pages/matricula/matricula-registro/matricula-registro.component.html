@@ -8,8 +8,8 @@
               <mat-label>ID Programacion</mat-label>
               <input  matInput placeholder="ID Programacion" formControlName="firstCtrl" required [(ngModel)]="idProgMatricula">
             </mat-form-field>
-            <app-programacion-autocomplete (programacionSeleccionadoGlobal)="procesarEvento($event)"> 
-            </app-programacion-autocomplete>
+            <app-programacionabierta-autocomplete (programacionSeleccionadoGlobal)="procesarEvento($event)"> 
+            </app-programacionabierta-autocomplete>
             <mat-table [dataSource]="dataSource" matSort>
               <ng-container matColumnDef="idProgMatricula">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>

@@ -38,6 +38,7 @@ import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { ConsultaAlumnoDetalleComponent } from './pages/consulta/consulta-alumno-detalle/consulta-alumno-detalle.component';
 import { ConsultaDeudaDetalleComponent } from './pages/consulta/consulta-deuda-detalle/consulta-deuda-detalle.component';
 import {DataTablesModule} from 'angular-datatables';
+import { ProgramacionabiertaAutocompleteComponent } from './pages/programacion/programacionabierta-autocomplete/programacionabierta-autocomplete.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -71,7 +72,8 @@ export function tokenGetter() {
     ReporteComponent,
     ConsultaComponent,
     ConsultaAlumnoDetalleComponent,
-    ConsultaDeudaDetalleComponent
+    ConsultaDeudaDetalleComponent,
+    ProgramacionabiertaAutocompleteComponent
   ],
   imports: [
     BrowserModule,

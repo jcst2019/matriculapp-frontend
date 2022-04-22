@@ -5,6 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import '../../../assets/login-animation.js';
 import { LoginService } from 'src/app/_service/login.service';
+import { UsuarioService } from '../../_service/usuario.service';
+import { Usuario } from 'src/app/_model/usuario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -13,18 +16,23 @@ import { LoginService } from 'src/app/_service/login.service';
 })
 export class LoginComponent implements OnInit {
 
-  usuario!: string;
+  userName!: string;
   clave!: string;
   mensaje!: string;
   error!: string;
+  usuario:Usuario = new Usuario();
 
   constructor(
     private loginService: LoginService,
     private menuService: MenuService,
+    private usuarioService:UsuarioService,
     private router: Router
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit(): void {
+
   }
 /* Ya no se usa porque se elimino la imagen en movimiento del Jety
   ngAfterViewInit() {
@@ -32,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 */
   iniciarSesion() {
-    this.loginService.login(this.usuario, this.clave).subscribe(data => {
+    this.loginService.login(this.userName, this.clave).subscribe(data => {
       console.log(data);
       sessionStorage.setItem(environment.TOKEN_NAME, data.access_token);
 
@@ -42,13 +50,22 @@ export class LoginComponent implements OnInit {
 
       let decodedToken = helper.decodeToken(data.access_token);
 
-      this.menuService.listarPorUsuario(decodedToken.user_name).subscribe(data => {
-        console.log("DATA Menu BD",data);
-        this.menuService.setMenuCambio(data);
-        this.router.navigate(['inicio']);
+      //Obtener los datos del Usuario
+      this.usuarioService.listarPorUsername(decodedToken.user_name).subscribe(data => {
+           console.log("DATA Usuario",data);
+           this.usuario = data;
+           console.log("DATA Usuario",this.usuario);
+           sessionStorage.setItem(environment.ID_USUARIO, this.usuario.idUsuario.toString());
+           sessionStorage.setItem(environment.NAME_USUARIO, this.usuario.nombre+' '+this.usuario.apellidos);
+           if(this.usuario.idUsuario>0){
+                this.menuService.listarPorUsuario(decodedToken.user_name).subscribe(data => {
+                  console.log("DATA Menu BD",data);
+                  this.menuService.setMenuCambio(data);
+                  this.router.navigate(['inicio']);
+                });  
+           }
       });
 
-      
     })
   }
 

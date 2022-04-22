@@ -1,0 +1,12 @@
+<form class="example-container" [formGroup]="form"  #consultaForm="ngForm">
+    <mat-form-field >
+        <input type="text" placeholder="Programación" matInput [matAutocomplete]="autoApoderado"
+            [formControl]="myControlProgramacion" formControlName="programacion" >
+    </mat-form-field>
+    <mat-autocomplete  #autoApoderado="matAutocomplete" [displayWith]="mostrarProgramacion"
+    (optionSelected)="seleccionarProgramacion($event)">
+        <mat-option *ngFor="let p of programacionesFiltrados | async" [value]="p">
+            [{{ p.idProgMatricula }}] {{p.codigoMatricula}}
+        </mat-option>
+    </mat-autocomplete>
+</form>
