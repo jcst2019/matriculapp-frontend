@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { Alumno } from './../_model/alumno';
 import { Subject } from 'rxjs';
 import { GenericService } from './generic.service';
+import { FiltroAlumnoDTO } from '../dto/filtroAlumnoDTO';
+import { FiltroAlumnoServiceDTO } from '../dto/filtroAlumnoServiceDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +26,13 @@ export class AlumnoService extends GenericService<Alumno>{
 
     console.log("Recibiendo ID Matricula :", id);
     return this.http.get<Alumno[]>(`${this.url}/listar/programacion/${id}`);
+
+  }
+
+  filtrarAlumnos(filtroAlumno: FiltroAlumnoServiceDTO){
+
+    console.log("Recibiendo Filtro Alumno :", filtroAlumno);
+    return this.http.post<Alumno[]>(`${this.url}/buscar/`,filtroAlumno);
 
   }
   

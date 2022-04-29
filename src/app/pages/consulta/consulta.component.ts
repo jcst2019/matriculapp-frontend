@@ -9,6 +9,10 @@ import { CronogramaService } from 'src/app/_service/cronograma.service';
 import Swal from 'sweetalert2';
 import { ConsultaAlumnoDetalleComponent } from './consulta-alumno-detalle/consulta-alumno-detalle.component';
 import { ConsultaDeudaDetalleComponent } from './consulta-deuda-detalle/consulta-deuda-detalle.component';
+import { FiltroAlumnoDTO } from '../../dto/filtroAlumnoDTO';
+import * as moment from 'moment';
+import { AlumnoService } from '../../_service/alumno.service';
+import { FiltroAlumnoServiceDTO } from 'src/app/dto/filtroAlumnoServiceDTO';
 
 interface ConsultaAlumnoDTO {
   nombre: string;
@@ -35,6 +39,7 @@ interface ConsultaApoderadoDTO {
 export class ConsultaComponent implements OnInit {
 
   listaCronograma!:Array<Cronograma>;
+  listaAlumno!:Array<Alumno>;
   idTipoConsulta:number = 0;
   tituloConsulta:string="Consulta";
   filtros: Array<boolean> = [false,false, false, false,false,false,false];
@@ -45,14 +50,16 @@ export class ConsultaComponent implements OnInit {
   alumnoSeleccionado: Alumno = new Alumno; //Variable que tiene el alumno seleccionado por el Usuario
   programacion!: ProgramacionMatricula[];
   programacionMatriculado: ProgramacionMatricula = new ProgramacionMatricula; //Variable que tiene la programación seleccionado por el Usuario
-  filtroAlumno:ConsultaAlumnoDTO= {
+  filtroAlumno:FiltroAlumnoDTO= {
+                                    idAlumno: "",
                                     nombre: "",
-                                    apellido: "",
-                                    documento: "",
+                                    apellidos: "",
+                                    numDocumento: "",
                                     tipoDescuento:0,
                                     fechaNacimiento: "",
                                     fechaIngreso: "",
-                                   }; 
+                                   };
+  filtroServiceAlumno:FiltroAlumnoServiceDTO = new FiltroAlumnoServiceDTO(); 
   filtroApoderado:ConsultaApoderadoDTO= {
                                     nombre: "",
                                     apellido: "",
@@ -63,7 +70,8 @@ export class ConsultaComponent implements OnInit {
                                    };                                  
   
   constructor( private dialog: MatDialog,
-               private cronogramaService : CronogramaService) { }
+               private cronogramaService : CronogramaService,
+               private alumnoService:AlumnoService) { }
 
   ngOnInit(): void {
     console.log('Filtros Inicial',this.filtros);
@@ -123,6 +131,7 @@ export class ConsultaComponent implements OnInit {
   }
   abrirConsultaAlumnoDialogo(){
 
+     /*
      let dto: ConsultaAlumnoDTO;
      dto = {
       nombre: this.filtroAlumno.nombre,
@@ -131,13 +140,40 @@ export class ConsultaComponent implements OnInit {
       tipoDescuento:  this.filtroAlumno.tipoDescuento,
       fechaNacimiento: this.filtroAlumno.fechaNacimiento,
       fechaIngreso: this.filtroAlumno.fechaIngreso,
-    };
+    };*/
+    let filtro = new FiltroAlumnoDTO(this.filtroAlumno.idAlumno,
+                                     this.filtroAlumno.nombre,
+                                     this.filtroAlumno.apellidos,
+                                     this.filtroAlumno.numDocumento,
+                                     this.filtroAlumno.fechaNacimiento,
+                                     this.filtroAlumno.fechaIngreso,
+                                     this.filtroAlumno.tipoDescuento );
 
-    console.log(dto);
-    this.dialog.open(ConsultaAlumnoDetalleComponent, {
-      width: '950px',
-      data:dto
-    });
+    //console.log(dto);
+    console.log('Datos Recibiendo',filtro);
+    this.filtroServiceAlumno.idAlumno = Number(filtro.idAlumno);
+    this.filtroServiceAlumno.nombre = filtro.nombre;
+    this.filtroServiceAlumno.apellidos=filtro.apellidos;
+    this.filtroServiceAlumno.numDocumento=filtro.numDocumento;
+    this.filtroServiceAlumno.tipoDescuento= filtro.tipoDescuento;
+    this.filtroServiceAlumno.fechaIngreso=new Date(filtro.fechaIngreso);
+    this.filtroServiceAlumno.fechaNacimiento=new Date(filtro.fechaNacimiento);
+
+    console.log('Datos Alumnos Transformados',this.filtroServiceAlumno);
+    this.alumnoService.filtrarAlumnos(this.filtroServiceAlumno).subscribe(
+     data =>{
+       this.listaAlumno = data;
+        console.log('Datos Alumnos', this.listaAlumno);
+        if (this.listaAlumno.length == 0){
+              Swal.fire('Consultar Alumno', "No se encontraron alumnos con los filtros ingresados.", 'warning')
+        }else{
+           this.dialog.open(ConsultaAlumnoDetalleComponent, {
+            width: '1050px',
+            //data:dto
+            data:this.listaAlumno
+          });
+        }
+     })  
   }
   abrirConsultaDeudaDialogo(){
     let alumnoFiltro: Alumno = new Alumno();

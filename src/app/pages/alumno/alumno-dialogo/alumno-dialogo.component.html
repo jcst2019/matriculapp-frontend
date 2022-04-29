@@ -5,7 +5,7 @@
 <br>
 <div>
     <mat-form-field appearance="legacy">
-        <input matInput placeholder="Nombres" [(ngModel)]="alumno.nombre" (keyup)="validarCampos()">
+        <input matInput placeholder="Nombres(*)" [(ngModel)]="alumno.nombre" (keyup)="validarCampos()">
         <small *ngIf="validacion.nombre_count" class="invalido" >Debe tener más de 2 caracteres</small>
         <small *ngIf="validacion.nombre_text" class="invalido" >Nombre es requerido</small>
         <mat-icon matSuffix>people</mat-icon>
