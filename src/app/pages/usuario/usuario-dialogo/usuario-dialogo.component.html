@@ -1,0 +1,55 @@
+<div _ngcontent-kxc-c57="" 
+    class="card-header bg-secondary  border-primary text-white text-uppercase"  style="text-align: center;">
+     {{tituloVentana}}
+</div>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+    </symbol>
+</svg>
+
+<div class="alert alert-primary d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+    <div>
+        La clave del nuevo usuario se registrará con el valor por defecto de 123456.
+    </div>
+ </div>
+<br>
+<div >
+
+   <mat-form-field appearance="legacy">
+         <input matInput placeholder="Usuario(*)" [(ngModel)]="usuario.username" (keyup)="validarCampos()">
+         <small *ngIf="validacion.username_count" class="invalido" >Debe tener más de 2 caracteres</small>
+         <small *ngIf="validacion.username_text" class="invalido" >Usuario es requerido</small>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Nombres" [(ngModel)]="usuario.nombre"  (keyup)="validarCampos()">
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Apellidos" [(ngModel)]="usuario.apellidos"  (keyup)="validarCampos()">
+    </mat-form-field>
+    <mat-form-field>
+    <mat-select placeholder="Rol"  [(ngModel)]="idRolSeleccionado" (click)="validarSeleccion(idRolSeleccionado)">
+        <mat-option *ngFor="let p of listaRoles" [value]="p.idRol">{{p.rol }}</mat-option>
+    </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select placeholder="Tipo Documento"  [(ngModel)]="idTipoDocumentoSeleccionado" (click)="validarSeleccion(idTipoDocumentoSeleccionado)">
+            <mat-option *ngFor="let p of tipoDocumento" [value]="p.idTipoDoc">{{p.desTipoDoc }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Documento" [(ngModel)]="usuario.numDocumento"  (keyup)="validarCampos()">
+    </mat-form-field>
+    <br>
+    <!--<img mat-card-image [src]="apoderado.fotoUrl" alt="" width="50%" height="50%" *ngIf="apoderado.fotoUrl != null">-->
+    <div class="mat-diplay-button">
+        <button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+        <button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+    </div>
+</div>
+
+
+
+
+

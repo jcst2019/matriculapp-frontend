@@ -6,16 +6,21 @@ import { Matricula } from '../_model/matricula';
 import { Respuesta } from '../_model/respuesta';
 import { DetalleCronogramaPagoDTO } from '../_model/detalleCronogramaPagoDTO';
 import { Usuario } from '../_model/usuario';
+import { Subject } from 'rxjs';
+import { GenericService } from './generic.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsuarioService {
+export class UsuarioService extends GenericService<Usuario> {
 
-  url: string = `${environment.HOST}/api/usuarios`
+  UsuarioCambio = new Subject<Usuario[]>();
+  mensajeCambio = new Subject<string>();
+  //url: string = `${environment.HOST}/api/usuarios`
 
-  constructor( private http: HttpClient) { 
+  constructor(  http: HttpClient) { 
 
+    super(http,`${environment.HOST}/api/usuarios`);
   }
   
   listarPorUsername(username: string){

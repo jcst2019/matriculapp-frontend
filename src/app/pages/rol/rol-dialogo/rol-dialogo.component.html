@@ -1,0 +1,28 @@
+<div _ngcontent-kxc-c57="" 
+    class="card-header bg-secondary  border-primary text-white text-uppercase"  style="text-align: center;">
+     {{tituloVentana}}
+</div>
+<br>
+<div >
+
+   <mat-form-field appearance="legacy">
+         <input matInput placeholder="Rol" [(ngModel)]="rol.rol" (keyup)="validarCampos()">
+         <small *ngIf="validacion.rol_count" class="invalido" >Debe tener más de 2 caracteres</small>
+         <small *ngIf="validacion.rol_text" class="invalido" >Rol es requerido</small>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Descrición" [(ngModel)]="rol.descripcion"  (keyup)="validarCampos()">
+        <small *ngIf="validacion.descripcion_count" class="invalido" >Debe tener más de 2 caracteres</small>
+        <small *ngIf="validacion.descripcion_text" class="invalido" >Descripción es requerido</small>
+    </mat-form-field>
+    
+    <!--<img mat-card-image [src]="apoderado.fotoUrl" alt="" width="50%" height="50%" *ngIf="apoderado.fotoUrl != null">-->
+    <div class="mat-diplay-button">
+        <button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+        <button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+    </div>
+</div>
+
+
+
+

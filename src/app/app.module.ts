@@ -39,6 +39,11 @@ import { ConsultaAlumnoDetalleComponent } from './pages/consulta/consulta-alumno
 import { ConsultaDeudaDetalleComponent } from './pages/consulta/consulta-deuda-detalle/consulta-deuda-detalle.component';
 import {DataTablesModule} from 'angular-datatables';
 import { ProgramacionabiertaAutocompleteComponent } from './pages/programacion/programacionabierta-autocomplete/programacionabierta-autocomplete.component';
+import { ConsultaApoderadoDetalleComponent } from './pages/consulta/consulta-apoderado-detalle/consulta-apoderado-detalle.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { RolComponent } from './pages/rol/rol.component';
+import { RolDialogoComponent } from './pages/rol/rol-dialogo/rol-dialogo.component';
+import { UsuarioDialogoComponent } from './pages/usuario/usuario-dialogo/usuario-dialogo.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -73,7 +78,12 @@ export function tokenGetter() {
     ConsultaComponent,
     ConsultaAlumnoDetalleComponent,
     ConsultaDeudaDetalleComponent,
-    ProgramacionabiertaAutocompleteComponent
+    ProgramacionabiertaAutocompleteComponent,
+    ConsultaApoderadoDetalleComponent,
+    UsuarioComponent,
+    RolComponent,
+    RolDialogoComponent,
+    UsuarioDialogoComponent
   ],
   imports: [
     BrowserModule,

@@ -13,6 +13,12 @@ import { FiltroAlumnoDTO } from '../../dto/filtroAlumnoDTO';
 import * as moment from 'moment';
 import { AlumnoService } from '../../_service/alumno.service';
 import { FiltroAlumnoServiceDTO } from 'src/app/dto/filtroAlumnoServiceDTO';
+import { FiltroApoderadoDTO } from '../../dto/filtroApoderadoDTO';
+import { FiltroApoderadoServiceDTO } from '../../dto/filtroApoderadoServiceDTO';
+import { ApoderadoService } from '../../_service/apoderado.service';
+import { Apoderado } from '../../_model/apoderado';
+import { ConsultaApoderadoDetalleComponent } from './consulta-apoderado-detalle/consulta-apoderado-detalle.component';
+import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 
 interface ConsultaAlumnoDTO {
   nombre: string;
@@ -38,8 +44,11 @@ interface ConsultaApoderadoDTO {
 })
 export class ConsultaComponent implements OnInit {
 
+  scrollStrategy!: ScrollStrategy;
+
   listaCronograma!:Array<Cronograma>;
   listaAlumno!:Array<Alumno>;
+  listaApoderado!:Array<Apoderado>;
   idTipoConsulta:number = 0;
   tituloConsulta:string="Consulta";
   filtros: Array<boolean> = [false,false, false, false,false,false,false];
@@ -60,18 +69,24 @@ export class ConsultaComponent implements OnInit {
                                     fechaIngreso: "",
                                    };
   filtroServiceAlumno:FiltroAlumnoServiceDTO = new FiltroAlumnoServiceDTO(); 
-  filtroApoderado:ConsultaApoderadoDTO= {
+  filtroApoderado:FiltroApoderadoDTO= {
+                                    idApoderado:"",
                                     nombre: "",
-                                    apellido: "",
-                                    documento: "",
+                                    apellidos: "",
+                                    numDocumento: "",
                                     telefono:"",
                                     fechaNacimiento: "",
                                     fechaRegistro: "",
-                                   };                                  
+                                   };
+  filtroServiceApoderado:FiltroApoderadoServiceDTO = new FiltroApoderadoServiceDTO();                                                                    
   
-  constructor( private dialog: MatDialog,
+  constructor( private readonly sso: ScrollStrategyOptions,
+               private dialog: MatDialog,
                private cronogramaService : CronogramaService,
-               private alumnoService:AlumnoService) { }
+               private alumnoService:AlumnoService,
+               private apoderadoService:ApoderadoService) { 
+                this.scrollStrategy = this.sso.noop(); // or close()/block()/reposition()
+               }
 
   ngOnInit(): void {
     console.log('Filtros Inicial',this.filtros);
@@ -175,6 +190,42 @@ export class ConsultaComponent implements OnInit {
         }
      })  
   }
+  abrirConsultaApoderadoDialogo(){
+   let filtro = new FiltroApoderadoDTO(this.filtroApoderado.idApoderado,
+                                       this.filtroApoderado.nombre,
+                                       this.filtroApoderado.apellidos,
+                                       this.filtroApoderado.numDocumento,
+                                       this.filtroApoderado.telefono,
+                                       this.filtroApoderado.fechaNacimiento,
+                                       this.filtroApoderado.fechaRegistro);
+
+   //console.log(dto);
+   console.log('Datos Fitro Apoderado Recibiendo',filtro);
+   this.filtroServiceApoderado.idApoderado = Number(filtro.idApoderado);
+   this.filtroServiceApoderado.nombre = filtro.nombre;
+   this.filtroServiceApoderado.apellidos=filtro.apellidos;
+   this.filtroServiceApoderado.numDocumento=filtro.numDocumento;
+   this.filtroServiceApoderado.fechaRegsitro=new Date(filtro.fechaRegistro);
+   this.filtroServiceApoderado.fechaNacimiento=new Date(filtro.fechaNacimiento);
+
+   console.log('Datos Apoderados Transformados',this.filtroServiceApoderado);
+   this.apoderadoService.filtrarApoderados(this.filtroServiceApoderado).subscribe(
+    data =>{
+      this.listaApoderado = data;
+       console.log('Datos Apoderados', this.listaApoderado);
+       if (this.listaApoderado.length == 0){
+             Swal.fire('Consultar Apoderado', "No se encontraron apoderados con los filtros ingresados.", 'warning')
+       }else{
+          this.dialog.open(ConsultaApoderadoDetalleComponent,{
+            width: '100%',
+            autoFocus: false,
+            scrollStrategy: this.scrollStrategy,
+           //data:dto
+           data:this.listaApoderado
+         });
+       }
+    })  
+ }
   abrirConsultaDeudaDialogo(){
     let alumnoFiltro: Alumno = new Alumno();
     if (this.alumnoSeleccionado.idAlumno > 0){

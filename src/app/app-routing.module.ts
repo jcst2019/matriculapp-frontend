@@ -15,6 +15,8 @@ import { Not404Component } from './pages/not404/not404.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { ReporteComponent } from './pages/reporte/reporte.component';
 import { ConsultaComponent } from './pages/consulta/consulta.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+import { RolComponent } from './pages/rol/rol.component';
 
 const routes: Routes = [
   
@@ -28,16 +30,18 @@ const routes: Routes = [
       {path: 'nuevo', component: MatriculaRegistroComponent}
    ],canActivate:[GuardService]  
   },
-  {path: 'matriculanuevo', component: MatriculaRegistroComponent,canActivate:[GuardService]},//Para no usar la RUTA Hija
+  { path: 'matriculanuevo', component: MatriculaRegistroComponent,canActivate:[GuardService]},//Para no usar la RUTA Hija
   { path: 'apoderado', component:ApoderadoComponent,canActivate:[GuardService] },
   { path: 'programacion', component:ProgramacionComponent,canActivate:[GuardService] },
   { path: 'pago', component:PagoComponent,children:[
       {path: 'nuevo', component: PagoRegistroComponent}
    ],canActivate:[GuardService] 
   },
-  {path: 'pagonuevo', component: PagoRegistroComponent,canActivate:[GuardService]},//Para no usar la RUTA Hija
-  {path: 'reporte', component: ReporteComponent,canActivate:[GuardService]},
-  {path: 'consulta', component: ConsultaComponent,canActivate:[GuardService]},
+  { path: 'pagonuevo', component: PagoRegistroComponent,canActivate:[GuardService]},//Para no usar la RUTA Hija
+  { path: 'reporte', component: ReporteComponent,canActivate:[GuardService]},
+  { path: 'consulta', component: ConsultaComponent,canActivate:[GuardService]},
+  { path: 'usuario', component: UsuarioComponent,canActivate:[GuardService]},
+  { path: 'rol', component: RolComponent,canActivate:[GuardService]},
   { path: 'login', component: LoginComponent },
   { path: 'not-403', component: Not403Component },
   { path: 'not-404', component: Not404Component },

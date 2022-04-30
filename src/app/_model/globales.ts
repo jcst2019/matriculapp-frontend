@@ -218,5 +218,16 @@ public static listaTipoPago:Estado[]=[
   }
 ];
 
+public static listaEstadoRol:Estado[]=[
+  {
+    idEstado:1,
+    desEstado:"Registrado"   
+  },
+  {
+    idEstado:2,
+    desEstado:"Anulado"
+  }
+];
+
 
 }

@@ -11,5 +11,6 @@ export class Usuario{
     tipoDocumento!:number;
     numDocumento!:string;
     roles!:Rol[];
+    fechaRegistro!:string;
 
 }

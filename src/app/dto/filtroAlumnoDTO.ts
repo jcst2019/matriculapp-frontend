@@ -1,4 +1,3 @@
-import { Apoderado } from 'src/app/_model/apoderado';
 export class FiltroAlumnoDTO{
     
     idAlumno!: string; //Lo coloco como string para que no se muestre 0 en la consulta de alumnos
