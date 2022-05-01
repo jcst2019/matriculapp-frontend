@@ -1,0 +1,141 @@
+<div class="animate__animated animate__fadeIn animate__delay-0.7s">
+<mat-toolbar>{{tituloPerfil}}</mat-toolbar>
+
+   <div style="  padding: 10px 24px 0;">
+    <fieldset class="border p-2">
+        <legend  class="float-none w-auto">Datos Usuario</legend>
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="IdUsuario" class="form-control-sm">ID Usuario:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtIdUsuario" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid"
+                        [(ngModel)]="usuario.idUsuario" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombre" class="form-control-sm">Nombre:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtNombre" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid"
+                        [(ngModel)]="usuario.nombre" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Apellido:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtApellido" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid"
+                        [(ngModel)]="usuario.apellidos" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Tipo Documento:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <select _ngcontent-yqb-c57="" formcontrolname="cbTipoDocumento" id="cbTipoDocumento"
+                        [(ngModel)]="usuario.tipoDocumento"(change) ="seleccionarTipoDocuemnto(usuario.tipoDocumento)" [ngModelOptions]="{standalone: true}"
+                         class="form-control form-control-sm ng-untouched ng-pristine ng-valid" #t>
+                            <option _ngcontent-yqb-c57="" *ngFor="let p of tipoDocumento" [value]="p.idTipoDoc" [disabled]="true"> 
+                                {{p.desTipoDoc }}
+                            </option>
+                        </select>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Documento:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtTipoDocumento" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid"
+                        [(ngModel)]="usuario.numDocumento" [ngModelOptions]="{standalone: true}" [disabled]="true">
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">Rol:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <select _ngcontent-yqb-c57="" formcontrolname="cbTipoDescuento" id="cbTipoDescuento"
+                        [(ngModel)]="usuario.tipoDocumento"(change) ="seleccionarTipoDocuemnto(usuario.tipoDocumento)" [ngModelOptions]="{standalone: true}"
+                         class="form-control form-control-sm ng-untouched ng-pristine ng-valid" #t>
+                            <option _ngcontent-yqb-c57="" *ngFor="let p of listaRoles" [value]="p.idRol" [disabled]="true"> 
+                                {{p.rol }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreRazonSocial" class="form-control-sm">¿Cambiar Contraseña?:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <mat-radio-group aria-label="Select an option">
+                            <mat-radio-button value="1" (change)="habilitarCambioClave()">SI </mat-radio-button>
+                            <mat-radio-button value="2" [checked]="true" (change)="habilitarCambioClave()">NO </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                </div>
+           </form>
+       </div>
+     </div>
+  </fieldset> 
+  <br>
+  <div  [hidden]="!habilitaCambioClave">
+    <fieldset class="border p-2">
+        <legend  class="float-none w-auto">Cambiar Contraseña</legend>
+    <div _ngcontent-yqb-c57="" class="card border-primary" >
+        <div _ngcontent-yqb-c57="" class="card-body">
+            <form _ngcontent-yqb-c57="" novalidate="" class="ng-pristine ng-valid ng-touched">
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="password" class="form-control-sm">Contraseña:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtPassword" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="70" type="password"
+                        [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-2">
+                        <label _ngcontent-yqb-c57="" for="nombreApoderado" class="form-control-sm">Repetir Contraseña:</label>
+                    </div>
+                    <div _ngcontent-yqb-c57="" class="col-md-4">
+                        <input _ngcontent-yqb-c57="" type="text" formcontrolname="txtRepetirPassword" appstringutils="" pinputtext="" 
+                        class="form-control form-control-sm ng-untouched ng-pristine ng-valid" maxlength="70" type="password"
+                        [(ngModel)]="repetirPassword" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <br>
+                <div _ngcontent-yqb-c57="" class="form-group row">
+                    <div _ngcontent-yqb-c57="" class="col-md-3">
+                    </div>
+                    <div _ngcontent-yqb-c57=""   style="text-align: center;">
+                        <button _ngcontent-yqb-c57="" type="button" class="btn btn-primary btn-sm mr-1 mw-150" (click)="cambiarPassword()"> 
+                            Cambiar Contraseña 
+                        </button>
+                    </div>
+                </div>
+           </form>
+       </div>
+     </div>
+    </fieldset>
+</div>
+<div class="d-flex flex-row justify-content-center alig-items-center">
+    <button mat-fab color="accent" (click)="regresarComponentePrincipal()" >
+      <mat-icon>cancel</mat-icon>
+    </button>
+ </div>
+  

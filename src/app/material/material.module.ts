@@ -21,6 +21,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatNativeDateModule,
     MatAutocompleteModule,
     MatStepperModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatRadioModule 
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorImpl },

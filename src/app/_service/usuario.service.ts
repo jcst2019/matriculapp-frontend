@@ -28,4 +28,9 @@ export class UsuarioService extends GenericService<Usuario> {
     return this.http.get<Usuario>(`${this.url}/listarPorUsername/${username}`);
   }
 
+  actualizarPassword(usuario : Usuario){
+
+    return this.http.post(`${this.url}/actualizarPassword`,usuario);
+  }
+
 }

@@ -17,6 +17,7 @@ import { ReporteComponent } from './pages/reporte/reporte.component';
 import { ConsultaComponent } from './pages/consulta/consulta.component';
 import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { RolComponent } from './pages/rol/rol.component';
+import { UsuarioPerfilComponent } from './pages/usuario/usuario-perfil/usuario-perfil.component';
 
 const routes: Routes = [
   
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'consulta', component: ConsultaComponent,canActivate:[GuardService]},
   { path: 'usuario', component: UsuarioComponent,canActivate:[GuardService]},
   { path: 'rol', component: RolComponent,canActivate:[GuardService]},
+  { path: 'perfil', component: UsuarioPerfilComponent ,canActivate:[GuardService]},
   { path: 'login', component: LoginComponent },
   { path: 'not-403', component: Not403Component },
   { path: 'not-404', component: Not404Component },
