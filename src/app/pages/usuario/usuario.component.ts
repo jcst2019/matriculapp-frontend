@@ -68,9 +68,9 @@ export class UsuarioComponent implements OnInit {
     });
   }
 
-  eliminar(rol: Rol) {
-    let textEliminar: string = `Eliminaras al Rol ${rol.rol} .`;
-    let textEliminado: string = `Se eliminó al Rol ${rol.rol}.`; 
+  eliminar(usuario: Usuario) {
+    let textEliminar: string = `Eliminaras al Usuario ${usuario.nombre} ${usuario.apellidos} .`;
+    let textEliminado: string = `Se eliminó al Usuario ${usuario.nombre} ${usuario.apellidos} .`; 
     Swal.fire({
       title: '¿Estas seguro que quieres eliminar?',
       text: textEliminar,
@@ -80,7 +80,7 @@ export class UsuarioComponent implements OnInit {
       cancelButtonText: 'No, Eliminarlo'
     }).then((result) => {
       if (result.value) {
-        this.usuarioService.eliminar(rol.idRol).pipe(switchMap( () => {
+        this.usuarioService.eliminar(usuario.idUsuario).pipe(switchMap( () => {
           return this.usuarioService.listar();
         })).subscribe( data => {
           this.usuarioService.UsuarioCambio.next(data);

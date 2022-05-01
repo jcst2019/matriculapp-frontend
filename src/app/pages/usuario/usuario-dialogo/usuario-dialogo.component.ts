@@ -20,8 +20,8 @@ import { Usuario } from 'src/app/_model/usuario';
 export class UsuarioDialogoComponent implements OnInit {
 
   validacion = {username_text: false,username_count:false};
-  rol!: Rol;
-  usuario!: Usuario;
+  rolSeleccionado!: Array<Rol>;
+  usuario: Usuario = new Usuario();
   listaRoles!:Rol[];
   tituloVentana: string ='';
   parentesto!:Parentesco[];
@@ -47,7 +47,6 @@ export class UsuarioDialogoComponent implements OnInit {
     }else{
       this.tituloVentana = "REGISTRAR USUARIO";
     }
-    this.usuario = new Usuario();
     this.usuario.idUsuario= this.data.idUsuario;
     this.usuario.username= this.data.username;
     this.usuario.password= this.data.password;
@@ -57,6 +56,7 @@ export class UsuarioDialogoComponent implements OnInit {
     this.usuario.tipoDocumento = this.data.tipoDocumento;
     this.idTipoDocumentoSeleccionado= this.data.tipoDocumento;
     this.usuario.numDocumento= this.data.numDocumento;
+    this.usuario.fechaRegistro= this.data.fechaRegistro;
     this.usuario.roles= this.data.roles;
     this.listarTipoDocumento();
     this.rolService.listar().subscribe(data =>{
@@ -70,7 +70,7 @@ export class UsuarioDialogoComponent implements OnInit {
     if(this.usuario != null && this.usuario.idUsuario > 0){
 
       //MODIFICAR
-      this.usuario.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
+      //this.usuario.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
       console.log("Modificar Usuario",this.usuario)
       this.usuarioService.modificar(this.usuario).pipe(switchMap( () => {
             return this.usuarioService.listar();
@@ -89,20 +89,27 @@ export class UsuarioDialogoComponent implements OnInit {
           if (this.validacion.username_text ){
               Swal.fire('Registrar Usuario', 'Falta llenar campos Obligatorios!', 'warning')
           }else{
-                console.log("Registrar Usuario",this.usuario)
-                this.usuario.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
-                this.usuario.password="123456";
-                this.usuario.tipoDocumento=this.idTipoDocumentoSeleccionado;
-                //this.usuario.roles[0].idRol = this.idRolSeleccionado;
-
-                this.usuarioService.registrar(this.usuario).pipe(switchMap( () => {
-                        return this.usuarioService.listar();
-                })).subscribe(data => {
-                        this.usuarioService.UsuarioCambio.next(data);
-                        //this.rolService.mensajeCambio.next('SE REGISTRO');
-                });
-                Swal.fire('Registrar Usuario', 'Registro Exitoso!', 'success')
-                this.dialogRef.close();          
+               if(this.rolSeleccionado=== undefined){
+                Swal.fire('Registrar Usuario', 'Falta llenar el Rol de Usuario!', 'warning')
+               }
+               else{
+                    console.log("Registrar Usuario",this.usuario)
+                    this.usuario.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
+                    this.usuario.password="123456";
+                    this.usuario.tipoDocumento=this.idTipoDocumentoSeleccionado;
+                    console.log("this.rolSeleccionado",this.rolSeleccionado)
+                    this.usuario.roles=this.rolSeleccionado;
+                    //this.usuario.roles[0].idRol = this.idRolSeleccionado;
+                    console.log("Registrar Usuario2",this.usuario)
+                    this.usuarioService.registrar(this.usuario).pipe(switchMap( () => {
+                            return this.usuarioService.listar();
+                    })).subscribe(data => {
+                            this.usuarioService.UsuarioCambio.next(data);
+                            //this.rolService.mensajeCambio.next('SE REGISTRO');
+                    });
+                    Swal.fire('Registrar Usuario', 'Registro Exitoso!', 'success')
+                    this.dialogRef.close();      
+               }    
             }
           }
     }
@@ -121,6 +128,14 @@ export class UsuarioDialogoComponent implements OnInit {
 
   console.log(id);
 
+ }
+ asignarRolSelecionado(id: number){
+
+  console.log(id);
+
+   let rol:Rol[];
+   rol= this.listaRoles.filter( data => data.idRol === id);
+   this.rolSeleccionado=rol; //Solo es un Rol por usuario
  }
 
  listarTipoDocumento(){

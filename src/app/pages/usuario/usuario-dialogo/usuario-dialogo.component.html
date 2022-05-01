@@ -14,6 +14,12 @@
         La clave del nuevo usuario se registrará con el valor por defecto de 123456.
     </div>
  </div>
+ <div class="alert alert-primary d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
+    <div>
+        (*)Campos Obligatorios
+    </div>
+ </div>
 <br>
 <div >
 
@@ -29,12 +35,12 @@
         <input matInput placeholder="Apellidos" [(ngModel)]="usuario.apellidos"  (keyup)="validarCampos()">
     </mat-form-field>
     <mat-form-field>
-    <mat-select placeholder="Rol"  [(ngModel)]="idRolSeleccionado" (click)="validarSeleccion(idRolSeleccionado)">
+    <mat-select placeholder="Rol(*)"  [(ngModel)]="idRolSeleccionado" (selectionChange)="asignarRolSelecionado(idRolSeleccionado)">
         <mat-option *ngFor="let p of listaRoles" [value]="p.idRol">{{p.rol }}</mat-option>
     </mat-select>
     </mat-form-field>
     <mat-form-field>
-        <mat-select placeholder="Tipo Documento"  [(ngModel)]="idTipoDocumentoSeleccionado" (click)="validarSeleccion(idTipoDocumentoSeleccionado)">
+        <mat-select placeholder="Tipo Documento"  [(ngModel)]="idTipoDocumentoSeleccionado" (selectionChange)="validarSeleccion(idTipoDocumentoSeleccionado)">
             <mat-option *ngFor="let p of tipoDocumento" [value]="p.idTipoDoc">{{p.desTipoDoc }}</mat-option>
         </mat-select>
     </mat-form-field>
