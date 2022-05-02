@@ -121,5 +121,40 @@ export class UsuarioComponent implements OnInit {
   }
   return "";
  }
+ cambiarPassword(usuario?: Usuario){
+  console.log('Usuario',usuario);
+  let textActualizar: string = `Actulizarás el Password del Usuario ${usuario!.nombre} ${usuario!.apellidos} .`;
+    let textActualizado: string = `Se actualizó el Password del Usuario ${usuario!.nombre} ${usuario!.apellidos} .`; 
+    Swal.fire({
+      title: '¿Estas seguro que quieres actualizar el Password por defecto?',
+      text: textActualizar,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Actualizarlo!',
+      cancelButtonText: 'No, Actualizarlo'
+    }).then((result) => {
+      if (result.value) {
+        usuario!.password='123456';
+        this.usuarioService.actualizarPassword(usuario!).pipe(switchMap( () => {
+          return this.usuarioService.listar();
+        })).subscribe( data => {
+          this.usuarioService.UsuarioCambio.next(data);
+          //this.apoderadoService.mensajeCambio.next('SE ELIMINO');
+        });
+        Swal.fire(
+          'Actualizado!',
+          textActualizado,
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelado',
+          '',
+          'error'
+        )
+      }
+    })
+ }
+
 }
 

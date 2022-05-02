@@ -66,6 +66,7 @@
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">        
+        <button mat-button color="primary" (click)="cambiarPassword(row)" ><mat-icon> vpn_key</mat-icon></button>
         <button mat-button color="primary" (click)="abrirDialogo(row)" ><mat-icon>edit</mat-icon></button>
         <button mat-button color="accent" (click)="eliminar(row)"><mat-icon>delete</mat-icon></button>
       </mat-cell>

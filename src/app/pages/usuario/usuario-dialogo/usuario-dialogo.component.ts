@@ -72,6 +72,8 @@ export class UsuarioDialogoComponent implements OnInit {
       //MODIFICAR
       //this.usuario.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
       console.log("Modificar Usuario",this.usuario)
+      this.usuario.roles[0].idRol = this.idRolSeleccionado//Solo se acepta 1 solo Rol por Usuario
+      this.usuario.tipoDocumento = this.idTipoDocumentoSeleccionado
       this.usuarioService.modificar(this.usuario).pipe(switchMap( () => {
             return this.usuarioService.listar();
       })).subscribe(data => {

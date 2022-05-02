@@ -51,9 +51,19 @@
 
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
-      <mat-cell *matCellDef="let row">        
-        <button mat-button color="primary" (click)="abrirDialogo(row)" ><mat-icon>edit</mat-icon></button>
-        <button mat-button color="accent" (click)="eliminar(row)"><mat-icon>delete</mat-icon></button>
+      <mat-cell *matCellDef="let row"> 
+        <button mat-button color="primary" 
+        matTooltip="Asignar Menú"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+         (click)="abrirAsignarMenu(row)" ><mat-icon>check_box</mat-icon></button>       
+        <button mat-button color="primary" 
+        matTooltip="Modificar"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+         (click)="abrirDialogo(row)" ><mat-icon>edit</mat-icon></button>
+        <button mat-button color="accent" 
+        matTooltip="Modificar"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        (click)="eliminar(row)"><mat-icon>delete</mat-icon></button>
       </mat-cell>
     </ng-container>
 

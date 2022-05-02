@@ -48,6 +48,30 @@ export class MenuService extends GenericService<Menu>{
     });
   }
 
+  listarPorRol(idRol: number){
+    let token = sessionStorage.getItem(environment.TOKEN_NAME);
+
+    return this.http.post<MenuBD[]>(`${this.url}/roles`, idRol, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+  borrarMenuPorRol(idRol: number){
+    let token = sessionStorage.getItem(environment.TOKEN_NAME);
+
+    return this.http.post<MenuBD[]>(`${this.url}/borrarMenuPorRol`, idRol, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${token}`).set('Content-Type', 'application/json')
+    });
+  }
+
+  registrarMenuPorRol(listaMenu: MenuBD[]){
+    let token = sessionStorage.getItem(environment.TOKEN_NAME);
+
+    return this.http.post<MenuBD[]>(`${this.url}/registrarMenuPorRol`, listaMenu, {
+      headers: new HttpHeaders().set('Authorization', `bearer ${token}`).set('Content-Type', 'application/json')
+    });
+  }
+
   getMenu(){
     //Reemplazar por la llamada a un servicio para retornar Observable
     let m = new Menu();

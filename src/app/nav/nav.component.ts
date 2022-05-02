@@ -8,6 +8,7 @@ import { SubMenuService } from '../_service/submenu.service';
 import { SubMenu } from '../_model/submenu';
 import { LoginService } from '../_service/login.service';
 import { environment } from 'src/environments/environment';
+import { GlobalComponent } from '../global/global/global.component';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class NavComponent implements OnInit{
               ) { 
                 console.log('Nombre del Session Storage',sessionStorage.getItem(environment.NAME_USUARIO));
                 this.nombreUsuario = sessionStorage.getItem(environment.NAME_USUARIO)!;
+
               }
 
   ngOnInit(){

@@ -45,6 +45,8 @@ import { RolComponent } from './pages/rol/rol.component';
 import { RolDialogoComponent } from './pages/rol/rol-dialogo/rol-dialogo.component';
 import { UsuarioDialogoComponent } from './pages/usuario/usuario-dialogo/usuario-dialogo.component';
 import { UsuarioPerfilComponent } from './pages/usuario/usuario-perfil/usuario-perfil.component';
+import { GlobalComponent } from './global/global/global.component';
+import { RolMenuComponent } from './pages/rol/rol-menu/rol-menu.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem(environment.TOKEN_NAME);
@@ -85,7 +87,9 @@ export function tokenGetter() {
     RolComponent,
     RolDialogoComponent,
     UsuarioDialogoComponent,
-    UsuarioPerfilComponent
+    UsuarioPerfilComponent,
+    GlobalComponent,
+    RolMenuComponent
   ],
   imports: [
     BrowserModule,

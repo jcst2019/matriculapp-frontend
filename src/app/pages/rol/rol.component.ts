@@ -12,6 +12,7 @@ import { ApoderadoDialogoComponent } from '../apoderado/apoderado-dialogo/apoder
 import { RolService } from '../../_service/rol.service';
 import { Rol } from 'src/app/_model/rol';
 import { RolDialogoComponent } from './rol-dialogo/rol-dialogo.component';
+import { RolMenuComponent } from './rol-menu/rol-menu.component';
 
 @Component({
   selector: 'app-rol',
@@ -118,6 +119,14 @@ export class RolComponent implements OnInit {
      }
   }
   return "";
+ }
+ abrirAsignarMenu(rol?: Rol){
+
+  console.log("Data Rol Seleccionado",rol);
+  this.dialog.open(RolMenuComponent , {
+    width: '450px',
+    data: rol
+  });
  }
 }
 

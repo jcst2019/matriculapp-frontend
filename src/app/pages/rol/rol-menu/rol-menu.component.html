@@ -1,0 +1,27 @@
+<div _ngcontent-kxc-c57="" 
+    class="card-header bg-secondary  border-primary text-white text-uppercase"  style="text-align: center;">
+     {{tituloVentana}}
+</div>
+<br>
+
+<div class="animate__animated animate__fadeIn animate__delay-0.7s">
+    <div style="  padding: 10px 24px 0;">
+        <fieldset class="border p-2">
+             <legend  class="float-none w-auto">Seleccionar Menú</legend>
+             <div *ngFor="let menu of listaMenuActualizada; let i = index;">
+                <mat-checkbox [checked]="menu.value"(change)="onChange($event, i, menu)"> 
+                    {{ menu.nombre }} </mat-checkbox> 
+              </div>
+        </fieldset> 
+    <br>
+   <div >
+    <div class="mat-diplay-button">
+        <button mat-raised-button color="primary" (click)="operar()">Aceptar</button>
+        <button mat-raised-button color="accent" (click)="cancelar()">Cancelar</button>
+    </div>
+</div>
+
+
+
+
+

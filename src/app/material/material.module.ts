@@ -22,6 +22,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatAutocompleteModule,
     MatStepperModule,
     MatExpansionModule,
-    MatRadioModule 
+    MatRadioModule,
+    MatTooltipModule,
+    MatCheckboxModule  
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorImpl },
