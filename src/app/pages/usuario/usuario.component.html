@@ -66,9 +66,18 @@
     <ng-container matColumnDef="acciones">
       <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
       <mat-cell *matCellDef="let row">        
-        <button mat-button color="primary" (click)="cambiarPassword(row)" ><mat-icon> vpn_key</mat-icon></button>
-        <button mat-button color="primary" (click)="abrirDialogo(row)" ><mat-icon>edit</mat-icon></button>
-        <button mat-button color="accent" (click)="eliminar(row)"><mat-icon>delete</mat-icon></button>
+        <button mat-button color="primary" (click)="cambiarPassword(row)" 
+        matTooltip="Resetear Password"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        ><mat-icon> vpn_key</mat-icon></button>
+        <button mat-button color="primary" (click)="abrirDialogo(row)" 
+        matTooltip="Editar"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        ><mat-icon>edit</mat-icon></button>
+        <button mat-button color="accent" (click)="eliminar(row)"
+        matTooltip="Eliminar"
+        aria-label="Button that displays a tooltip when focused or hovered over"
+        ><mat-icon>delete</mat-icon></button>
       </mat-cell>
     </ng-container>
 

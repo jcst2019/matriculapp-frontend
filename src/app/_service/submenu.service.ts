@@ -18,7 +18,7 @@ export class SubMenuService extends GenericService<SubMenu>{
         
   }
 
-  listarPorIdMatricula(id: number){
+  listarPorIdMenu(id: number){
     
     return this.http.get<SubMenu[]>(`${this.url}/listar/menu/${id}`);
   

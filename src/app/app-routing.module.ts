@@ -20,7 +20,6 @@ import { RolComponent } from './pages/rol/rol.component';
 import { UsuarioPerfilComponent } from './pages/usuario/usuario-perfil/usuario-perfil.component';
 
 const routes: Routes = [
-  
   { path: 'inicio', component:InicioComponent},
   { path: 'alumno', component: AlumnoComponent, children:[
       {path: 'nuevo', component: AlumnoEdicionComponent},

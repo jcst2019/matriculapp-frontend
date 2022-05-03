@@ -33,8 +33,8 @@ export class NavComponent implements OnInit{
   appitems: Menu[] = [];
   subMenus: SubMenu[] = []; 
   menusBD:Array<MenuBD>=[];
-
   nombreUsuario:string ="";
+  termino:boolean=false;
 
   constructor(private menuService: MenuService, 
               private subMenuService :SubMenuService,
@@ -43,16 +43,34 @@ export class NavComponent implements OnInit{
               ) { 
                 console.log('Nombre del Session Storage',sessionStorage.getItem(environment.NAME_USUARIO));
                 this.nombreUsuario = sessionStorage.getItem(environment.NAME_USUARIO)!;
-
+                if(this.termino){
+                  console.log('terminó',this.appitems);
+                }
+   
+                this.menusBD = JSON.parse(localStorage.getItem('listaMenu')!);
+                console.log('Data MenuBD',this.menusBD);
+                /*
+                for (let item of this.menusBD) {
+                    let iten:Menu = new Menu();
+                    iten.icon = item.icono;
+                    iten.label = item.nombre;
+                    iten.link = item.url;
+                    this.menuTemporal.push(iten);
+                  }
+                this.appitems =this.menuTemporal; 
+                console.log('APPITEMS Final',this.appitems);
+                this.termino = true;
+                */
               }
 
   ngOnInit(){
     //Para el BUG de que se pierde el menú cuando se actualiza la página, podría intentar de guardar esta lista en el sesión Storage
     //Reemplazar por la llamada al service para suscribirse al observable
-      this.menuService.getMenuCambio().subscribe( data=>{
-      this.menusBD = data
-      console.log('Data Observable',data);
-      console.log('Data MenuBD',this.menusBD);
+
+     //this.menuService.getMenuCambio().subscribe( data=>{
+     //    this.menusBD = data
+     //    console.log('Data Observable',data);
+     //    console.log('Data MenuBD',this.menusBD);
       for (let item of this.menusBD) {
         let iten:Menu = new Menu();
         iten.icon = item.icono;
@@ -63,7 +81,7 @@ export class NavComponent implements OnInit{
         //Trabajar con los Submenus
         
         let listaSubmenu:Array<SubMenu> = [];
-        this.subMenuService.listarPorIdMatricula(item.idMenu).subscribe(data => {
+        this.subMenuService.listarPorIdMenu(item.idMenu).subscribe(data => {
           if(data.length>0){
             console.log('Ingresoooo ',data);
             this.subMenus=data;
@@ -88,7 +106,7 @@ export class NavComponent implements OnInit{
       }
       this.appitems =this.menuTemporal; 
       console.log('APPITEMS',this.appitems);
-    });
+    //});
     /*
     Dentro del Foreach No hay referencia para this. 
     this.menusBD.forEach(function (value) {

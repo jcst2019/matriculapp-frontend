@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 /* Ya no se usa porque se elimino la imagen en movimiento del Jety
   ngAfterViewInit() {
@@ -61,7 +60,11 @@ export class LoginComponent implements OnInit {
                 this.menuService.listarPorUsuario(decodedToken.user_name).subscribe(data => {
                   console.log("DATA Menu BD",data);
                   this.menuService.setMenuCambio(data);
-                  this.router.navigate(['inicio']);
+                  localStorage.setItem('listaMenu', JSON.stringify(data));
+                  this.router.navigate(['inicio'])    
+                    .then(() => {
+                    window.location.reload();
+                  });
                 });  
            }
       });

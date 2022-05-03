@@ -35,12 +35,23 @@ export class LoginService {
     if(token){
       this.http.get(`${environment.HOST}/tokens/anular/${token}`).subscribe(() => {
         sessionStorage.clear();
+        localStorage.clear();
+        //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+        //this.router.onSameUrlNavigation = 'reload';
+     
         this.router.navigate(['login']);
+
       });
     }else{
       sessionStorage.clear();
+      localStorage.clear();
+      //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      //this.router.onSameUrlNavigation = 'reload';
+
       this.router.navigate(['login']);
-    }    
+  
+      //this.router.navigate(['login']);
+    }
   }
 
   enviarCorreo(correo: string){
