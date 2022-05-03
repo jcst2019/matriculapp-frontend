@@ -5,15 +5,10 @@
 <br>
 <div >
     <mat-form-field appearance="legacy">
-          <input matInput placeholder="Código Matrícula" [(ngModel)]="programacion.codigoMatricula" (keyup)="validarCampos()">
+          <input matInput placeholder="Descripción" [(ngModel)]="programacion.codigoMatricula" (keyup)="validarCampos()">
           <small *ngIf="validacion.nombre_count" class="invalido" >Debe tener más de 3 caracteres</small>
           <small *ngIf="validacion.nombre_text" class="invalido" >Nombre es requerido</small>
      </mat-form-field>
-     <mat-form-field appearance="legacy">
-        <textarea matInput placeholder="Descripción" [(ngModel)]="programacion.descripcion"  (keyup)="validarCampos()">
-        </textarea>
-      </mat-form-field>
-
      <mat-form-field>
          <input matInput placeholder="Total Cupos" [(ngModel)]="programacion.cantidadCuposTotal" type="number">
      </mat-form-field>

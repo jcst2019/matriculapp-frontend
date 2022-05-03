@@ -17,15 +17,10 @@
               </ng-container>
             
               <ng-container matColumnDef="codigoMatricula">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Código </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Descricpión </mat-header-cell>
                 <mat-cell *matCellDef="let row"> {{row.codigoMatricula}}</mat-cell>
               </ng-container>
-          
-              <ng-container matColumnDef="descripcion">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> Descricpión </mat-header-cell>
-                  <mat-cell *matCellDef="let row"> {{row.descripcion}}</mat-cell>
-                </ng-container>
-            
+
               <ng-container matColumnDef="estado">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Estado </mat-header-cell>
                   <mat-cell *matCellDef="let row" [ngClass]="retornarEstado(row.estado)==='Abierto' ? 'activo': 'eliminado'">
@@ -198,7 +193,7 @@
                         {{programacionMatriculado.codigoMatricula}}
                       </h1>
                       <ul class="list-unstyled mt-3 mb-4">
-                        <li><strong>Descripción: </strong>  {{programacionMatriculado.descripcion}}</li>
+                        <li><strong>Descripción: </strong>  {{programacionMatriculado.codigoMatricula}}</li>
                         <li><strong>Año        : </strong>  {{programacionMatriculado.year}}</li>
                         <li><strong>Nivel      : </strong>  {{retornarNivel(programacionMatriculado.nivel)}}</li>
                         <li><strong>Grado      : </strong>  {{retornarGrado(programacionMatriculado.grado)}}</li>

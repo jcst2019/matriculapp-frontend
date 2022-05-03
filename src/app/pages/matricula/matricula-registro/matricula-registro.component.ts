@@ -34,7 +34,7 @@ export class MatriculaRegistroComponent  implements OnInit {
   alumnoMatriculado: Alumno = new Alumno; //Variable que tiene el alumno seleccionado por el Usuario
   idProgMatricula!: number; //esta variable ya no se usa en este componente
   idAlumno!:number;//esta variable ya no se usa en este componente
-  displayedColumns =['idProgMatricula','codigoMatricula','descripcion','estado','cantidadCuposTotal','cantidadCuposRegistrados','year','nivel','grado','seccion','montoMatricula','montoMensualidad'];
+  displayedColumns =['idProgMatricula','codigoMatricula','estado','cantidadCuposTotal','cantidadCuposRegistrados','year','nivel','grado','seccion','montoMatricula','montoMensualidad'];
   dataSource!: MatTableDataSource<ProgramacionMatricula>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;

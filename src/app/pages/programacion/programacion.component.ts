@@ -21,7 +21,7 @@ import { ProgramacionMatricula } from '../../_model/programacionMatricula';
 export class ProgramacionComponent implements OnInit {
 
   //programacions: Programacion[]= [];
-  displayedColumns =['idProgMatricula','codigoMatricula','descripcion','estado','cantidadCuposTotal','cantidadCuposRegistrados','year','nivel','grado','seccion','montoMatricula','montoMensualidad','acciones'];
+  displayedColumns =['idProgMatricula','codigoMatricula','estado','cantidadCuposTotal','cantidadCuposRegistrados','year','nivel','grado','seccion','montoMatricula','montoMensualidad','acciones'];
   dataSource!: MatTableDataSource<ProgramacionMatricula>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
