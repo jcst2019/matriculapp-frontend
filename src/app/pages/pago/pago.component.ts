@@ -123,8 +123,8 @@ export class PagoComponent implements OnInit {
     this.router.navigate(['pagonuevo']);
     
   }
-  descargarConstanciaMatricula(matricula?: Matricula){
-    this.matriculaService.generarConstanciaMatricula(matricula!.idMatricula).subscribe(data => {
+  descargarConstanciaPago(pago?: Pago){
+    this.pagoService.generarConstanciaPago(pago!.idPago).subscribe(data => {
       const url = window.URL.createObjectURL(data);
       //console.log(url);
       const a = document.createElement('a');

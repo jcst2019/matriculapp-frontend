@@ -1,7 +1,7 @@
 
 <form class="example-container" [formGroup]="form"  #consultaForm="ngForm">
 <mat-form-field >
-    <input type="text" placeholder="Apoderado" matInput [matAutocomplete]="autoApoderado"
+    <input type="text" placeholder="Apoderado(*)" matInput [matAutocomplete]="autoApoderado"
         [formControl]="myControlApoderado" formControlName="apoderado" >
 </mat-form-field>
 <mat-autocomplete  #autoApoderado="matAutocomplete" [displayWith]="mostrarApoderado"

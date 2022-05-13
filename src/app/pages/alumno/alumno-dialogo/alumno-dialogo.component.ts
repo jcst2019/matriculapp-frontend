@@ -24,7 +24,7 @@ export class AlumnoDialogoComponent implements OnInit {
   //validacion:boolean = true;//Falta analizar
   validacion = {nombre_text: false,nombre_count:false, 
                 apellido_text: false,apellido_count:false, 
-                dni_text: false,dni_count:false,
+                numerodocumentotext: false,dni_count:false,
                 apoderado_text:false};
 
   alumno!: Alumno;
@@ -139,6 +139,7 @@ export class AlumnoDialogoComponent implements OnInit {
       if( typeof this.alumno.nombre === "undefined" ||
           typeof this.alumno.apellidos === "undefined"||
           typeof this.alumno.numDocumento === "undefined" ||
+          this.idTipoDocumentoSeleccionado <= 0 ||
           //isNaN(this.fechaIngresoSeleccionada.getTime()) || --Validar si el campo Date es válido
           this.alumno.apoderados.length == 0 ){
         Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
@@ -149,7 +150,7 @@ export class AlumnoDialogoComponent implements OnInit {
           this.validacion.apellido_count ||
           this.validacion.apellido_text ||
           this.validacion.dni_count ||
-          this.validacion.dni_text){
+          this.validacion.numerodocumentotext){
         Swal.fire('Registrar Alumno', 'Falta llenar campos Obligatorios!', 'warning')
       }else{
            //Validar Si la fecha de Nacimeinto es mayor a 3 años
@@ -257,17 +258,17 @@ if (this.alumno.apellidos != null){
   console.log(this.alumno.numDocumento);
 if (this.alumno.numDocumento != null){
     if (this.alumno.numDocumento.length== 0 ){
-        this.validacion.dni_text= true;
+        this.validacion.numerodocumentotext= true;
         this.validacion.dni_count= false;
     }else{
       console.log(this.alumno.numDocumento.length);
       if (this.alumno.numDocumento.length < 8 ){
       this.validacion.dni_count= true;
-      this.validacion.dni_text= false;
+      this.validacion.numerodocumentotext= false;
      }
      else{
       this.validacion.dni_count= false;
-      this.validacion.dni_text= false;
+      this.validacion.numerodocumentotext= false;
      }
    }
   }

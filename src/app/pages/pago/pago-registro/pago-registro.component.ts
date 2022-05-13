@@ -234,7 +234,7 @@ export class PagoRegistroComponent implements OnInit {
            this.pago.fechaPago= moment().format('YYYY-MM-DDTHH:mm:ss');
            this.pago.fechaRegistro= moment().format('YYYY-MM-DDTHH:mm:ss');
            this.pago.estado = 1;
-           this.pago.indTipoPago = 1;
+           this.pago.indTipoPago = this.tipoPagoSeleccionado;
            this.pago.descripcion =   this.descripcionRegistrada;
            this.pago.idDetalleCronograma = this.idDetalleCronogramaSeleccionado;
            console.log(this.pago)

@@ -30,4 +30,10 @@ export class PagoService   extends GenericService<Pago>{
     return this.http.get<ConsultaResumenPagoDTO[]>(`${this.url}/listarResumenPagos`);
   }
 
+  generarConstanciaPago(id: number){
+    return this.http.get(`${this.url}/generarConstanciaPago/${id}`, {
+      responseType: 'blob'
+    });
+  }
+
 }
